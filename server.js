@@ -4,7 +4,7 @@
 var express = require('express')
 var app = express()
 var session = require('express-session')
-var Db = require('./lib/db_r') 
+var database = require('./lib/db_r') 
 
 var jsonsafeparse = require('json-safe-parse');
 
@@ -74,12 +74,12 @@ app.get('/setMantenimiento',function(req, res){
 	})
 })
 
-app.post('/login',function(req, res) {
+app.get('/login',function(req, res) {
 
-	var data = {username : req.body.inputUser, password : req.body.inputPassword}
-	var t = Db.valida_ingreso(data)
-	res.send('CONSULTA EXITOSA el rol es: ')
-	//res.send("INSERCION CORRECTA, DATOS NO ABSTRAIDOS")
+	var data = {username : 'admin4', password : 'admin4'}
+	//var t = database.validaIngreso(data)
+	
+	res.send('CONSULTA EXITOSA el rol es: ' + database.funcion())
 })
 
 
