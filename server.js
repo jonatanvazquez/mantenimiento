@@ -5,8 +5,7 @@ var express = require('express')
 var app = express()
 var session = require('express-session')
 var Db = require('./lib/db') 
-var async = require('async')
-
+var db = new Db()
 var jsonsafeparse = require('json-safe-parse');
 
 /**
@@ -76,18 +75,16 @@ app.get('/setMantenimiento',function(req, res){
 })
 
 app.get('/login',function(req, res) {
-
-	//var data = {username : 'admin4', password : 'admin4'}
-	var inst = new Db()
-	inst.listUsers(2).then(function(midata){
-				console.log(midata) 
-			})
-
-	// inst.listUsers(2).then(function(midata){
-	// 	console.log(midata)
-	// })
 	
-	res.send('CONSULTA EXITOSA el rol es: ')
+	db.listUsers('admin4').then(function(midata){
+		if (midata.length>0) {
+			res.send('CONSULTA EXITOSA el rol es: '+midata[0].rol) 
+		}else{
+			res.send('Sin Resultados')
+		}
+	})
+
+	
 })
 
 
