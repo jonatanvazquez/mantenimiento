@@ -74,9 +74,10 @@ app.get('/setMantenimiento',function(req, res){
 	})
 })
 
-app.get('/login',function(req, res) {
+app.post('/login',function(req, res) {
 	console.log('entramos')
-
+	console.log("Usuario: " + req.body.inputUser)
+	console.log("Contraseña: " + req.body.inputPassword)
 	var t = Db.getUsers()
 	res.send('CONSULTA EXITOSA el rol es: ')
 	//res.send("INSERCION CORRECTA, DATOS NO ABSTRAIDOS")
