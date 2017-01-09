@@ -1,0 +1,109 @@
+2017-01-06T13:19:20.437485000 0.200561s notice: Recursively removing directory /Users/jonatanvazquez/Desktop/mantenimiento_rethink/rethinkdb_data/tmp
+2017-01-06T13:19:20.439620000 0.202698s notice: Initializing directory /Users/jonatanvazquez/Desktop/mantenimiento_rethink/rethinkdb_data
+2017-01-06T13:19:20.439711000 0.202785s info: Creating a default database for your convenience. (This is because you ran 'rethinkdb' without 'create', 'serve', or '--join', and the directory '/Users/jonatanvazquez/Desktop/mantenimiento_rethink/rethinkdb_data' did not already exist or is empty.)
+2017-01-06T13:19:20.439732000 0.202806s notice: Running rethinkdb 2.3.5 (CLANG 7.3.0 (clang-703.0.31))...
+2017-01-06T13:19:20.448035000 0.211111s notice: Running on Darwin 16.1.0 x86_64
+2017-01-06T13:19:20.448090000 0.211164s notice: Loading data from directory /Users/jonatanvazquez/Desktop/mantenimiento_rethink/rethinkdb_data
+2017-01-06T13:19:20.596323000 0.359398s info: Automatically using cache size of 219 MB
+2017-01-06T13:19:20.597577000 0.360651s notice: Listening for intracluster connections on port 29015
+2017-01-06T13:19:20.599859000 0.362933s notice: Listening for client driver connections on port 28015
+2017-01-06T13:19:20.599959000 0.363034s notice: Listening for administrative HTTP connections on port 8080
+2017-01-06T13:19:20.599962000 0.363036s notice: Listening on cluster addresses: 127.0.0.1, ::1
+2017-01-06T13:19:20.599967000 0.363042s notice: Listening on driver addresses: 127.0.0.1, ::1
+2017-01-06T13:19:20.599969000 0.363043s notice: Listening on http addresses: 127.0.0.1, ::1
+2017-01-06T13:19:20.599972000 0.363046s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
+2017-01-06T13:19:20.599975000 0.363049s notice: Server ready, "MacBook_Pro_de_Jonatan_local_f16" 353360cb-6354-455f-80d5-499126c500b0
+2017-01-06T13:23:57.773758000 0.241012s notice: Running rethinkdb 2.3.5 (CLANG 7.3.0 (clang-703.0.31))...
+2017-01-06T13:23:57.781459000 0.248720s notice: Running on Darwin 16.1.0 x86_64
+2017-01-06T13:23:57.781532000 0.248782s notice: Loading data from directory /Users/jonatanvazquez/Desktop/mantenimiento_rethink/rethinkdb_data
+2017-01-06T13:23:57.821599000 0.288849s info: Automatically using cache size of 186 MB
+2017-01-06T13:23:57.822561000 0.289811s notice: Listening for intracluster connections on port 29015
+2017-01-06T13:23:57.824733000 0.291983s notice: Listening for client driver connections on port 28015
+2017-01-06T13:23:57.824953000 0.292203s notice: Listening for administrative HTTP connections on port 8080
+2017-01-06T13:23:57.824959000 0.292209s notice: Listening on cluster addresses: 127.0.0.1, ::1
+2017-01-06T13:23:57.824964000 0.292214s notice: Listening on driver addresses: 127.0.0.1, ::1
+2017-01-06T13:23:57.824966000 0.292216s notice: Listening on http addresses: 127.0.0.1, ::1
+2017-01-06T13:23:57.824969000 0.292219s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
+2017-01-06T13:23:57.824973000 0.292223s notice: Server ready, "MacBook_Pro_de_Jonatan_local_f16" 353360cb-6354-455f-80d5-499126c500b0
+2017-01-06T13:26:29.145545000 151.604904s info: Table 82528c51-0ae4-4e89-bc62-495a6cbd0d26: Starting a new Raft election for term 1.
+2017-01-06T13:26:29.147830000 151.607189s info: Table 82528c51-0ae4-4e89-bc62-495a6cbd0d26: Added replica on this server.
+2017-01-06T13:26:29.173727000 151.633085s info: Table 82528c51-0ae4-4e89-bc62-495a6cbd0d26: This server is Raft leader for term 1. Latest log index is 0.
+2017-01-06T13:38:14.590572000 857.013262s info: Table a7170382-b658-446e-bba9-3d242334077e: Starting a new Raft election for term 1.
+2017-01-06T13:38:14.590857000 857.013546s info: Table a7170382-b658-446e-bba9-3d242334077e: Added replica on this server.
+2017-01-06T13:38:14.614665000 857.037354s info: Table a7170382-b658-446e-bba9-3d242334077e: This server is Raft leader for term 1. Latest log index is 0.
+2017-01-06T13:38:19.562282000 861.984684s info: Table e8d3c9c1-d448-4a08-bf26-f162a3718782: Starting a new Raft election for term 1.
+2017-01-06T13:38:19.562505000 861.984908s info: Table e8d3c9c1-d448-4a08-bf26-f162a3718782: Added replica on this server.
+2017-01-06T13:38:19.586055000 862.008458s info: Table e8d3c9c1-d448-4a08-bf26-f162a3718782: This server is Raft leader for term 1. Latest log index is 0.
+2017-01-06T13:38:24.490270000 866.912458s info: Table fe2b9bf9-c384-4982-8722-41436d98a2ad: Starting a new Raft election for term 1.
+2017-01-06T13:38:24.490546000 866.912734s info: Table fe2b9bf9-c384-4982-8722-41436d98a2ad: Added replica on this server.
+2017-01-06T13:38:24.516666000 866.938814s info: Table fe2b9bf9-c384-4982-8722-41436d98a2ad: This server is Raft leader for term 1. Latest log index is 0.
+2017-01-06T13:38:39.587880000 882.009207s info: Table 34b293bc-ad9b-4dd0-8ea8-1bca25816994: Starting a new Raft election for term 1.
+2017-01-06T13:38:39.588260000 882.009587s info: Table 34b293bc-ad9b-4dd0-8ea8-1bca25816994: Added replica on this server.
+2017-01-06T13:38:39.611188000 882.032514s info: Table 34b293bc-ad9b-4dd0-8ea8-1bca25816994: This server is Raft leader for term 1. Latest log index is 0.
+2017-01-06T13:38:54.278950000 896.699487s info: Table 7378a05a-cf41-4fa8-bc6b-dcb62ad97fff: Starting a new Raft election for term 1.
+2017-01-06T13:38:54.279201000 896.699738s info: Table 7378a05a-cf41-4fa8-bc6b-dcb62ad97fff: Added replica on this server.
+2017-01-06T13:38:54.303406000 896.723943s info: Table 7378a05a-cf41-4fa8-bc6b-dcb62ad97fff: This server is Raft leader for term 1. Latest log index is 0.
+2017-01-06T13:38:57.711967000 900.132361s info: Table e6e66617-db1b-4970-b128-d0e06e8ed61a: Starting a new Raft election for term 1.
+2017-01-06T13:38:57.712298000 900.132691s info: Table e6e66617-db1b-4970-b128-d0e06e8ed61a: Added replica on this server.
+2017-01-06T13:38:57.733984000 900.154378s info: Table e6e66617-db1b-4970-b128-d0e06e8ed61a: This server is Raft leader for term 1. Latest log index is 0.
+2017-01-06T13:42:50.662519000 1133.070783s notice: Removing file /Users/jonatanvazquez/Desktop/mantenimiento_rethink/rethinkdb_data/34b293bc-ad9b-4dd0-8ea8-1bca25816994
+2017-01-06T13:42:50.662529000 1133.070793s info: Table 34b293bc-ad9b-4dd0-8ea8-1bca25816994: Deleted the table.
+2017-01-06T13:42:50.691212000 1133.099477s notice: Removing file /Users/jonatanvazquez/Desktop/mantenimiento_rethink/rethinkdb_data/7378a05a-cf41-4fa8-bc6b-dcb62ad97fff
+2017-01-06T13:42:50.691225000 1133.099489s info: Table 7378a05a-cf41-4fa8-bc6b-dcb62ad97fff: Deleted the table.
+2017-01-06T13:42:50.723678000 1133.131943s notice: Removing file /Users/jonatanvazquez/Desktop/mantenimiento_rethink/rethinkdb_data/82528c51-0ae4-4e89-bc62-495a6cbd0d26
+2017-01-06T13:42:50.723690000 1133.131954s info: Table 82528c51-0ae4-4e89-bc62-495a6cbd0d26: Deleted the table.
+2017-01-06T13:42:50.755437000 1133.163702s notice: Removing file /Users/jonatanvazquez/Desktop/mantenimiento_rethink/rethinkdb_data/a7170382-b658-446e-bba9-3d242334077e
+2017-01-06T13:42:50.755453000 1133.163717s info: Table a7170382-b658-446e-bba9-3d242334077e: Deleted the table.
+2017-01-06T13:42:50.782613000 1133.190877s notice: Removing file /Users/jonatanvazquez/Desktop/mantenimiento_rethink/rethinkdb_data/e6e66617-db1b-4970-b128-d0e06e8ed61a
+2017-01-06T13:42:50.782622000 1133.190886s info: Table e6e66617-db1b-4970-b128-d0e06e8ed61a: Deleted the table.
+2017-01-06T13:42:50.813170000 1133.221434s notice: Removing file /Users/jonatanvazquez/Desktop/mantenimiento_rethink/rethinkdb_data/e8d3c9c1-d448-4a08-bf26-f162a3718782
+2017-01-06T13:42:50.813180000 1133.221444s info: Table e8d3c9c1-d448-4a08-bf26-f162a3718782: Deleted the table.
+2017-01-06T13:42:50.841229000 1133.249494s notice: Removing file /Users/jonatanvazquez/Desktop/mantenimiento_rethink/rethinkdb_data/fe2b9bf9-c384-4982-8722-41436d98a2ad
+2017-01-06T13:42:50.841243000 1133.249507s info: Table fe2b9bf9-c384-4982-8722-41436d98a2ad: Deleted the table.
+2017-01-06T13:54:23.049280000 1825.421727s info: Table e458f385-bc9f-4ffc-ac87-6949dbb84096: Starting a new Raft election for term 1.
+2017-01-06T13:54:23.049408000 1825.421855s info: Table e458f385-bc9f-4ffc-ac87-6949dbb84096: Added replica on this server.
+2017-01-06T13:54:23.076714000 1825.449162s info: Table e458f385-bc9f-4ffc-ac87-6949dbb84096: This server is Raft leader for term 1. Latest log index is 0.
+2017-01-06T13:54:23.589998000 1825.962446s info: Table e458f385-bc9f-4ffc-ac87-6949dbb84096: Configuration is changing.
+2017-01-08T10:15:04.914523000 0.217458s notice: Running rethinkdb 2.3.5 (CLANG 7.3.0 (clang-703.0.31))...
+2017-01-08T10:15:04.921189000 0.224129s notice: Running on Darwin 16.1.0 x86_64
+2017-01-08T10:15:04.921249000 0.224180s notice: Loading data from directory /Users/jonatanvazquez/Desktop/mantenimiento_rethink/rethinkdb_data
+2017-01-08T10:15:04.965037000 0.267968s info: Automatically using cache size of 100 MB
+2017-01-08T10:15:04.965043000 0.267975s warn: Cache size is very low and may impact performance.
+2017-01-08T10:15:04.966405000 0.269337s notice: Listening for intracluster connections on port 29015
+2017-01-08T10:15:04.984198000 0.287130s notice: Listening for client driver connections on port 28015
+2017-01-08T10:15:04.984375000 0.287306s notice: Listening for administrative HTTP connections on port 8080
+2017-01-08T10:15:04.984378000 0.287310s notice: Listening on cluster addresses: 127.0.0.1, ::1
+2017-01-08T10:15:04.984381000 0.287312s notice: Listening on driver addresses: 127.0.0.1, ::1
+2017-01-08T10:15:04.984383000 0.287314s notice: Listening on http addresses: 127.0.0.1, ::1
+2017-01-08T10:15:04.984525000 0.287457s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
+2017-01-08T10:15:04.984528000 0.287459s notice: Server ready, "MacBook_Pro_de_Jonatan_local_f16" 353360cb-6354-455f-80d5-499126c500b0
+2017-01-08T10:15:06.347105000 1.649965s info: Table e458f385-bc9f-4ffc-ac87-6949dbb84096: Starting a new Raft election for term 2.
+2017-01-08T10:15:06.374838000 1.677698s info: Table e458f385-bc9f-4ffc-ac87-6949dbb84096: This server is Raft leader for term 2. Latest log index is 4.
+2017-01-08T18:05:38.757055000 8996.850029s notice: Removing file /Users/jonatanvazquez/Desktop/mantenimiento_rethink/rethinkdb_data/e458f385-bc9f-4ffc-ac87-6949dbb84096
+2017-01-08T18:05:38.757065000 8996.850038s info: Table e458f385-bc9f-4ffc-ac87-6949dbb84096: Deleted the table.
+2017-01-08T21:19:26.361504000 0.173373s notice: Running rethinkdb 2.3.5 (CLANG 7.3.0 (clang-703.0.31))...
+2017-01-08T21:19:26.369349000 0.181212s notice: Running on Darwin 16.1.0 x86_64
+2017-01-08T21:19:26.369486000 0.181348s notice: Loading data from directory /Users/jonatanvazquez/Desktop/mantenimiento_rethink/rethinkdb_data
+2017-01-08T21:19:26.406176000 0.218038s info: Automatically using cache size of 100 MB
+2017-01-08T21:19:26.406183000 0.218044s warn: Cache size is very low and may impact performance.
+2017-01-08T21:19:26.407181000 0.219043s notice: Listening for intracluster connections on port 29015
+2017-01-08T21:19:26.409507000 0.221369s notice: Listening for client driver connections on port 28015
+2017-01-08T21:19:26.409625000 0.221486s notice: Listening for administrative HTTP connections on port 8080
+2017-01-08T21:19:26.409627000 0.221489s notice: Listening on cluster addresses: 127.0.0.1, ::1
+2017-01-08T21:19:26.409631000 0.221492s notice: Listening on driver addresses: 127.0.0.1, ::1
+2017-01-08T21:19:26.409632000 0.221494s notice: Listening on http addresses: 127.0.0.1, ::1
+2017-01-08T21:19:26.409636000 0.221497s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
+2017-01-08T21:19:26.409639000 0.221501s notice: Server ready, "MacBook_Pro_de_Jonatan_local_f16" 353360cb-6354-455f-80d5-499126c500b0
+2017-01-08T21:23:11.057483000 224.856533s info: Table b07403cc-3344-43ea-afa4-6c17583fb67a: Starting a new Raft election for term 1.
+2017-01-08T21:23:11.058267000 224.857318s info: Table b07403cc-3344-43ea-afa4-6c17583fb67a: Added replica on this server.
+2017-01-08T21:23:11.082624000 224.881674s info: Table b07403cc-3344-43ea-afa4-6c17583fb67a: This server is Raft leader for term 1. Latest log index is 0.
+2017-01-08T21:23:11.626007000 225.424985s info: Table b07403cc-3344-43ea-afa4-6c17583fb67a: Configuration is changing.
+2017-01-08T22:16:22.633433000 2535.247899s notice: Removing file /Users/jonatanvazquez/Desktop/mantenimiento_rethink/rethinkdb_data/b07403cc-3344-43ea-afa4-6c17583fb67a
+2017-01-08T22:16:22.633449000 2535.247914s info: Table b07403cc-3344-43ea-afa4-6c17583fb67a: Deleted the table.
+2017-01-08T22:17:06.586088000 2579.197747s info: Table 51de2c64-b40b-45a6-977e-0cb8d545e5dc: Starting a new Raft election for term 1.
+2017-01-08T22:17:06.586593000 2579.198253s info: Table 51de2c64-b40b-45a6-977e-0cb8d545e5dc: Added replica on this server.
+2017-01-08T22:17:06.612049000 2579.223708s info: Table 51de2c64-b40b-45a6-977e-0cb8d545e5dc: This server is Raft leader for term 1. Latest log index is 0.
+2017-01-08T22:17:07.123887000 2579.735546s info: Table 51de2c64-b40b-45a6-977e-0cb8d545e5dc: Configuration is changing.
+2017-01-09T08:40:51.046446000 5303.192256s info: Table 587ff668-590c-49ab-a864-39dcbf47de6f: Starting a new Raft election for term 1.
+2017-01-09T08:40:51.046652000 5303.192458s info: Table 587ff668-590c-49ab-a864-39dcbf47de6f: Added replica on this server.
+2017-01-09T08:40:51.072338000 5303.218144s info: Table 587ff668-590c-49ab-a864-39dcbf47de6f: This server is Raft leader for term 1. Latest log index is 0.
