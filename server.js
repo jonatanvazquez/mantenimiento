@@ -77,7 +77,7 @@ app.get('/setMantenimiento',function(req, res){
 app.get('/login',function(req, res) {
 
 	var data = {username : 'admin4', password : 'admin4'}
-	//var t = database.validaIngreso(data)
+	var t = database.validaIngreso(data)
 	
 	res.send('CONSULTA EXITOSA el rol es: ' + database.funcion())
 })
