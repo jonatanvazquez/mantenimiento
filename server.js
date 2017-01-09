@@ -6,7 +6,8 @@ var app = express()
 var session = require('express-session')
 var Db = require('./lib/db') 
 var db = new Db()
-var jsonsafeparse = require('json-safe-parse');
+var jsonsafeparse = require('json-safe-parse')
+var uuid = require('uuid-base62')
 
 /**
  * Acciones sobre los archivos [lectura, escritura, eliminar, actualizar]
@@ -75,15 +76,29 @@ app.get('/setMantenimiento',function(req, res){
 })
 
 app.get('/login',function(req, res) {
-	
-	db.listUsers('admin4').then(function(midata){
-		if (midata.length>0) {
-			res.send('CONSULTA EXITOSA el rol es: '+midata[0].rol) 
-		}else{
-			res.send('Sin Resultados')
+	var idInsert = null
+	db.insert('user',{id : uuid.v4(), username : 'admin9', password : 'admin9', rol : 'user'}, function(){
+		console.log('Inserto')
+	}).then(function(result){
+		idInsert = result
+	})
+	db.update('user',{username : 'admin9', rol: 'admin'},{rol: 'user'},function(){
+		console.log('Actualizo')
+	})
+	db.delete('user',{username : 'admin9'},function(){
+		console.log('Elimino')
+	})
+	var text = "";
+	db.consult('user', {rol : 'user'}, function(){
+		console.log('Consultar')
+	}).then(function(result){
+		if(result.length > 0){
+			for( i = 0; i < result.length; i++){
+				text += "USUARIO: " + result[i].username + " --CONTRASEÑA: " + result[i].password + "<br />" 
+			}
+			res.send(text)
 		}
 	})
-
 	
 })
 
