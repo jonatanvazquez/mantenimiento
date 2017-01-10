@@ -72,13 +72,9 @@ app.get('/setMantenimiento',function(req, res){
 })
 
 app.get('/login',function(req, res) {
-	var c = new Componente()
-	c.addComponent({
-		componentImg: "/imgE23.jpg" ,
-		componentName: "CLEVER TEST" ,
-		label: "C" ,
-		localizationStore: "N/A" ,
-		noCtrlPat: "FPC-123ED-33"
+	var m = new Mantenimiento()
+	m.addMaintenance({
+		prueba : "si"
 	})
 	res.send('listoooo')
 })
