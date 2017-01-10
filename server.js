@@ -72,27 +72,15 @@ app.get('/setMantenimiento',function(req, res){
 })
 
 app.get('/login',function(req, res) {
-	var mantenimiento = new Mantenimiento()
-	mantenimiento.addMaintenance({
-		id: "123dkjas123-2312asdk",
-		statusMachine: "",
-		activity: "",
-		frequency: 23,
-		qPoint:,
-		qmMatrizNo:,
-		kaizenType:,
-		kaizenNo:,
-		inactivityTime:,
-		accumulativeNo:,
-		eWONo:,
-		reason:,
-		maintenanceType:,
-		mTTRAY:,
-		mTBFAY:,
-		mTTRLY:,
-		mTBFLY:
-	},  "0c7ab5d4-a03f-410b-8a7b-fc1bc9e86541")
-	res.send('listo')
+	var c = new Componente()
+	c.addComponent({
+		componentImg: "/imgE23.jpg" ,
+		componentName: "CLEVER TEST" ,
+		label: "C" ,
+		localizationStore: "N/A" ,
+		noCtrlPat: "FPC-123ED-33"
+	})
+	res.send('listoooo')
 })
 
 
