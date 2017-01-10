@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html class="no-js css-menubar" lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+  <meta name="description" content="bootstrap admin template">
+  <meta name="author" content="">
+  <title>MANTENIMIENTO</title>
+  <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+  <link rel="shortcut icon" href="photos/logo.ico">
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/bootstrap-extend.min.css">
+  <link rel="stylesheet" href="css/site.min.css">
+  <!-- Plugins -->
+  <link rel="stylesheet" href="vendor/animsition/animsition.css">
+  <link rel="stylesheet" href="vendor/asscrollable/asScrollable.css">
+  <link rel="stylesheet" href="vendor/switchery/switchery.css">
+  <link rel="stylesheet" href="vendor/intro-js/introjs.css">
+  <link rel="stylesheet" href="vendor/slidepanel/slidePanel.css">
+  <link rel="stylesheet" href="vendor/flag-icon-css/flag-icon.css">
+  <link rel="stylesheet" href="vendor/waves/waves.css">
+  <link rel="stylesheet" href="vendor/jquery-selective/jquery-selective.css">
+  <link rel="stylesheet" href="examples/css/apps/projects.css">
+  <!-- Fonts -->
+  <link rel="stylesheet" href="fonts/material-design/material-design.min.css">
+  <link rel="stylesheet" href="fonts/brand-icons/brand-icons.min.css">
+  <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,300italic'>
+  <!--[if lt IE 9]>
+    <script src="..//vendor/html5shiv/html5shiv.min.js"></script>
+    <![endif]-->
+  <!--[if lt IE 10]>
+    <script src="..//vendor/media-match/media.match.min.js"></script>
+    <script src="..//vendor/respond/respond.min.js"></script>
+    <![endif]-->
+  <!-- Scripts -->
+  <script src="/vendor/breakpoints/breakpoints.js"></script>
+
+  <script>
+  Breakpoints();
+  </script>
+</head>
+<body class="animsition app-projects">
+  <!--[if lt IE 8]>
+        <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+  <nav class="site-navbar navbar navbar-default navbar-inverse navbar-fixed-top navbar-mega"
+  role="navigation">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggler collapsed" data-target="#site-navbar-collapse"
+      data-toggle="collapse">
+        <i class="icon md-more" aria-hidden="true"></i>
+      </button>
+      <div class="navbar-brand navbar-brand-center site-gridmenu-toggle" data-toggle="gridmenu">
+        <img class="navbar-brand-logo" src="/photos/logo.png" title="Remark">
+        <span class="navbar-brand-text hidden-xs-down"> Mantenimiento</span>
+      </div>
+      <button type="button" class="navbar-toggler collapsed" data-target="#site-navbar-search"
+      data-toggle="collapse">
+        <span class="sr-only">Toggle Search</span>
+        <i class="icon md-search" aria-hidden="true"></i>
+      </button>
+    </div>
+    <div class="navbar-container container-fluid">
+      <!-- Navbar Collapse -->
+      <div class="collapse navbar-collapse navbar-collapse-toolbar" id="site-navbar-collapse">
+        <!-- Navbar Toolbar Right -->
+        <ul class="nav navbar-toolbar navbar-right navbar-toolbar-right">
+          <li class="nav-item dropdown">
+            <a class="nav-link navbar-avatar" data-toggle="dropdown" href="#" aria-expanded="false"
+            data-animation="scale-up" role="button">
+              <span class="avatar avatar-online">
+                <img src="/portraits/5.jpg" alt="...">
+                <i></i>
+              </span>
+            </a>
+            <div class="dropdown-menu" role="menu">
+              <a class="dropdown-item" href="javascript:void(0)" role="menuitem"><i class="icon md-power" aria-hidden="true"></i> Logout</a>
+            </div>
+          </li>
+        </ul>
+        <!-- End Navbar Toolbar Right -->
+      </div>
+      <!-- End Navbar Collapse -->
+      <!-- Site Navbar Seach -->
+      <div class="collapse navbar-search-overlap" id="site-navbar-search">
+        <form role="search">
+          <div class="form-group">
+            <div class="input-search">
+              <i class="input-search-icon md-search" aria-hidden="true"></i>
+              <input type="text" class="form-control" name="site-search" placeholder="Search...">
+              <button type="button" class="input-search-close icon md-close" data-target="#site-navbar-search"
+              data-toggle="collapse" aria-label="Close"></button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <!-- End Site Navbar Seach -->
+    </div>
+  </nav>
+  <div class="page" id="main">
+    {{{body}}}
+  </div>
+  <!-- Site Action -->
+  <div class="site-action" data-target="#addProjectForm" data-toggle="modal" data-plugin="actionBtn">
+    <button type="button" data-action="add" class="site-action-toggle btn-raised btn btn-success btn-floating">
+      <i class="icon md-plus" aria-hidden="true"></i>
+    </button>
+  </div>
+  <!-- End Site Action -->
+  <!-- Add Project Form -->
+  <div class="modal fade" id="addProjectForm" aria-hidden="true" aria-labelledby="addProjectForm"
+  role="dialog" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" aria-hidden="true" data-dismiss="modal">×</button>
+          <h4 class="modal-title">AGREGAR NUEVA MAQUINA</h4>
+        </div>
+        <div class="modal-body">
+          <form action="./maquinas" method="post" role="form" id="nuevamaquina">
+            <div class="form-group">
+              <label class="form-control-label m-b-15" for="name">NOMBRE:</label>
+              <input type="text" class="form-control" id="name" name="name" placeholder="nombre maquina">
+            </div>
+            <div class="form-group">
+              <label class="form-control-label m-b-15" for="name">DESCRIPCIÓN:</label>
+              <textarea class="maxlength-textarea form-control mb-sm" name="descripcion" placeholder="Breve descripcion."
+              rows="4" maxlength="225" data-plugin="maxlength"></textarea>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer text-xs-right">
+          <button class="btn btn-primary" data-dismiss="modal" type="button" onclick="document.getElementById('nuevamaquina').submit();">Crear</button>
+          <a class="btn btn-sm btn-white btn-pure" data-dismiss="modal" href="javascript:void(0)">Cancelar</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End Add Project Form -->
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="site-footer-legal">© 2017 <a href="http://themeforest.net/item/remark-responsive-bootstrap-admin-template/11989202">Mantenimiento</a></div>
+    <div class="site-footer-right">
+      Elaborado por <a href="http://themeforest.net/user/amazingSurge">PWM</a>
+    </div>
+  </footer>
+  <!-- Core  -->
+  <script src="vendor/babel-external-helpers/babel-external-helpers.js"></script>
+  <script src="vendor/jquery/jquery.js"></script>
+  <script src="vendor/tether/tether.js"></script>
+  <script src="vendor/bootstrap/bootstrap.js"></script>
+  <script src="vendor/animsition/animsition.js"></script>
+  <script src="vendor/mousewheel/jquery.mousewheel.js"></script>
+  <script src="vendor/asscrollbar/jquery-asScrollbar.js"></script>
+  <script src="vendor/asscrollable/jquery-asScrollable.js"></script>
+  <script src="vendor/ashoverscroll/jquery-asHoverScroll.js"></script>
+  <script src="vendor/waves/waves.js"></script>
+  <!-- Plugins -->
+  <script src="vendor/switchery/switchery.min.js"></script>
+  <script src="vendor/intro-js/intro.js"></script>
+  <script src="vendor/screenfull/screenfull.js"></script>
+  <script src="vendor/slidepanel/jquery-slidePanel.js"></script>
+  <script src="vendor/jquery-selective/jquery-selective.min.js"></script>
+  <script src="vendor/bootbox/bootbox.js"></script>
+  <!-- Scripts -->
+  <script src="js/State.js"></script>
+  <script src="js/Component.js"></script>
+  <script src="js/Plugin.js"></script>
+  <script src="js/Base.js"></script>
+  <script src="js/Config.js"></script>
+  <script src="js/Section/Menubar.js"></script>
+  <script src="js/Section/Sidebar.js"></script>
+  <script src="js/Section/PageAside.js"></script>
+  <script src="js/Plugin/menu.js"></script>
+  <!-- Config -->
+  <script src="js/config/colors.js"></script>
+  <script src="js/config/tour.js"></script>
+  <script>
+  Config.set('assets', '../../assets');
+  </script>
+  <!-- Page -->
+  <script src="js/Site.js"></script>
+  <script src="js/Plugin/asscrollable.js"></script>
+  <script src="js/Plugin/slidepanel.js"></script>
+  <script src="js/Plugin/switchery.js"></script>
+  <script src="js/Plugin/animate-list.js"></script>
+  <script src="js/Plugin/bootbox.js"></script>
+  <script src="js/Site.js"></script>
+  <script src="js/App/Projects.js"></script>
+  <script src="examples/js/apps/projects.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
+
