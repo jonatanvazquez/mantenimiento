@@ -15,6 +15,8 @@ app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
 
 var Usuario = require('./lib/usuario')
+var Componente = require('./lib/componente')
+var Mantenimiento = require('./lib/mantenimientos')
 
 /**
  * Acciones sobre los archivos [lectura, escritura, eliminar, actualizar]
@@ -70,10 +72,27 @@ app.get('/setMantenimiento',function(req, res){
 })
 
 app.get('/login',function(req, res) {
-	var user = new Usuario()
-	data = {username : 'test1', password : 'password1', rol : 'user'}
-	var resp = user.addUser(data)
-	res.send(resp)
+	var mantenimiento = new Mantenimiento()
+	mantenimiento.addMaintenance({
+		id: "123dkjas123-2312asdk",
+		statusMachine: "",
+		activity: "",
+		frequency: 23,
+		qPoint:,
+		qmMatrizNo:,
+		kaizenType:,
+		kaizenNo:,
+		inactivityTime:,
+		accumulativeNo:,
+		eWONo:,
+		reason:,
+		maintenanceType:,
+		mTTRAY:,
+		mTBFAY:,
+		mTTRLY:,
+		mTBFLY:
+	},  "0c7ab5d4-a03f-410b-8a7b-fc1bc9e86541")
+	res.send('listo')
 })
 
 
