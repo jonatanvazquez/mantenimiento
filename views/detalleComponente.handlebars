@@ -1,0 +1,48 @@
+    <div class="page-header">
+      <div class="breadcrumb">
+        <button type="button" class="btn btn-sm btn-primary btn-round" onclick="window.open('/componentes?id={{equipo.id}}', '_self')">
+        <i class="icon md-chevron-left" aria-hidden="true"></i>
+          <span class="text hidden-sm-down">Regresar a {{padre.componentName}}</span>
+          
+        </button>
+      </div>
+      <div class="page-header-actions">
+        <button type="button" class="btn btn-sm btn-primary btn-round" onclick="window.open('/setMantenimiento', '_self')">
+          <span class="text hidden-sm-down">Registrar Mantenimiento</span>
+          <i class="icon md-chevron-right" aria-hidden="true"></i>
+        </button>
+      </div>
+    </div>
+    <div class="page-content container-fluid">
+      <div class="row" data-plugin="masonry">
+        <div class="col-lg-6 col-xs-12 masonry-item">
+          <div class="card card-shadow">
+            <div class="card-header bg-blue-600 white p-15 clearfix">
+              <a class="avatar avatar-lg pull-xs-left m-r-20" href="javascript:void(0)">
+                <img src="/photos/compCNC1.jpg" alt="">
+              </a>
+              <div class="font-size-18">{{equipo.componentName}}</div>
+              <div class="grey-300 font-size-14">{{padre.componentName}}</div>
+            </div>
+            <ul class="list-group list-group-bordered m-b-0">
+              <li class="list-group-item">
+                <span class="tag tag-pill tag-success">6</span>
+                <i class="icon md-inbox" aria-hidden="true" draggable="true"></i>Frecuencia de Mantenimiento: {{equipo.frequency}}
+              </li>
+              <li class="list-group-item">
+                <span class="tag tag-pill tag-info">2</span>
+                <i class="icon md-account" aria-hidden="true" draggable="true"></i>Número de Parte: {{equipo.noCtrlPat}}
+              </li>
+              <li class="list-group-item">
+                <i class="icon md-notifications" aria-hidden="true" draggable="true"></i>Sección: {{equipo.section}}
+              </li>
+              <li class="list-group-item">
+                <span class="tag tag-pill tag-info">10</span>
+                <i class="icon md-info" aria-hidden="true" draggable="true"></i>Marca: {{equipo.vendor}}
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+

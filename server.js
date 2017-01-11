@@ -50,33 +50,31 @@ app.get('/', function (req, res) {
 	})
 })
 
-app.post('/maquinas',function(req, res){
+app.post('/maquinas',async (function(req, res){
 		var maquinas= new Componente()
-		var id = async (function () { 
-			return await (maquinas.addComponent(req.body))
-		})
-		res.end('Maquina Agregada')
-})
+		var id = await (maquinas.addComponent(req.body))
+		res.send(id)
+}))
 
-app.get('/maquinas',function(req, res){
+app.get('/maquinas',async (function(req, res){
 	var maquinas= new Componente()
-	maquinas.consulta(1)
-	maquinas.conComponent.then(function(result){
-			console.log("Jala?" + result[0].vendor)
-			res.render('home', {layout: 'main',maquinas: result});
-	})
-})
+	var listaequipos=await (maquinas.consultar(1))
+	console.log(listaequipos)
+	res.render('home', {layout: 'main',maquinas: listaequipos})
+}))
 
-app.get('/componentes',function(req, res){
-	res.render('componentes', {layout: 'main'});
-})
 
-app.get('/detalleComponente',function(req, res){
-	fs.readFile('./web/html/pages/detallesComponente.html', function(err, html){
-		var html_str = html.toString()
-		res.send(html_str)
-	})
-})
+app.get('/componentes',async (function(req, res){
+	var maquinas= new Componente()
+	var listaequipos=await (maquinas.consultar({parent: req.query.id}))
+	res.render('componentes', {layout: 'main',maquinas: listaequipos, padre: req.query.id})
+}))
+
+app.get('/detalleComponente',async (function(req, res){
+	var maquinas= new Componente()
+	var equipo=await (maquinas.consultaPadres({id: req.query.id}))
+	res.render('detalleComponente', {layout: 'main',equipo: equipo[0].right,padre: equipo[0].left})
+}))
 
 app.get('/setMantenimiento',function(req, res){
 	fs.readFile('./web/html/pages/setMantenimiento.html', function(err, html){
