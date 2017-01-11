@@ -4,20 +4,44 @@
 		"selected_items":
 		[
 			[
+				"res",
+				"results"
+			],
+			[
+				"result",
+				"results"
+			],
+			[
+				"user",
+				"user"
+			],
+			[
+				"us",
+				"user"
+			],
+			[
+				"uu",
+				"uuid-base62\t(usuario.js)"
+			],
+			[
+				"req",
+				"require"
+			],
+			[
+				"compo",
+				"componentImg"
+			],
+			[
+				"compoe",
+				"componentImg"
+			],
+			[
 				"pas",
 				"password\t(server.js)"
 			],
 			[
-				"req",
-				"require\t(server.js)"
-			],
-			[
 				"admin",
 				"admin9"
-			],
-			[
-				"user",
-				"username"
 			],
 			[
 				"re",
@@ -30,10 +54,6 @@
 			[
 				"acta",
 				"actualizo"
-			],
-			[
-				"uu",
-				"uuid-base62\t(db.js)"
 			],
 			[
 				"conn",
@@ -86,10 +106,6 @@
 			[
 				"data",
 				"database"
-			],
-			[
-				"res",
-				"result"
 			],
 			[
 				"resu",
@@ -492,14 +508,18 @@
 	},
 	"expanded_folders":
 	[
-		"/Users/juancarlosbecerril/Documents/mantenimiento"
+		"/Users/juancarlosbecerril/Documents/mantenimiento",
+		"/Users/juancarlosbecerril/Documents/mantenimiento/lib"
 	],
 	"file_history":
 	[
-		"/Users/juancarlosbecerril/Documents/mantenimiento/lib/historyMantenaince.js",
 		"/Users/juancarlosbecerril/Documents/mantenimiento/lib/usuario.js",
 		"/Users/juancarlosbecerril/Documents/mantenimiento/server.js",
+		"/Users/juancarlosbecerril/Documents/mantenimiento/lib/mantenimientos.js",
+		"/Users/juancarlosbecerril/Documents/mantenimiento/lib/historyMaintenance.js",
+		"/Users/juancarlosbecerril/Documents/mantenimiento/lib/componente.js",
 		"/Users/juancarlosbecerril/Documents/mantenimiento/lib/db.js",
+		"/Users/juancarlosbecerril/Documents/mantenimiento/lib/historyMantenaince.js",
 		"/Users/juancarlosbecerril/Documents/mantenimiento/lib/db_r.js",
 		"/Users/juancarlosbecerril/Documents/mantenimiento/web/html/pages/index.html",
 		"/Applications/XAMPP/xamppfiles/htdocs/portal/concepto.php",
@@ -604,6 +624,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"\"",
 			"tabla",
 			"image",
 			"console",

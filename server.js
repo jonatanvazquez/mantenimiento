@@ -65,8 +65,6 @@ app.get('/maquinas',function(req, res){
 			console.log("Jala?" + result[0].vendor)
 			res.render('home', {layout: 'main',maquinas: result});
 	})
-
-	
 })
 
 app.get('/componentes',function(req, res){
@@ -88,12 +86,9 @@ app.get('/setMantenimiento',function(req, res){
 })
 
 app.get('/login',function(req, res) {
-	var m = new Mantenimiento()
-	m.addMaintenance({
-		prueba : "si"
-	})
-
-	res.send('listo')
+	var maquinas= new Componente()
+	maquinas.consultar(1)
+	res.send('LISTO')
 })
 
 
