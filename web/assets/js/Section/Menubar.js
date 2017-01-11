@@ -139,7 +139,7 @@
       value: function setMenuData() {
         var api = this.getMenuApi();
 
-        api.outerHeight = this.$el.outerHeight();
+        //api.outerHeight = this.$el.outerHeight();
       }
     }, {
       key: 'update',

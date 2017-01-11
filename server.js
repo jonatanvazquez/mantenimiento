@@ -10,9 +10,12 @@ var jsonsafeparse = require('json-safe-parse')
 var uuid = require('uuid-base62')
 var express = require('express');
 var exphbs  = require('express-handlebars');
+var async = require('asyncawait/async');
+var await = require('asyncawait/await');
 
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
+
 
 var Usuario = require('./lib/usuario')
 var Componente = require('./lib/componente')
@@ -48,13 +51,26 @@ app.get('/', function (req, res) {
 })
 
 app.post('/maquinas',function(req, res){
-		console.log("Usuario: " + req.body.inputUser)
-		console.log("Contraseña: " + req.body.inputPassword)
-		res.send("Ok")
+		var maquinas= new Componente()
+		var id = async (function () { 
+			return await (maquinas.addComponent(req.body))
+		})
+		res.end('Maquina Agregada')
 })
 
-app.get(['/maquinas', '/componentes'],function(req, res){
-	res.render('home', {layout: 'main'});
+app.get('/maquinas',function(req, res){
+	var maquinas= new Componente()
+	maquinas.consulta(1)
+	maquinas.conComponent.then(function(result){
+			console.log("Jala?" + result[0].vendor)
+			res.render('home', {layout: 'main',maquinas: result});
+	})
+
+	
+})
+
+app.get('/componentes',function(req, res){
+	res.render('componentes', {layout: 'main'});
 })
 
 app.get('/detalleComponente',function(req, res){
@@ -76,7 +92,8 @@ app.get('/login',function(req, res) {
 	m.addMaintenance({
 		prueba : "si"
 	})
-	res.send('listoooo')
+
+	res.send('listo')
 })
 
 
