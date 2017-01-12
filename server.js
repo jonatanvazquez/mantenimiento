@@ -15,8 +15,9 @@ var await = require('asyncawait/await');
 var multer	=	require('multer')
 var fs = require('fs')
 
-app.engine('handlebars', exphbs({defaultLayout: 'main'}));
-app.set('view engine', 'handlebars');
+
+app.engine('handlebars', exphbs({defaultLayout: 'main'}))
+app.set('view engine', 'handlebars')
 
 
 var Usuario = require('./lib/usuario')
@@ -98,10 +99,27 @@ app.get('/setMantenimiento',function(req, res){
 	})
 })
 
+var fs = require('fs');
+var pdf = require('html-pdf');
+var html = fs.readFileSync('./web/html/pages/formatoPDF.html', 'utf8');
+var options = {
+		format: 'Tabloid',
+		orientation: 'landscape', // portrait or landscape 
+		border: {
+		    top:'2.5cm',            // default is 0, units: mm, cm, in, px 
+		    right:'2.5cm',
+		    bottom:'2.5cm',
+		    left:'2.5cm'
+	  	},
+	  	type: 'pdf'
+	}
+
 app.get('/login',function(req, res) {
-	var maquinas= new Componente()
-	maquinas.consultar(1)
-	res.send('LISTO')
+	pdf.create(html, options).toFile('./tmp/formatoPDF.pdf', function(err, res) {
+	  if (err) return console.log(err);
+	  	console.log(res); // { filename: '/app/businesscard.pdf' } 
+	});
+	res.send('listo')
 })
 
 
