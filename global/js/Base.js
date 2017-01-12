@@ -47,6 +47,7 @@
       key: 'initializePluginAPIs',
       value: function initializePluginAPIs() {
         var context = arguments.length <= 0 || arguments[0] === undefined ? document : arguments[0];
+        
 
         var apis = (0, _Plugin.getPluginAPI)();
 

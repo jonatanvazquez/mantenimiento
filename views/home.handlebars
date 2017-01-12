@@ -31,20 +31,9 @@
           {{#each maquinas}}
           <li>
             <div class="panel">
-              <figure class="overlay overlay-hover animation-hover">
-                <img class="caption-figure overlay-figure" src="/photos/cnc.jpg">
+              <figure class="overlay overlay-hover animation-hover" style="height: 199px;">
+                <img class="caption-figure overlay-figure" src="{{#if componentImg}}/uploads/{{componentImg}}{{else}}/photos/sin-imagen{{/if}}.jpg">
                 <figcaption class="overlay-panel overlay-background overlay-fade text-xs-center vertical-align">
-                  <div class="btn-group">
-                    <div class="dropdown pull-xs-left">
-                      <button type="button" class="btn btn-icon btn-pure btn-default" title="Setting"><i class="icon md-settings" aria-hidden="true"></i></button>
-                      <div class="dropdown-menu" role="menu">
-                        <a class="dropdown-item" href="">Copiar</a>
-                        <a class="dropdown-item" href="">Renombrar</a>
-                      </div>
-                    </div>
-                    <button type="button" class="btn btn-icon btn-pure btn-default" title="Eliminar"
-                    data-tag="project-delete"><i class="icon md-delete" aria-hidden="true"></i></button>
-                  </div>
                   <button type="button" class="btn btn-inverse project-button" onclick="window.open('/componentes?id={{id}}', '_self')">Ver Componentes</button>
                 </figcaption>
               </figure>
@@ -55,25 +44,7 @@
           {{/each}}
         </ul>
       </div>
-      <nav>
-        <ul class="pagination pagination-no-border">
-          <li class="disabled page-item">
-            <a class="page-link" href="javascript:void(0)" aria-label="Previous">
-              <span aria-hidden="true">&laquo;</span>
-            </a>
-          </li>
-          <li class="active page-item"><a class="page-link" href="javascript:void(0)">1 <span class="sr-only">(current)</span></a></li>
-          <li class="page-item"><a class="page-link" href="javascript:void(0)">2</a></li>
-          <li class="page-item"><a class="page-link" href="javascript:void(0)">3</a></li>
-          <li class="page-item"><a class="page-link" href="javascript:void(0)">4</a></li>
-          <li class="page-item"><a class="page-link" href="javascript:void(0)">5</a></li>
-          <li class="page-item">
-            <a class="page-link" href="javascript:void(0)" aria-label="Next">
-              <span aria-hidden="true">&raquo;</span>
-            </a>
-          </li>
-        </ul>
-      </nav>
+
     </div>
 
       </div>
@@ -93,7 +64,7 @@
           <button type="button" class="close" aria-hidden="true" data-dismiss="modal">×</button>
           <h4 class="modal-title">AGREGAR NUEVA MAQUINA</h4>
         </div>
-        <div class="modal-body">
+        <div class="modal-body" style="margin-bottom: 120px;">
           <form action="#" method="post" role="form" id="nuevamaquina" class="form-horizontal">
             <div class="form-group form-material">
               <label class="form-control-label col-sm-4" for="name">NOMBRE:</label>
@@ -104,13 +75,21 @@
               <div class="col-sm-8"><input type="text" class="form-control" id="vendor" name="vendor" placeholder="Marca"></div>
             </div>
             <div class="form-group form-material">
-              <label class="form-control-label col-sm-4" for="name">IMAGEN:</label>
-              <div class="col-sm-8"><input type="text" class="form-control" id="componentImg" name="componentImg" placeholder="Imagen"></div>
-            </div>
-          </form>
+            <label class="form-control-label col-sm-4" for="name">IMAGEN:</label>
+                  <div class="col-sm-8 input-group input-group-file " style="width: 66.666667%">
+                    <input type="text" class="form-control" name="componentImg" id="componentImg" readonly="">
+                    <span class="input-group-btn">
+                      <span class="btn btn-success btn-file waves-effect waves-light">
+                        <i class="icon md-upload" aria-hidden="true"></i>
+                        <input type="file" name="imagen" id="imagen" multiple="">
+                      </span>
+                    </span>
+                  </div>
+                </div>
+           </form>
         </div>
-        <div class="modal-footer text-xs-right">
-          <button class="btn btn-primary" data-dismiss="modal" type="button" onclick="enviarmaquina();">Crear</button>
+        <div class="modal-footer text-xs-right" style="margin-top: 20px">
+          <button class="btn btn-primary" type="button" onclick="enviarmaquina();">Crear</button>
           <a class="btn btn-sm btn-white btn-pure" data-dismiss="modal" href="javascript:void(0)">Cancelar</a>
         </div>
       </div>

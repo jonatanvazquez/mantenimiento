@@ -5832,6 +5832,7 @@ $.datepicker = new Datepicker(); // singleton instance
 $.datepicker.initialized = false;
 $.datepicker.uuid = new Date().getTime();
 $.datepicker.version = "1.11.4";
+$.datepicker.defaults.language = 'es';
 
 var datepicker = $.datepicker;
 

@@ -40,8 +40,8 @@
         return {
           namespace: 'spinnerUi',
           skin: null,
-          min: '-10',
-          max: 100,
+          min: 1,
+          max: 52,
           mousewheel: true
         };
       }

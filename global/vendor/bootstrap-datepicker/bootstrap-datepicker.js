@@ -202,7 +202,7 @@
 
 			// Check if "de-DE" style date is available, if not language should
 			// fallback to 2 letter code eg "de"
-			var lang = o.language;
+			var lang = 'es';
 			if (!dates[lang]){
 				lang = lang.split('-')[0];
 				if (!dates[lang])
@@ -1738,7 +1738,7 @@
 		datesDisabled: [],
 		endDate: Infinity,
 		forceParse: true,
-		format: 'mm/dd/yyyy',
+		format: 'dd/mm/yyyy',
 		keyboardNavigation: true,
 		language: 'en',
 		minViewMode: 0,
