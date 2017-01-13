@@ -12,6 +12,7 @@ var express = require('express');
 var exphbs  = require('express-handlebars');
 var async = require('asyncawait/async');
 var await = require('asyncawait/await');
+var handlebars = require('handlebars')
 var multer	=	require('multer')
 var fs = require('fs')
 
@@ -97,7 +98,7 @@ app.get('/componentes',async (function(req, res){
 
 app.get('/detalleComponente',async (function(req, res){
 	var maquinas= new Componente()
-	var equipo=await (maquinas.consultaPadres({id: req.query.id}))
+	var equipo=await (maquinas.consultaPadres({id: req.query.id},"parent", r.table(tabla)))
 	res.render('detalleComponente', {layout: 'main',equipo: equipo[0].left,padre: equipo[0].right})
 }))
 
@@ -122,12 +123,11 @@ app.post('/subirimagen',function(req,res){
 });
 
 
-app.get('/setMantenimiento',function(req, res){
-	fs.readFile('./web/html/pages/setMantenimiento.html', function(err, html){
-		var html_str = html.toString()
-		res.send(html_str)
-	})
-})
+app.get('/setMantenimiento',async (function(req, res){
+	var maquinas= new Componente()
+	var equipo=await (maquinas.consultaPadres({id: req.query.id}))
+	res.render('setMantenimiento', {layout: 'main',equipo: equipo[0].left,padre: equipo[0].right})
+}))
 
 var fs = require('fs');
 var pdf = require('html-pdf');
@@ -144,13 +144,22 @@ var options = {
 	  	type: 'pdf'
 	}
 
-app.get('/login',function(req, res) {
-	pdf.create(html, options).toFile('./tmp/formatoPDF.pdf', function(err, res) {
-	  if (err) return console.log(err);
-	  	console.log(res); // { filename: '/app/businesscard.pdf' } 
-	});
-	res.send('listo')
-})
+app.get('/login',async(function(req, res) {
+	// pdf.create(html, options).toFile('./tmp/formatoPDF.pdf', function(err, res) {
+	//   if (err) return console.log(err);
+	//   	console.log(res); // { filename: '/app/businesscard.pdf' } 
+	// });
+	// res.send('listo')
+	var maquinas= new Componente()
+	var componentes=await (maquinas.consultaPadres(function(user) {return user.hasFields("parent")},"parent", r.db('mantenimiento').table("component"))
+
+	var template = fs.readFileSync("templates/componente.handlebars", "utf8")
+	var data = {m : componentes };
+
+	var compileTemplate = handlebars.compile(template);
+	var finalPageHTML = compileTemplate(data);
+	console.log(finalPageHTML)
+}))
 
 
 /**

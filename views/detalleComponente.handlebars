@@ -6,7 +6,7 @@
         </button>
       </div>
       <div class="page-header-actions">
-        <button type="button" class="btn btn-sm btn-primary btn-round" onclick="window.open('/setMantenimiento', '_self')">
+        <button type="button" class="btn btn-sm btn-primary btn-round" onclick="window.open('/setMantenimiento?id={{equipo.id}}', '_self')">
           <span class="text hidden-sm-down">Registrar Mantenimiento</span>
           <i class="icon md-chevron-right" aria-hidden="true"></i>
         </button>
@@ -17,30 +17,75 @@
         <div class="col-lg-6 col-xs-12 masonry-item">
           <div class="card card-shadow">
             <div class="card-header bg-blue-600 white p-15 clearfix">
-              <a class="avatar avatar-lg pull-xs-left m-r-20" href="javascript:void(0)">
-                <img src="/photos/compCNC1.jpg" alt="">
+              <a class="avatar avatar-lg pull-xs-left m-r-20" href="javascript:void(0)" style="width: 140px;">
+                <img src="{{#if equipo.componentImg}}/uploads/{{equipo.componentImg}}{{else}}/photos/sin-imagen{{/if}}.jpg" alt="">
               </a>
               <div class="font-size-18">{{equipo.componentName}}</div>
               <div class="grey-300 font-size-14">{{padre.componentName}}</div>
             </div>
             <ul class="list-group list-group-bordered m-b-0">
               <li class="list-group-item">
-                <span class="tag tag-pill tag-success">6</span>
-                <i class="icon md-inbox" aria-hidden="true" draggable="true"></i>Frecuencia de Mantenimiento: {{equipo.frequency}}
+                <span style="float: right; font-weight: bold;">Cada {{equipo.frequency}} Semanas</span>
+                <i class="icon md-inbox" aria-hidden="true" draggable="true"></i>Frecuencia de Mantenimiento: 
               </li>
               <li class="list-group-item">
-                <span class="tag tag-pill tag-info">2</span>
-                <i class="icon md-account" aria-hidden="true" draggable="true"></i>Número de Parte: {{equipo.noCtrlPat}}
+                <span style="float: right; font-weight: bold;">{{equipo.noCtrlPat}}</span>
+                <i class="icon md-account" aria-hidden="true" draggable="true"></i>Número de Parte: 
               </li>
               <li class="list-group-item">
-                <i class="icon md-notifications" aria-hidden="true" draggable="true"></i>Sección: {{equipo.section}}
+                <span style="float: right; font-weight: bold;">{{equipo.section}}</span>
+                <i class="icon md-notifications" aria-hidden="true" draggable="true"></i>Sección:
               </li>
               <li class="list-group-item">
-                <span class="tag tag-pill tag-info">10</span>
-                <i class="icon md-info" aria-hidden="true" draggable="true"></i>Marca: {{equipo.vendor}}
+                <span style="float: right; font-weight: bold;">{{equipo.vendor}}</span>
+                <i class="icon md-info" aria-hidden="true" draggable="true"></i>Marca:
               </li>
             </ul>
           </div>
+        </div>
+        <div class="col-lg-6 col-xs-12 masonry-item">
+        <div class="panel panel-bordered panel-success">
+            <div class="panel-heading">
+              <h3 class="panel-title">REGISTRAR MANTENIMIENTO</h3>
+            </div>
+            <div class="panel-body">
+                          <div class="col-md-12">
+              <!-- Example Placeholders -->
+                <h4 class="example-title">Tipo Mantenimiento</h4>
+                <div class="example">
+                  <select class="form-control" data-plugin="select2" data-placeholder="Select a State"
+                  data-allow-clear="true">
+                    <option></option>
+                    <optgroup label="Mantenimiento T1">
+                      <option value="AK">TBA</option>
+                      <option value="HI">JKO</option>
+                    </optgroup>
+                    <optgroup label="Mantenimiento T2">
+                      <option value="CA">ABC</option>
+                      <option value="NV">DEF</option>
+                      <option value="OR">GHI</option>
+                      <option value="WA">JKP</option>
+                    </optgroup>
+                    <optgroup label="Mantenimiento T3">
+                      <option value="AZ">DDF</option>
+                    </optgroup>
+                  </select>
+                </div>
+              <!-- End Example Placeholders -->
+            </div>
+
+            <div class="col-md-12">
+              <!-- Example Maxlength Textarea -->
+                <h4 class="example-title">NOTAS</h4>
+                <div class="example">
+                  <textarea class="maxlength-textarea form-control" data-plugin="maxlength" data-placement="bottom-right-inside"
+                  maxlength="100" rows="3" placeholder="PUEDE COLOCAR HASTA 100 CARACTERES."></textarea>
+                </div>
+              <!-- End Example Maxlength Textarea -->
+            </div>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
