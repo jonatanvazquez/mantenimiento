@@ -98,7 +98,7 @@ app.get('/componentes',async (function(req, res){
 
 app.get('/detalleComponente',async (function(req, res){
 	var maquinas= new Componente()
-	var equipo=await (maquinas.consultaPadres({id: req.query.id},"parent", r.table(tabla)))
+	var equipo=await (maquinas.consultaPadres({id: req.query.id}))
 	res.render('detalleComponente', {layout: 'main',equipo: equipo[0].left,padre: equipo[0].right})
 }))
 
@@ -131,7 +131,6 @@ app.get('/setMantenimiento',async (function(req, res){
 
 var fs = require('fs');
 var pdf = require('html-pdf');
-var html = fs.readFileSync('./web/html/pages/formatoPDF.html', 'utf8');
 var options = {
 		format: 'Tabloid',
 		orientation: 'landscape', // portrait or landscape 
@@ -150,15 +149,30 @@ app.get('/login',async(function(req, res) {
 	//   	console.log(res); // { filename: '/app/businesscard.pdf' } 
 	// });
 	// res.send('listo')
+	// 
+	// 
 	var maquinas= new Componente()
-	var componentes=await (maquinas.consultaPadres(function(user) {return user.hasFields("parent")},"parent", r.db('mantenimiento').table("component"))
+	var padre = await(maquinas.consultar({id:"835c85ca-3b2e-4ea4-9c6f-4722f3d3e8b7"}))
+	var hijos = await(maquinas.consultar({parent:"835c85ca-3b2e-4ea4-9c6f-4722f3d3e8b7"}))
+	var mantenimientos = new Array();
+	for(i = 0; i < 52; i++){
+		mantenimientos.push({Inactividad: '10', acumulativo: '99999', causaRaiz: '1', ewono: '12', tipoMantenimiento:'12'})
+	}
+	//console.log(padre)
+	//console.log(hijos)
+	//console.log(mantenimientos)
+	var template = fs.readFileSync("templates/formatoPDF.handlebars", "utf8")
+	var data = {padre: padre[0], listado: hijos, m : mantenimientos}
 
-	var template = fs.readFileSync("templates/componente.handlebars", "utf8")
-	var data = {m : componentes };
+	var compileTemplate = handlebars.compile(template)
+	var finalPageHTML = compileTemplate(data)
 
-	var compileTemplate = handlebars.compile(template);
-	var finalPageHTML = compileTemplate(data);
+	pdf.create(finalPageHTML, options).toFile('./tmp/formatoPDF.pdf', function(err, res) {
+		if (err) return console.log(err);
+	   	console.log(res); // { filename: '/app/businesscard.pdf' } 
+	 });
 	console.log(finalPageHTML)
+	res.send('listoo')
 }))
 
 
