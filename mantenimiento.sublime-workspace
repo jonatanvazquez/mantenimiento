@@ -4,6 +4,94 @@
 		"selected_items":
 		[
 			[
+				"bor",
+				"borde-ab"
+			],
+			[
+				"borde",
+				"borde-dr"
+			],
+			[
+				"f-",
+				"f-9x"
+			],
+			[
+				"ama",
+				"amarillo"
+			],
+			[
+				"tam",
+				"tam2"
+			],
+			[
+				"co",
+				"colspan\tAttr"
+			],
+			[
+				"f",
+				"f-6x"
+			],
+			[
+				"he",
+				"height"
+			],
+			[
+				"pos",
+				"position"
+			],
+			[
+				"rota",
+				"rotation"
+			],
+			[
+				"rot",
+				"rotation"
+			],
+			[
+				"ra",
+				"rotation"
+			],
+			[
+				"tab",
+				"table\tTag"
+			],
+			[
+				"mar",
+				"margin"
+			],
+			[
+				"ta",
+				"tam1"
+			],
+			[
+				"ano",
+				"anchoRow2"
+			],
+			[
+				"sF",
+				"sF-4x"
+			],
+			[
+				"text",
+				"text-align"
+			],
+			[
+				"wi",
+				"width"
+			],
+			[
+				"consult",
+				"consultar\t(server.js)"
+			],
+			[
+				"consu",
+				"consultar\t(componente.js)"
+			],
+			[
+				"err",
+				"error"
+			],
+			[
 				"res",
 				"results"
 			],
@@ -46,10 +134,6 @@
 			[
 				"re",
 				"result"
-			],
-			[
-				"tab",
-				"tabla).filter\t(db_r.js)"
 			],
 			[
 				"acta",
@@ -348,10 +432,6 @@
 				"$datos〔variable〕"
 			],
 			[
-				"err",
-				"error〔variable〕"
-			],
-			[
 				"ins",
 				"inscA〔variable〕"
 			],
@@ -434,38 +514,6 @@
 			[
 				"sw",
 				"switch"
-			],
-			[
-				"OP",
-				"OPTION\tTag"
-			],
-			[
-				"_i",
-				"_iInputChecked"
-			],
-			[
-				"ident",
-				"identity〔variable〕"
-			],
-			[
-				"form",
-				"form_reinscripcion.php"
-			],
-			[
-				"require",
-				"require_once〔function〕"
-			],
-			[
-				"inde",
-				"index-admin.php"
-			],
-			[
-				"font-s",
-				"font-size"
-			],
-			[
-				"bac",
-				"background-color"
 			]
 		]
 	},
@@ -509,15 +557,26 @@
 	"expanded_folders":
 	[
 		"/Users/juancarlosbecerril/Documents/mantenimiento",
-		"/Users/juancarlosbecerril/Documents/mantenimiento/lib"
+		"/Users/juancarlosbecerril/Documents/mantenimiento/web",
+		"/Users/juancarlosbecerril/Documents/mantenimiento/web/assets",
+		"/Users/juancarlosbecerril/Documents/mantenimiento/web/assets/images",
+		"/Users/juancarlosbecerril/Documents/mantenimiento/web/html",
+		"/Users/juancarlosbecerril/Documents/mantenimiento/web/html/pages"
 	],
 	"file_history":
 	[
-		"/Users/juancarlosbecerril/Documents/mantenimiento/lib/usuario.js",
+		"/Users/juancarlosbecerril/Documents/mantenimiento/web/html/pages/bck.html",
+		"/Users/juancarlosbecerril/Documents/mantenimiento/web/html/pages/formatoPDF.html",
+		"/Users/juancarlosbecerril/Documents/mantenimiento/web/html/pages/otro.html",
+		"/Users/juancarlosbecerril/Documents/mantenimiento/web/html/pages/ejemplo.html",
+		"/Users/juancarlosbecerril/Documents/mantenimiento/global/css/css-pdf.css",
 		"/Users/juancarlosbecerril/Documents/mantenimiento/server.js",
-		"/Users/juancarlosbecerril/Documents/mantenimiento/lib/mantenimientos.js",
-		"/Users/juancarlosbecerril/Documents/mantenimiento/lib/historyMaintenance.js",
+		"/Users/juancarlosbecerril/Documents/mantenimiento/test/businesscard.html",
+		"/Users/juancarlosbecerril/Documents/mantenimiento/web/html/pages/fotos.html",
 		"/Users/juancarlosbecerril/Documents/mantenimiento/lib/componente.js",
+		"/Users/juancarlosbecerril/Documents/mantenimiento/lib/historyMaintenance.js",
+		"/Users/juancarlosbecerril/Documents/mantenimiento/lib/mantenimientos.js",
+		"/Users/juancarlosbecerril/Documents/mantenimiento/lib/usuario.js",
 		"/Users/juancarlosbecerril/Documents/mantenimiento/lib/db.js",
 		"/Users/juancarlosbecerril/Documents/mantenimiento/lib/historyMantenaince.js",
 		"/Users/juancarlosbecerril/Documents/mantenimiento/lib/db_r.js",
@@ -610,7 +669,7 @@
 	],
 	"find":
 	{
-		"height": 23.0
+		"height": 35.0
 	},
 	"find_in_files":
 	{
@@ -624,6 +683,22 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"borde-dr ",
+			"amarillo",
+			"</td>",
+			"f-9x",
+			"f-mx",
+			"f-sx",
+			"amarilly ",
+			"f-sx",
+			"td class=\"amarillo",
+			"td",
+			"7.5deg",
+			"rotar",
+			" rotar",
+			"hola",
+			"\"",
+			"result",
 			"\"",
 			"tabla",
 			"image",

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>Test Rotating TH Headings 90deg</title>
+<style type="text/css">
+table      { width: 200px; margin: 30px auto;
+             border-collapse: collapse; }
+th, td     { border: 1px solid black; }
+.normal    { height: 20px; width: 100px;
+             font-size: 14px; }
+.rotation  { height: 100px; width: 100px;          
+             font-size: 16px;
+             background: gray; /* need a color for filter */
+             -moz-transform: rotate(90deg);
+             -webkit-transform: rotate(90deg);
+             -o-transform: rotate(90deg);
+             -ms-transform: rotate(90deg);
+             transform: rotate(90deg); }
+</style>
+<!--[if lte IE 8]>
+<style type="text/css">
+.rotation {
+   -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=0)";
+   filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=0);
+}
+</style>
+<![endif]-->
+</head>
+<body>
+
+<table>
+  <caption>Vertical Headings</caption>
+  <tbody>
+    <tr>
+      <th class="rotation">text to rotate</th>
+      <th class="rotation">text to rotate</th>
+    </tr>
+    <tr>
+      <td class="normal"> not rotated </td>
+      <td class="normal"> not rotated </td>
+    </tr>
+  </tbody>
+</table>
+</body>
+</html>

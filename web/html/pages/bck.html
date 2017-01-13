@@ -1,0 +1,705 @@
+<html>
+   <head>
+      <meta charset="utf8">
+      <title>REPORTE PDF</title>
+      <style type="text/css">
+         html, body {
+            margin: 0;
+            padding: 0;
+            -webkit-print-color-adjust: exact;
+            box-sizing: border-box;
+         }
+
+         td{
+            padding: 0px;
+         }
+
+         table{
+            padding: 0px;
+            text-align: center;
+         }
+
+         .esp{
+            color: #FFFF00;
+         }
+
+         .tablePDF{
+           width: 1075px;
+         }
+
+         .tam1{font-size: 5px;}
+         .tam2{font-size: 4px;}
+
+         .rowTable{
+             width:100%;
+             clear:both;
+             background: #FFFFFF;
+             text-align: center;
+         }
+
+         .anchoRow{
+            line-height: .5rem;
+         }
+
+         .anchoRow2{
+            line-height: 4rem;
+         }
+
+
+         .columnRow{ 
+           float:left;
+           display:table-column;
+           text-align: center;
+         }
+
+         .borde{border: 1px solid #000000;}
+
+         .borde-ab{border-bottom: 1px solid #000000;}
+
+         .borde-dr{border-right: 1px solid #000000;}
+
+         .rotar{
+            -webkit-transform: rotate(-90deg);
+            -moz-transform: rotate(-90deg);
+            filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+         }
+
+         .box_rotate{
+            -moz-transform: rotate(-90deg);  /* FF3.5+ */
+            -o-transform: rotate(-90deg);  /* Opera 10.5 */
+            -webkit-transform: rotate(-90deg);  /* Saf3.1+, Chrome */
+            filter:  progid:DXImageTransform.Microsoft.BasicImage(rotation=3);  /* IE6,IE7 */
+            -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=3)";
+            display: block;
+         }
+
+         .rotation  { 
+            height: 14px;          
+            background: gray; /* need a color for filter */
+            -moz-transform: rotate(-90deg);
+            -webkit-transform: rotate(-90deg);
+            -o-transform: rotate(-90deg);
+            -ms-transform: rotate(-90deg);
+            transform: rotate(-90deg); 
+            float: left; 
+            position: relative;
+         }
+
+         .amarillo{background-color: #FFFF00;}
+
+         .amarilly{background-color: #FACC2E;}
+
+         .naranja{background-color: #FF8000;}
+
+         .azul{background-color: #013ADF;}
+         
+         .rojo{background-color: #FF0000;}
+
+         .gris{background-color: #A4A4A4;}
+
+         .crema{background-color: #FBEFF5;}
+
+         .f-1x{width: 64px;}
+
+         .f-2x{width: 105px;}
+         
+         .f-3x{width: 405px;}
+         
+         .f-5x{width: 468px;}
+
+         .f-4x{width: 90px;}
+         
+         .f-6x{width: 173px;}
+         
+         .f-7x{width: 75px;}
+
+         .f-8x{width: 30px;}
+
+         .f-9x{width: 15px;}
+
+         .f-mx{width: 8px;}
+
+         .f-sx{width: 98px;}
+
+         .f-ix{width: 72px;}
+
+      </style>
+   </head>
+   <body>
+      <!-- COMIENZA ENCABEZADO -->
+      <table cellspacing="0" class="tablePDF">
+         <tr class="tam1" height="10">
+            <td class="f-3x amarillo borde">MACHINE LEDGE</td>
+            <td class="f-2x crema borde">ENLACE CON EWO</td>
+            <td class="f-5x borde">PM CALENDARIO</td>
+            <td class="f-1x borde">KPIS</td>
+         </tr>
+         <tr height="60">
+            <td class="f-3x borde tam2">
+               <table cellspacing="0" class="tam2 f-3x">
+                  <tr height="10">
+                     <td class="f-4x amarillo borde-ab borde-dr"></td>
+                     <td class="f-6x amarillo borde-ab borde-dr"></td>
+                     <td class="f-7x naranja borde-ab borde-dr">PM</td>
+                     <td class="f-8x azul borde-ab borde-dr">AM</td>
+                     <td class="f-8x rojo borde-ab borde-dr">QM</td>
+                     <td class="f-8x gris borde-ab">FI</td>
+                  </tr>
+                  <tr height="50">
+                     <td class="f-4x amarillo">
+                        <table cellspacing="0" class="tam2 f-4x">
+                           <tr height="10"><td class="f-4x borde-ab borde-dr">UTILITIES</td></tr>
+                           <tr height="10"><td class="f-4x borde-ab borde-dr">Maquina: CALDERA 5</td></tr>
+                           <tr height="30"><td class="f-4x borde-dr">CLEVER  BROOKS CB-LE</td></tr>
+                        </table>
+                     </td>
+                     <td class="f-6x">
+                        <table cellspacing="0" class="tam2 f-6x">
+                           <tr height="10"><td colspan="6" class="f-6x borde-ab borde-dr">Componente</td></tr>
+                           <tr height="40">
+                              <td class="f-9x rojo borde-dr">X</td>
+                              <td class="f-sx borde-dr">DIBUJO / FOTO</td>
+                              <td class="f-9x borde-dr">X</td>
+                              <td class="f-9x rojo borde-dr">X</td>
+                              <td class="f-9x borde-dr">X</td>
+                              <td class="f-9x borde-dr">X</td>
+                           </tr>
+                        </table>
+                     </td>
+                     <td class="f-7x naranja">
+                        <table cellspacing="0" class="tam2 f-7x">
+                           <tr height="50">
+                              <td class="f-9x borde-dr">X</td>
+                              <td class="f-9x borde-dr">X</td>
+                              <td class="f-9x borde-dr">X</td>
+                              <td class="f-9x borde-dr">X</td>
+                              <td class="f-9x borde-dr">X</td>
+                           </tr>
+                        </table>
+                     </td>
+                     <td class="f-8x azul">
+                        <table cellspacing="0" class="tam2 f-8x">
+                           <tr height="50">
+                              <td class="f-9x borde-dr">X</td>
+                              <td class="f-9x borde-dr">X</td>
+                           </tr>
+                        </table>
+                     </td>
+                     <td class="f-8x rojo">
+                        <table cellspacing="0" class="tam2 f-8x">
+                           <tr height="50">
+                              <td class="f-9x borde-dr">X</td>
+                              <td class="f-9x borde-dr">X</td>
+                           </tr>
+                        </table>
+                     </td>
+                     <td class="f-8x gris">
+                        <table cellspacing="0" class="tam2 f-8x">
+                           <tr height="50">
+                              <td class="f-9x borde-dr">X</td>
+                              <td class="f-9x">X</td>
+                           </tr>
+                        </table>
+                     </td>
+                  </tr>
+               </table>
+            </td>
+            <td class="f-2x crema borde tam2">
+               <table cellspacing="0" class="tam2 f-2x">
+                  <tr height="50 crema">
+                     <td class="f-9x borde-ab borde-dr">X</td>
+                     <td class="f-9x borde-ab borde-dr">X</td>
+                     <td class="f-9x borde-ab borde-dr">X</td>
+                     <td class="f-9x borde-ab borde-dr">X</td>
+                     <td class="f-9x borde-ab borde-dr">X</td>
+                     <td class="f-9x borde-ab borde-dr">X</td>
+                     <td class="f-9x borde-ab">X</td>
+                  </tr>
+                  <tr height="10" class="amarillo">
+                     <td colspan="7">SEMANAS 2017</td>
+                  </tr>
+               </table>
+            </td>
+            <td class="f-5x borde">
+               <table cellspacing="0" class="tam2 f-5x">
+                  <tr height="50">
+                     <td colspan="52" class="borde-ab">
+                     </td>
+                  </tr>
+                  <tr height="10">
+                     <td class="amarillo f-mx borde-dr">01</td>
+                     <td class="amarillo f-mx borde-dr">02</td>
+                     <td class="amarillo f-mx borde-dr">03</td>
+                     <td class="amarillo f-mx borde-dr">04</td>
+                     <td class="amarillo f-mx borde-dr">05</td>
+                     <td class="amarillo f-mx borde-dr">06</td>
+                     <td class="amarillo f-mx borde-dr">07</td>
+                     <td class="amarillo f-mx borde-dr">08</td>
+                     <td class="amarillo f-mx borde-dr">09</td>
+                     <td class="amarillo f-mx borde-dr">10</td>
+                     
+                     <td class="amarillo f-mx borde-dr">11</td>
+                     <td class="amarillo f-mx borde-dr">12</td>
+                     <td class="amarillo f-mx borde-dr">13</td>
+                     <td class="amarillo f-mx borde-dr">14</td>
+                     <td class="amarillo f-mx borde-dr">15</td>
+                     <td class="amarillo f-mx borde-dr">16</td>
+                     <td class="amarillo f-mx borde-dr">17</td>
+                     <td class="amarillo f-mx borde-dr">18</td>
+                     <td class="amarillo f-mx borde-dr">19</td>
+                     <td class="amarillo f-mx borde-dr">20</td>
+
+                     <td class="amarillo f-mx borde-dr">21</td>
+                     <td class="amarillo f-mx borde-dr">22</td>
+                     <td class="amarillo f-mx borde-dr">23</td>
+                     <td class="amarillo f-mx borde-dr">24</td>
+                     <td class="amarillo f-mx borde-dr">25</td>
+                     <td class="amarillo f-mx borde-dr">26</td>
+                     <td class="amarillo f-mx borde-dr">27</td>
+                     <td class="amarillo f-mx borde-dr">28</td>
+                     <td class="amarillo f-mx borde-dr">29</td>
+                     <td class="amarillo f-mx borde-dr">30</td>
+
+                     <td class="amarillo f-mx borde-dr">31</td>
+                     <td class="amarillo f-mx borde-dr">32</td>
+                     <td class="amarillo f-mx borde-dr">33</td>
+                     <td class="amarillo f-mx borde-dr">34</td>
+                     <td class="amarillo f-mx borde-dr">35</td>
+                     <td class="amarillo f-mx borde-dr">36</td>
+                     <td class="amarillo f-mx borde-dr">37</td>
+                     <td class="amarillo f-mx borde-dr">38</td>
+                     <td class="amarillo f-mx borde-dr">39</td>
+                     <td class="amarillo f-mx borde-dr">40</td>
+
+                     <td class="amarillo f-mx borde-dr">41</td>
+                     <td class="amarillo f-mx borde-dr">42</td>
+                     <td class="amarillo f-mx borde-dr">43</td>
+                     <td class="amarillo f-mx borde-dr">44</td>
+                     <td class="amarillo f-mx borde-dr">45</td>
+                     <td class="amarillo f-mx borde-dr">46</td>
+                     <td class="amarillo f-mx borde-dr">47</td>
+                     <td class="amarillo f-mx borde-dr">48</td>
+                     <td class="amarillo f-mx borde-dr">49</td>
+                     <td class="amarillo f-mx borde-dr">50</td>
+                     <td class="amarillo f-mx borde-dr">51</td>
+                     <td class="amarillo f-mx">52</td>
+                  </tr>
+               </table>
+            </td>
+            <td class="f-1x borde">
+               <table cellspacing="0" class="tam2 f-1x">
+                  <tr height="30"><td colspan="4" class="borde-ab"></td></tr>
+                  <tr height="30" class="amarilly">
+                     <td class="f-9x borde-dr">X</td>
+                     <td class="f-9x borde-dr">X</td>
+                     <td class="f-9x borde-dr">X</td>
+                     <td class="f-9x">X</td>
+                  </tr>
+               </table>
+            </td>
+         </tr>
+      </table> <!-- TERMINA ENCABEZADO -->
+      <!-- INICIA PLATILLA OBJETOS -->
+      <table cellspacing="0" class="tablePDF">
+         <tr height="50">
+            <td class="f-3x borde tam2">
+               <table cellspacing="0" class="tam2 f-3x">
+                  <tr height="50">
+                     <td class="f-4x amarillo">
+                        <table cellspacing="0" class="tam2 f-4x">
+                           <tr height="50">
+                              <td class="f-ix borde-dr"></td>
+                              <td class="f-mx borde-dr"></td>
+                           </tr>
+                        </table>
+                     </td>
+                     <td class="f-6x">
+                        <table cellspacing="0" class="tam2 f-6x">
+                           <tr height="50">
+                              <td class="f-9x azul borde-dr">X</td>
+                              <td class="f-sx borde-dr">
+                                 <table cellspacing="0" class="tam2">
+                                    <tr height="40"><td class="f-sx borde-ab"></td></tr>
+                                    <tr height="10"><td class="f-sx">TAPA/AGUA</td></tr>
+                                 </table>
+                              </td>
+                              <td class="f-9x borde-dr">X</td>
+                              <td class="f-9x rojo borde-dr">X</td>
+                              <td class="f-9x borde-dr">X</td>
+                              <td class="f-9x borde-dr">X</td>
+                           </tr>
+                        </table>
+                     </td>
+                     <td class="f-7x">
+                        <table cellspacing="0" class="tam2 f-7x">
+                           <tr height="50">
+                              <td class="f-9x borde-dr">X</td>
+                              <td class="f-9x borde-dr">X</td>
+                              <td class="f-9x borde-dr">X</td>
+                              <td class="f-9x borde-dr">X</td>
+                              <td class="f-9x borde-dr">X</td>
+                           </tr>
+                        </table>
+                     </td>
+                     <td class="f-8x">
+                        <table cellspacing="0" class="tam2 f-8x">
+                           <tr height="50">
+                              <td class="f-9x borde-dr">X</td>
+                              <td class="f-9x borde-dr">X</td>
+                           </tr>
+                        </table>
+                     </td>
+                     <td class="f-8x">
+                        <table cellspacing="0" class="tam2 f-8x">
+                           <tr height="50">
+                              <td class="f-9x borde-dr">X</td>
+                              <td class="f-9x borde-dr">X</td>
+                           </tr>
+                        </table>
+                     </td>
+                     <td class="f-8x">
+                        <table cellspacing="0" class="tam2 f-8x">
+                           <tr height="50">
+                              <td class="f-9x borde-dr">X</td>
+                              <td class="f-9x">X</td>
+                           </tr>
+                        </table>
+                     </td>
+                  </tr>
+               </table>
+            </td>
+            <td class="f-2x borde">
+               <table cellspacing="0" class="crema tam2 f-2x">
+                  <tr height="10">
+                     <td class="f-2x borde-ab"></td>
+                  </tr>
+                  <tr height="10">
+                     <td class="f-2x borde-ab"></td>
+                  </tr>
+                  <tr height="10">
+                     <td class="f-2x borde-ab"></td>
+                  </tr>
+                  <tr height="10">
+                     <td class="f-2x borde-ab"></td>
+                  </tr>
+                  <tr height="10">
+                     <td class="f-2x borde-ab"></td>
+                  </tr>
+               </table>
+            </td>
+            <td class="f-5x borde">
+               <table cellspacing="0" class="tam2 f-5x">
+                  <tr height="10">
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx"></td>
+                  </tr>
+
+                  <tr height="10">
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx"></td>
+                  </tr>
+
+                  <tr height="10">
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx"></td>
+                  </tr>
+
+                  <tr height="10">
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx"></td>
+                  </tr>
+
+                  <tr height="10">
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx borde-dr"></td>
+                     <td class="borde-ab f-mx"></td>
+                  </tr>
+               </table>
+            </td>
+            <td class="f-1x borde">
+               <table cellspacing="0" class="tam2 f-1x">
+                  <tr height="20">
+                     <td class="borde-dr borde-ab f-9x"></td>
+                     <td class="borde-dr borde-ab f-9x"></td>
+                     <td class="borde-dr borde-ab f-9x"></td>
+                     <td class="borde-dr borde-ab f-9x"></td>
+                  </tr>
+                  <tr height="30" class="gris">
+                     <td colspan="2" class="borde-dr"></td>
+                     <td colspan="2"></td>
+                  </tr>
+               </table>
+            </td>
+         </tr>
+      </table> <!-- TERMINA PLATILLA OBJETOS -->
+   </body>
+</html>
