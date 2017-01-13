@@ -37,13 +37,18 @@
           {{#each maquinas}}
           <li>
             <div class="panel">
-              <figure class="overlay overlay-hover animation-hover">
+              <figure class="overlay overlay-hover animation-hover"  style="height: 199px;">
                 <img class="caption-figure overlay-figure" src="{{#if componentImg}}/uploads/{{componentImg}}{{else}}/photos/sin-imagen{{/if}}.jpg">
                 <figcaption class="overlay-panel overlay-background overlay-fade text-xs-center vertical-align">
+                    <div class="btn-group">
+                      <button type="button" class="btn btn-icon btn-pure btn-default" title="Editar" setid="{{id}}" data-tag=project-edit><i class="icon md-edit" aria-hidden="true"></i></button>
+                    <button type="button" class="btn btn-icon btn-pure btn-default" title="Eliminar"
+                    data-tag="project-delete" setid="{{id}}"><i class="icon md-delete" aria-hidden="true"></i></button>
+                  </div>
                   <button type="button" class="btn btn-inverse project-button" onclick="window.open('/detalleComponente?id={{id}}', '_self')">Ver Detalle</button>
                 </figcaption>
               </figure>
-              <div class="time pull-xs-right">Feb 22, 2017</div>
+              <div class="time pull-xs-right">{{nextMaintenance}}</div>
               <div class="text-truncate">{{componentName}}</div>
             </div>
           </li>
@@ -68,7 +73,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" aria-hidden="true" data-dismiss="modal">×</button>
-          <h4 class="modal-title">AGREGAR COMPONENTE A {{padre.componentName}}</h4>
+          <h4 class="modal-title" id="tituloc">AGREGAR COMPONENTE A {{padre.componentName}}</h4>
         </div>
         <div class="modal-body">
           <form action="#" method="post" role="form" id="nuevamaquina" class="form-horizontal">
@@ -95,7 +100,9 @@
             <div class="form-group form-material">
             <label class="form-control-label col-sm-4" for="name">IMAGEN:</label>
                   <div class="col-sm-8 input-group input-group-file " style="width: 66.666667%">
-                    <input type="text" class="form-control" name="componentImg" id="componentImg" readonly="">
+                    <input type="text" class="form-control" name="nimagen" id="nimagen" readonly="">
+                    <input type="hidden" class="form-control" name="componentImg" id="componentImg" readonly="">
+                    <input type="hidden" class="form-control" name="id" id="id" readonly="">
                     <span class="input-group-btn">
                       <span class="btn btn-success btn-file waves-effect waves-light">
                         <i class="icon md-upload" aria-hidden="true"></i>
@@ -117,7 +124,7 @@
           </form>
         </div>
         <div class="modal-footer text-xs-right">
-          <button class="btn btn-primary" data-dismiss="modal" type="button" onclick="enviarmaquina();">Crear</button>
+          <button class="btn btn-primary" data-dismiss="modal" type="button" onclick="enviarmaquina();" id="guardar">Crear</button>
           <a class="btn btn-sm btn-white btn-pure" data-dismiss="modal" href="javascript:void(0)">Cancelar</a>
         </div>
       </div>

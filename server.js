@@ -47,8 +47,38 @@ app.get('/', function (req, res) {
 
 app.post('/maquinas',async (function(req, res){
 		var maquinas= new Componente()
-		var id = await (maquinas.insertar(req.body))
-		res.send(id)
+		if (req.body.id=="") {
+			delete req.body.id
+			var id = await (maquinas.insertar(req.body))
+		}else{
+			var id  = req.body.id
+			delete req.body.id
+			await (maquinas.actualizar({id: id},req.body))
+		}
+		
+		var equipo=await (maquinas.consultar({id: id}))
+		if (!equipo[0].parent) {
+			res.render('maquina', {layout: null,maquinas: equipo})
+		}else{
+			res.render('componente', {layout: null,maquinas: equipo})
+		}
+}))
+
+app.post('/borrar',async (function(req, res){
+		var maquinas= new Componente()
+		console.log(req.body.id)
+		var id = await (maquinas.eliminar(function(user) {return user("id").eq(req.body.id).or(user("parent").eq(req.body.id)) }))
+
+		res.send('Eliminado')
+
+}))
+
+app.post('/editar',async (function(req, res){
+		var maquinas= new Componente()
+		console.log(req.body.id)
+		var equipo = await (maquinas.consultar({id: req.body.id}))
+		res.send(equipo[0])
+
 }))
 
 app.get('/maquinas',async (function(req, res){

@@ -99,20 +99,7 @@
     }, {
       key: 'handleProject',
       value: function handleProject() {
-        $(document).on('click', '[data-tag=project-delete]', function (e) {
-          bootbox.dialog({
-            message: 'Do you want to delete the project?',
-            buttons: {
-              success: {
-                label: 'Delete',
-                className: 'btn-danger',
-                callback: function callback() {
-                  // $(e.target).closest('.list-group-item').remove();
-                }
-              }
-            }
-          });
-        });
+
       }
     }]);
     return AppProjects;
