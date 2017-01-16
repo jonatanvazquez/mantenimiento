@@ -353,7 +353,16 @@ var options = {
 	  	},
 	  	type: 'pdf'
 	}
-
+function getDateOfISOWeek(w, y) {
+    var simple = new Date(y, 0, 1 + (w - 1) * 7);
+    var dow = simple.getDay();
+    var ISOweekStart = simple;
+    if (dow <= 4)
+        ISOweekStart.setDate(simple.getDate() - simple.getDay() + 1);
+    else
+        ISOweekStart.setDate(simple.getDate() + 8 - simple.getDay());
+    return ISOweekStart;
+}
 app.get('/login',async(function(req, res) {
 	// pdf.create(html, options).toFile('./tmp/formatoPDF.pdf', function(err, res) {
 	//   if (err) return console.log(err);
@@ -364,13 +373,33 @@ app.get('/login',async(function(req, res) {
 	// 
 	var maquinas= new Componente()
 
+
+// 	var componentes=await (maquinas.consultaPadres(function(user) {return user.hasFields("parent")}))
+
+// 	var template = fs.readFileSync("templates/componente.handlebars", "utf8")
+// 	var data = {m : componentes };
+
+// 	var compileTemplate = handlebars.compile(template);
+// 	var finalPageHTML = compileTemplate(data);
+
+
 	var padre = await(maquinas.consultar({id:"835c85ca-3b2e-4ea4-9c6f-4722f3d3e8b7"}))
 	var hijos = await(maquinas.consultar({parent:"835c85ca-3b2e-4ea4-9c6f-4722f3d3e8b7"}))
-	var mantenimientos = new Array();
-	for(i = 0; i < 52; i++){
-		mantenimientos.push({Inactividad: '10', acumulativo: '99999', causaRaiz: '1', ewono: '12', tipoMantenimiento:'12'})
-	}
-	//console.log(padre)
+	var mantenimientos = new Array()
+	hijos.forEach(function(entry){
+		var mantenimientos = new Array()
+		for(i = 0; i < 52; i++){
+			var date = getDateOfISOWeek(i, '2017')
+			console.log(date)
+
+			//componente: entry.id, fechaLunes: date
+			//if != 0 hay mantenimiento esa semana
+			//semanadif == math.round((date-entry.fechaMantenimiento)/604800000) ->diferencia de numero de semanas
+			//if (semanadif % entry.frequency) === 0 toca mantenimiento esa semana 
+			mantenimientos.push({Inactividad: '10', acumulativo: '99999', causaRaiz: '1', ewono: '12', tipoMantenimiento:'12'})
+		}	
+	})
+
 	//console.log(hijos)
 	//console.log(mantenimientos)
 	var template = fs.readFileSync("templates/formatoPDF.handlebars", "utf8")
@@ -381,7 +410,7 @@ app.get('/login',async(function(req, res) {
 
 	pdf.create(finalPageHTML, options).toFile('./tmp/formatoPDF.pdf', function(err, res) {
 		if (err) return console.log(err);
-	   	console.log(res); // { filename: '/app/businesscard.pdf' } 
+	   	console.log(res);
 	 });
 
 	console.log(finalPageHTML)
