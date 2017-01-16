@@ -96,7 +96,7 @@ function registrarmantenimiento(){
   $(document).ready(function() {
 
   	var options = {
-  	  valueNames: [ 'nombre' ,'hecho']
+  	  valueNames: [ 'nombre' ,'hecho', 'semana']
   	}
 
   	var userList = new List('main', options);
@@ -129,17 +129,66 @@ function registrarmantenimiento(){
   	}
   	function semanas(){
   		var hoy = semana(lunes(new Date().setHours(0, 0, 0, 0)))
-  		console.log(hoy)
+
   		userList.filter(function(item) {
   		   if (item.values().semana != hoy) {
-  		       return true;
-  		   } else {
   		       return false;
+  		   } else {
+  		       return true;
   		   }
   		}); 
   	}
-  	completados();
-  	semanas();
+  	function ambos(){
+  		var hoy = semana(lunes(new Date().setHours(0, 0, 0, 0)))
+
+  		userList.filter(function(item) {
+  		   if (item.values().semana != hoy) {
+  		       return false;
+  		   } else {
+  		       if (item.values().hecho != 'true') {
+  		           return true;
+  		       } else {
+  		           return false;
+  		       }
+  		   }
+  		}); 
+  	}
+  	
+  	console.log(localStorage.getItem("semanas"));
+  	if(localStorage.getItem("tareas")==true && localStorage.getItem("semanas")==true){
+  			console.log('los dos')
+  			$('#tareas').trigger('click');
+  			$('#semanas').trigger('click');
+  		}else if(localStorage.getItem("tareas")==true){
+  			$('#tareas').trigger('click');
+  		}else if(localStorage.getItem("semanas")==true){
+  			$('#semanas').trigger('click');
+  		}
+  	
+  	
+        $('.filtros').change(function() {
+        	console.log('click');
+        	if ($('#tareas').is(':checked') && $('#semanas').is(':checked')) {
+        		ambos();
+        		localStorage.setItem("tareas", true);
+        		localStorage.setItem("semanas", true);
+        		//console.log(sessionStorage.getItem("tareas"))
+        	}else if($('#tareas').is(':checked')){
+        		completados();
+        		localStorage.setItem("tareas", true);
+        		localStorage.setItem("semanas", false);
+        		console.log(localStorage.getItem("semanas"));
+        	}else if($('#semanas').is(':checked')){
+        		semanas();
+        		localStorage.setItem("tareas", false);
+        		localStorage.setItem("semanas", true);
+        	}else{
+        		userList.filter();
+        		localStorage.setItem("tareas", false);
+        		localStorage.setItem("semanas", false);
+        	}
+
+        });
         $(document).on('click', '[data-tag=project-delete]', function (e) {
         	var miid=$(this).attr('setid');
 

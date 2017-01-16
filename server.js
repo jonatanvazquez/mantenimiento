@@ -89,6 +89,12 @@ function siguienteMantenimiento(fecha,frecuencia,hoy){
 	inicio.setDate(inicio.getDate()+(7*semanas))
 	return inicio
 }
+function stringaFecha(fecha){
+	var original = fecha.split("/")
+	var inicio = lunes(new Date(original[2], original[1] - 1, original[0]))
+	return inicio
+
+}
  
 
  // ########################## LOGIN #########################
@@ -163,6 +169,9 @@ app.get('/maquinas',restringido, async (function(req, res){
 
 app.post('/maquinas',restringido,async (function(req, res){
 		var maquinas= new Componente()
+		if (typeof(req.body.nextMaintenance) !== 'undefined') {
+			req.body.fechaMantenimiento=stringaFecha(req.body.nextMaintenance)
+		}
 		if (req.body.id=="") {
 			delete req.body.id
 			var id = await (maquinas.insertar(req.body))
@@ -172,6 +181,7 @@ app.post('/maquinas',restringido,async (function(req, res){
 			await (maquinas.actualizar({id: id},req.body))
 		}
 
+		
 		var equipo=await (maquinas.consultar({id: id}))
 		equipo[0].layout=null
 		if (!equipo[0].parent) {
@@ -223,7 +233,6 @@ app.get('/componentes',restringido,async (function(req, res){
 
 app.get('/detalleComponente',restringido,async (function(req, res){
 	var maquinas= new Componente()
-<<<<<<< HEAD
 	var mantenimientos = new Mantenimiento()
 	var equipo=await (maquinas.consultaPadres({id: req.query.id}))
 	var mantenimiento =await (mantenimientos.consultar({componente: req.query.id}))
@@ -266,10 +275,7 @@ app.post('/editarusuario',restringido,async (function(req, res){
 		var usuarios= new Usuario()
 		var usuario = await (usuarios.consultar({id: req.body.id}))
 		res.send(usuario[0])
-=======
-	var equipo=await (maquinas.consultaPadres({id: req.query.id}))
-	res.render('detalleComponente', {layout: 'main',equipo: equipo[0].left,padre: equipo[0].right})
->>>>>>> origin/master
+
 }))
  // ################ FIN USUARIOS #############################
 
@@ -357,15 +363,7 @@ app.get('/login',async(function(req, res) {
 	// 
 	// 
 	var maquinas= new Componente()
-<<<<<<< HEAD
-	var componentes=await (maquinas.consultaPadres(function(user) {return user.hasFields("parent")}))
 
-	var template = fs.readFileSync("templates/componente.handlebars", "utf8")
-	var data = {m : componentes };
-
-	var compileTemplate = handlebars.compile(template);
-	var finalPageHTML = compileTemplate(data);
-=======
 	var padre = await(maquinas.consultar({id:"835c85ca-3b2e-4ea4-9c6f-4722f3d3e8b7"}))
 	var hijos = await(maquinas.consultar({parent:"835c85ca-3b2e-4ea4-9c6f-4722f3d3e8b7"}))
 	var mantenimientos = new Array();
@@ -385,7 +383,7 @@ app.get('/login',async(function(req, res) {
 		if (err) return console.log(err);
 	   	console.log(res); // { filename: '/app/businesscard.pdf' } 
 	 });
->>>>>>> origin/master
+
 	console.log(finalPageHTML)
 	res.send('listoo')
 }))
