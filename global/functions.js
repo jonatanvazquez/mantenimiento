@@ -153,39 +153,52 @@ function registrarmantenimiento(){
   		   }
   		}); 
   	}
+  	ambos();
   	
-  	console.log(localStorage.getItem("semanas"));
-  	if(localStorage.getItem("tareas")==true && localStorage.getItem("semanas")==true){
+  	if(localStorage.getItem("tareas")!='true' && localStorage.getItem("semanas")!='true'){
   			console.log('los dos')
-  			$('#tareas').trigger('click');
-  			$('#semanas').trigger('click');
-  		}else if(localStorage.getItem("tareas")==true){
-  			$('#tareas').trigger('click');
-  		}else if(localStorage.getItem("semanas")==true){
-  			$('#semanas').trigger('click');
+  			console.log(localStorage.getItem("tareas"))
+  			console.log(localStorage.getItem("semanas"))
+  			setTimeout(function() {
+  			    $('#tareas').trigger('click');
+  			    $('#semanas').trigger('click');
+  			}, 100);
+  			
+  		}else if(localStorage.getItem("tareas")!='true'){
+  			setTimeout(function() {
+  				$('#tareas').trigger('click');
+  			}, 100);
+  		}else if(localStorage.getItem("semanas")!='true'){
+  			setTimeout(function() {
+  				$('#semanas').trigger('click');
+  			}, 100);
   		}
   	
-  	
+  		
         $('.filtros').change(function() {
         	console.log('click');
-        	if ($('#tareas').is(':checked') && $('#semanas').is(':checked')) {
+        	if ($('#tareas').prop('checked') === true && $('#semanas').prop('checked') === true) {
         		ambos();
-        		localStorage.setItem("tareas", true);
-        		localStorage.setItem("semanas", true);
+        		console.log('oculta todo')
+        		localStorage.setItem("tareas", 'true');
+        		localStorage.setItem("semanas", 'true');
         		//console.log(sessionStorage.getItem("tareas"))
-        	}else if($('#tareas').is(':checked')){
+        	}else if($('#tareas').prop('checked') === true){
         		completados();
-        		localStorage.setItem("tareas", true);
-        		localStorage.setItem("semanas", false);
+        		console.log('oculta tareas')
+        		localStorage.setItem("tareas", 'true');
+        		localStorage.setItem("semanas", 'false');
         		console.log(localStorage.getItem("semanas"));
-        	}else if($('#semanas').is(':checked')){
+        	}else if($('#semanas').prop('checked') === true){
         		semanas();
-        		localStorage.setItem("tareas", false);
-        		localStorage.setItem("semanas", true);
+        		console.log('oculta semanas')
+        		localStorage.setItem("tareas", 'false');
+        		localStorage.setItem("semanas", 'true');
         	}else{
         		userList.filter();
-        		localStorage.setItem("tareas", false);
-        		localStorage.setItem("semanas", false);
+        		console.log('oculta nada')
+        		localStorage.setItem("tareas", 'false');
+        		localStorage.setItem("semanas", 'false');
         	}
 
         });
