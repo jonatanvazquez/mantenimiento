@@ -223,7 +223,6 @@ app.get('/componentes',restringido,async (function(req, res){
 
 app.get('/detalleComponente',restringido,async (function(req, res){
 	var maquinas= new Componente()
-<<<<<<< HEAD
 	var mantenimientos = new Mantenimiento()
 	var equipo=await (maquinas.consultaPadres({id: req.query.id}))
 	var mantenimiento =await (mantenimientos.consultar({componente: req.query.id}))
@@ -266,10 +265,7 @@ app.post('/editarusuario',restringido,async (function(req, res){
 		var usuarios= new Usuario()
 		var usuario = await (usuarios.consultar({id: req.body.id}))
 		res.send(usuario[0])
-=======
-	var equipo=await (maquinas.consultaPadres({id: req.query.id}))
-	res.render('detalleComponente', {layout: 'main',equipo: equipo[0].left,padre: equipo[0].right})
->>>>>>> origin/master
+
 }))
  // ################ FIN USUARIOS #############################
 
@@ -366,15 +362,15 @@ app.get('/login',async(function(req, res) {
 	// 
 	// 
 	var maquinas= new Componente()
-<<<<<<< HEAD
-	var componentes=await (maquinas.consultaPadres(function(user) {return user.hasFields("parent")}))
 
-	var template = fs.readFileSync("templates/componente.handlebars", "utf8")
-	var data = {m : componentes };
+// 	var componentes=await (maquinas.consultaPadres(function(user) {return user.hasFields("parent")}))
 
-	var compileTemplate = handlebars.compile(template);
-	var finalPageHTML = compileTemplate(data);
-=======
+// 	var template = fs.readFileSync("templates/componente.handlebars", "utf8")
+// 	var data = {m : componentes };
+
+// 	var compileTemplate = handlebars.compile(template);
+// 	var finalPageHTML = compileTemplate(data);
+
 	var padre = await(maquinas.consultar({id:"835c85ca-3b2e-4ea4-9c6f-4722f3d3e8b7"}))
 	var hijos = await(maquinas.consultar({parent:"835c85ca-3b2e-4ea4-9c6f-4722f3d3e8b7"}))
 	var mantenimientos = new Array()
@@ -404,7 +400,6 @@ app.get('/login',async(function(req, res) {
 		if (err) return console.log(err);
 	   	console.log(res);
 	 });
->>>>>>> origin/master
 	console.log(finalPageHTML)
 	res.send('listoo')
 }))
