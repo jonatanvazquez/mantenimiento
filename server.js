@@ -363,47 +363,40 @@ function getDateOfISOWeek(w, y) {
         ISOweekStart.setDate(simple.getDate() + 8 - simple.getDay());
     return ISOweekStart;
 }
+
+
+
 app.get('/login',async(function(req, res) {
-	// pdf.create(html, options).toFile('./tmp/formatoPDF.pdf', function(err, res) {
-	//   if (err) return console.log(err);
-	//   	console.log(res); // { filename: '/app/businesscard.pdf' } 
-	// });
-	// res.send('listo')
-	// 
-	// 
-	var maquinas= new Componente()
 
 
-// 	var componentes=await (maquinas.consultaPadres(function(user) {return user.hasFields("parent")}))
-
-// 	var template = fs.readFileSync("templates/componente.handlebars", "utf8")
-// 	var data = {m : componentes };
-
-// 	var compileTemplate = handlebars.compile(template);
-// 	var finalPageHTML = compileTemplate(data);
-
-
-	var padre = await(maquinas.consultar({id:"835c85ca-3b2e-4ea4-9c6f-4722f3d3e8b7"}))
-	var hijos = await(maquinas.consultar({parent:"835c85ca-3b2e-4ea4-9c6f-4722f3d3e8b7"}))
 	var mantenimientos = new Array()
+
+	var maquinas= new Componente()
+	var padre = await(maquinas.consultar({id:"15509a07-05b2-4f12-85be-bc563fb24eb8"}))
+	var hijos = await(maquinas.consultar({parent:"15509a07-05b2-4f12-85be-bc563fb24eb8"}))
+
 	hijos.forEach(function(entry){
-		var mantenimientos = new Array()
-		for(i = 0; i < 52; i++){
+		for(i = 1; i <= 52; i++){
 			var date = getDateOfISOWeek(i, '2017')
-			console.log(date)
+
+			var dato = {
+				Inactividad: '', 
+				acumulativo: '', 
+				causaRaiz: '', 
+				ewono: '', 
+				tipoMantenimiento:''}
 
 			//componente: entry.id, fechaLunes: date
 			//if != 0 hay mantenimiento esa semana
 			//semanadif == math.round((date-entry.fechaMantenimiento)/604800000) ->diferencia de numero de semanas
 			//if (semanadif % entry.frequency) === 0 toca mantenimiento esa semana 
-			mantenimientos.push({Inactividad: '10', acumulativo: '99999', causaRaiz: '1', ewono: '12', tipoMantenimiento:'12'})
-		}	
+			mantenimientos.push(dato)
+		}
+		entry.mantenimiento = mantenimientos;	
 	})
-
-	//console.log(hijos)
-	//console.log(mantenimientos)
+	
 	var template = fs.readFileSync("templates/formatoPDF.handlebars", "utf8")
-	var data = {padre: padre[0], listado: hijos, m : mantenimientos}
+	var data = {padre: padre[0], listado: hijos}
 
 	var compileTemplate = handlebars.compile(template)
 	var finalPageHTML = compileTemplate(data)
