@@ -35,18 +35,133 @@ app.use(bodyParser.urlencoded({extended:true})) //para realizar peticiones tradi
 app.use(session({
 	secret: "7SJUER349KERqdzts",
 	resave: false,
-	saveUninitialized: false
+	saveUninitialized: false,
+	cookie: {expires: new Date(253402300000000)}
 }))
 
+var sess
+function restringido(req, res, next) {
+  if (req.session.usuario) {
+    next();
+  } else {
+    req.session.error = 'Access denied!'
+    res.redirect('/')
+  }
+}
+
+function lunes(d) {
+  d = new Date(d);
+  var day = d.getDay(),
+      diff = d.getDate() - day + (day == 0 ? -6:1); // adjust when day is sunday
+  return new Date(d.setDate(diff));
+}
+function semananumero(date) {
+	var day = date.getDate()
+	day-=(date.getDay()==0?6:date.getDay()-1)
+	day+=7;
+	prefixes = ['0', '1', '2', '3', '4', '5'];
+
+  var monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+    "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
+  ]
+  var week=prefixes[0 | (day) / 7]
+   return week
+}
+function semana(date) {
+	var day = date.getDate()
+	day-=(date.getDay()==0?6:date.getDay()-1)
+	day+=7;
+	prefixes = ['0', '1', '2', '3', '4', '5'];
+
+  var monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+    "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
+  ]
+  var week=prefixes[0 | (day) / 7]+'º Sem de '+monthNames[date.getMonth()]
+   return week
+}
+function siguienteMantenimiento(fecha,frecuencia,hoy){
+
+	var original = fecha.split("/")
+	var inicio = lunes(new Date(original[2], original[1] - 1, original[0]))
+
+	var semanas = Math.ceil(Math.round((hoy-inicio)/ 604800000)/frecuencia)*frecuencia
+	if (semanas<=0) {semanas=0}
+	inicio.setDate(inicio.getDate()+(7*semanas))
+	return inicio
+}
  
+
+ // ########################## LOGIN #########################
 app.get('/', function (req, res) {
-	fs.readFile('./web/html/pages/index.html', function(err, html){
-		var html_str = html.toString();
-		res.send(html_str)
-	})
+	sess = req.session
+	if(sess.usuario) {
+	    res.redirect('/maquinas');
+	}
+	else {
+	    res.render('login', {layout: null})
+	}
+	
 })
 
-app.post('/maquinas',async (function(req, res){
+app.post('/login',async (function(req,res){
+  var usuario= new Usuario()
+  sess = req.session
+  var resultado = await (usuario.consultar({password:req.body.inputPassword,username:req.body.inputUser}))
+  if (resultado.length!=0) {
+  	sess.rol = resultado[0].rol
+  	sess.usuario = resultado[0].username
+  	if (resultado[0].rol=='admin') {app.locals.admin='admin'}
+  	app.locals.usuario = resultado[0].username
+  	app.locals.rol = resultado[0].rol
+  	res.redirect('/maquinas');
+  }else{
+  	res.redirect('/');
+  }
+}))
+
+app.get('/logout',function(req,res){
+req.session.destroy(function(err) {
+  if(err) {
+    console.log(err);
+  } else {
+  	delete app.locals.usuario
+  	delete app.locals.rol
+  	delete app.locals.admin
+    res.redirect('/');
+  }
+});
+});
+// ########################## FIN LOGIN ################################
+
+
+// ############################ MAQUINAS ##########################
+app.get('/maquinas',restringido, async (function(req, res){
+	var maquinas= new Componente()
+	var mantenimientos = new Mantenimiento()
+	var listaequipos=await (maquinas.consultar(function(user) {return user.hasFields("parent").not()}))
+	var hoy = lunes(new Date().setHours(0, 0, 0, 0))
+	
+	listaequipos.forEach(function(entry) {
+		var fecha=await (maquinas.fecha({parent: entry.id}))
+		if (fecha.length>0) {
+		var inicio=siguienteMantenimiento(fecha[0].nextMaintenance,fecha[0].frequency,hoy)
+		var cantidadCumplidas=await (mantenimientos.consultarGrupo({fechaLunes: hoy,padre: entry.id}))
+		var cantidadComponentes=await (maquinas.consultarSemanales({parent: entry.id}))
+
+		if (cantidadCumplidas.length==cantidadComponentes) {
+			entry.hecho=true
+		}
+		
+    	entry.siguiente=semana(inicio)
+    	entry.mes=inicio.getMonth()
+    	entry.semana=semananumero(inicio)
+    	entry.ano=inicio.getFullYear()
+    	}
+	})
+	res.render('home', {layout: 'main',maquinas: listaequipos, semanaActual: semana(hoy)})
+}))
+
+app.post('/maquinas',restringido,async (function(req, res){
 		var maquinas= new Componente()
 		if (req.body.id=="") {
 			delete req.body.id
@@ -56,53 +171,108 @@ app.post('/maquinas',async (function(req, res){
 			delete req.body.id
 			await (maquinas.actualizar({id: id},req.body))
 		}
-		
+
 		var equipo=await (maquinas.consultar({id: id}))
+		equipo[0].layout=null
 		if (!equipo[0].parent) {
-			res.render('maquina', {layout: null,maquinas: equipo})
+			res.render('partials/maquina', equipo[0])
 		}else{
-			res.render('componente', {layout: null,maquinas: equipo})
+			res.render('partials/componente', equipo[0])
 		}
 }))
 
-app.post('/borrar',async (function(req, res){
+app.post('/borrar',restringido,async (function(req, res){
 		var maquinas= new Componente()
-		console.log(req.body.id)
-		var id = await (maquinas.eliminar(function(user) {return user("id").eq(req.body.id).or(user("parent").eq(req.body.id)) }))
-
+		var mantenimientos = new Mantenimiento()
+		await (maquinas.eliminar(function(user) {return user("id").eq(req.body.id).or(user("parent").eq(req.body.id)) }))
+		await(mantenimientos.eliminar({componente:req.body.id}))
 		res.send('Eliminado')
 
 }))
 
-app.post('/editar',async (function(req, res){
+
+app.post('/editar',restringido,async (function(req, res){
 		var maquinas= new Componente()
-		console.log(req.body.id)
 		var equipo = await (maquinas.consultar({id: req.body.id}))
 		res.send(equipo[0])
-
 }))
 
-app.get('/maquinas',async (function(req, res){
-	var maquinas= new Componente()
-	var listaequipos=await (maquinas.consultar(function(user) {return user.hasFields("parent").not()}))
-	res.render('home', {layout: 'main',maquinas: listaequipos})
-}))
+// ###################### FIN MAQUINAS ##########################
 
+// ###################### COMPONENTES #########################
 
-app.get('/componentes',async (function(req, res){
+app.get('/componentes',restringido,async (function(req, res){
 	var maquinas= new Componente()
+	var mantenimientos = new Mantenimiento()
 	var listaequipos=await (maquinas.consultar({parent: req.query.id}))
 	var equipo=await (maquinas.consultar({id: req.query.id}))
-	res.render('componentes', {layout: 'main',maquinas: listaequipos, padre: equipo[0]})
+	var hoy = lunes(new Date())
+	listaequipos.forEach(function(entry) {
+		var inicio=siguienteMantenimiento(entry.nextMaintenance,entry.frequency,hoy)
+		var mantenimiento =await (mantenimientos.consultar({componente: entry.id,fechaLunes: inicio}))
+		if (mantenimiento.length!=0) {
+			entry.hecho=true
+		}
+    	entry.siguiente=semana(inicio)
+    	entry.mes=inicio.getMonth()
+    	entry.semana=semananumero(inicio)
+    	entry.ano=inicio.getFullYear()
+	});
+	res.render('componentes', {layout: 'main',maquinas: listaequipos, padre: equipo[0], semanaActual: semana(hoy)})
 }))
 
-app.get('/detalleComponente',async (function(req, res){
+app.get('/detalleComponente',restringido,async (function(req, res){
 	var maquinas= new Componente()
-	var equipo=await (maquinas.consultaPadres({id: req.query.id},"parent", r.table(tabla)))
-	res.render('detalleComponente', {layout: 'main',equipo: equipo[0].left,padre: equipo[0].right})
+	var mantenimientos = new Mantenimiento()
+	var equipo=await (maquinas.consultaPadres({id: req.query.id}))
+	var mantenimiento =await (mantenimientos.consultar({componente: req.query.id}))
+	res.render('detalleComponente', {layout: 'main',equipo: equipo[0].left,padre: equipo[0].right,mantenimientos: mantenimiento})
 }))
 
-app.post('/subirimagen',function(req,res){
+// ######################## FIN COMPONENTES ####################
+
+// ###################### USUARIOS ##############################
+app.get('/usuarios',restringido,async (function(req, res){
+	var usuarios= new Usuario()
+	var listausuarios=await (usuarios.consultar(1))
+	res.render('usuarios', {layout: 'main',usuarios: listausuarios})
+}))
+
+app.post('/usuarios',restringido,async (function(req, res){
+	var usuarios= new Usuario()
+	if (req.body.id=="") {
+		delete req.body.id
+		var id = await (usuarios.insertar(req.body))
+	}else{
+		var id  = req.body.id
+		delete req.body.id
+		await (usuarios.actualizar({id: id},req.body))
+	}
+	
+	var listausuarios=await (usuarios.consultar({id: id}))
+	listausuarios[0].layout=null
+	res.render('partials/usuario', listausuarios[0])
+}))
+
+app.post('/borrarusuario',restringido,async (function(req, res){
+		var usuarios= new Usuario()
+		await(usuarios.eliminar({id:req.body.id}))
+		res.send('Eliminado')
+
+}))
+
+app.post('/editarusuario',restringido,async (function(req, res){
+		var usuarios= new Usuario()
+		var usuario = await (usuarios.consultar({id: req.body.id}))
+		res.send(usuario[0])
+}))
+ // ################ FIN USUARIOS #############################
+
+
+
+// ################## CARGA DE IMAGENES ##########################
+
+app.post('/subirimagen',restringido,function(req,res){
 	var idimagen=uuid.v4()
 	var storage	=	multer.diskStorage({
 	  destination: function (req, file, callback) {
@@ -122,12 +292,42 @@ app.post('/subirimagen',function(req,res){
 	});
 });
 
+// ############## FIN DE CARGA IMAGENES ####################
 
-app.get('/setMantenimiento',async (function(req, res){
-	var maquinas= new Componente()
-	var equipo=await (maquinas.consultaPadres({id: req.query.id}))
-	res.render('setMantenimiento', {layout: 'main',equipo: equipo[0].left,padre: equipo[0].right})
+// #################### MANTENIMIENTOS ############################
+
+app.post('/setMantenimiento',restringido,async (function(req, res){
+	var mantenimiento= new Mantenimiento()
+	var currentdate = new Date()
+
+	if (req.body.averia) {
+		req.body.tipoMantenimiento=req.body.tipo+'2'
+	}else{
+		req.body.tipoMantenimiento=req.body.tipo+'1'
+	}
+	if (req.body.tipo=='1') {
+		delete req.body.tipo
+	}
+	req.body.fechaMantenimiento = currentdate.toLocaleString()
+	currentdate.setHours(0, 0, 0, 0)
+	req.body.fechaLunes=lunes(currentdate)
+	// delete req.body.tipo
+	// delete req.body.averia
+	req.body.usuario = req.session.usuario
+	var id = await (mantenimiento.insertar(req.body))
+	var agregado=await (mantenimiento.consultar({id: id}))
+	agregado[0].layout=null
+	res.render('partials/mantenimiento', agregado[0])
 }))
+
+app.post('/borrarmantenimiento',restringido,async (function(req, res){
+		var mantenimiento= new Mantenimiento()
+		await(mantenimiento.eliminar({id:req.body.id}))
+		res.send('Eliminado')
+
+}))
+
+// ################ FIN MANTENIMIENTOS ############################
 
 var fs = require('fs');
 var pdf = require('html-pdf');
@@ -151,7 +351,7 @@ app.get('/login',async(function(req, res) {
 	// });
 	// res.send('listo')
 	var maquinas= new Componente()
-	var componentes=await (maquinas.consultaPadres(function(user) {return user.hasFields("parent")},"parent", r.db('mantenimiento').table("component"))
+	var componentes=await (maquinas.consultaPadres(function(user) {return user.hasFields("parent")}))
 
 	var template = fs.readFileSync("templates/componente.handlebars", "utf8")
 	var data = {m : componentes };

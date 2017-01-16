@@ -1,57 +1,52 @@
 <div class="page-header">
-      <h1 class="page-title">Componentes de {{padre.componentName}}</h1>
+      <h1 class="page-title">Componentes de {{padre.componentName}}</h1><h4>{{semanaActual}}</h4>
       <div class="breadcrumb">
+      <div class="col-md-3">
         <button type="button" class="btn btn-sm btn-primary btn-round" onclick="window.open('/maquinas', '_self')">
         <i class="icon md-chevron-left" aria-hidden="true"></i>
           <span class="text hidden-sm-down">Regresar a Maquinas</span>
         </button>
+        </div>
+        <div class="col-md-6">
+        <div class="col-md-6">
+          <div class="pull-xs-left m-r-20">
+            <input type="checkbox" data-size="large" id="tareas" name="tareas" data-plugin="switchery"
+            checked />
+          </div>
+          <label class="p-t-3" for="tareas">Ocultar Tareas <br>Completadas</label>
+          </div>
+          <div class="col-md-6">
+          <div class="pull-xs-left m-r-20">
+            <input type="checkbox" data-size="large" id="semanas" name="semanas" data-plugin="switchery"
+            checked />
+          </div>
+          <label class="p-t-3" for="semanas">Ocultar Tareas <br>Otras Semanas</label>
+          </div>
+          </div>
+
       </div>
       <div class="page-header-actions">
         <form>
+                <button type="button" class="btn btn-sm btn-success btn-round" style="margin-bottom: 20px">
+          <span class="text hidden-sm-down">Generar Reporte de Mantenimientos</span>
+          <i class="icon md-chevron-right" aria-hidden="true"></i>
+        </button>
           <div class="input-search input-search-dark">
             <i class="input-search-icon md-search" aria-hidden="true"></i>
-            <input type="text" class="form-control" name="" placeholder="Search...">
+            <input type="text" class="form-control search" name="" placeholder="Buscar...">
           </div>
         </form>
       </div>
     </div>
     <div class="page-content">
-      <div class="projects-sort">
-        <span class="projects-sort-label">Ordenar por: </span>
-        <div class="inline-block dropdown">
-          <span id="projects-menu" data-toggle="dropdown" aria-expanded="false" role="button">
-            Elegir
-            <i class="icon md-chevron-down" aria-hidden="true"></i>
-          </span>
-          <div class="dropdown-menu animation-scale-up animation-top-left animation-duration-250"
-          aria-labelledby="projects-menu" role="menu">
-            <a class="dropdown-item" href="javascript:void(0)" role="menuitem" tabindex="-1">Alfabeticamente</a>
-            <a class="active dropdown-item" href="javascript:void(0)" role="menuitem" tabindex="-1">Mayor cantidad de piezas</a>
-            <a class="dropdown-item" href="javascript:void(0)" role="menuitem" tabindex="-1"></a>
-          </div>
-        </div>
+        <div class="projects-sort">
+
       </div>
       <div class="projects-wrap">
-        <ul class="blocks blocks-100 blocks-xxl-5 blocks-lg-4 blocks-md-3 blocks-sm-2"
+        <ul class="blocks blocks-100 blocks-xxl-5 blocks-lg-4 blocks-md-3 blocks-sm-2 list"
         data-plugin="animateList" data-child=">li">
           {{#each maquinas}}
-          <li>
-            <div class="panel">
-              <figure class="overlay overlay-hover animation-hover"  style="height: 199px;">
-                <img class="caption-figure overlay-figure" src="{{#if componentImg}}/uploads/{{componentImg}}{{else}}/photos/sin-imagen{{/if}}.jpg">
-                <figcaption class="overlay-panel overlay-background overlay-fade text-xs-center vertical-align">
-                    <div class="btn-group">
-                      <button type="button" class="btn btn-icon btn-pure btn-default" title="Editar" setid="{{id}}" data-tag=project-edit><i class="icon md-edit" aria-hidden="true"></i></button>
-                    <button type="button" class="btn btn-icon btn-pure btn-default" title="Eliminar"
-                    data-tag="project-delete" setid="{{id}}"><i class="icon md-delete" aria-hidden="true"></i></button>
-                  </div>
-                  <button type="button" class="btn btn-inverse project-button" onclick="window.open('/detalleComponente?id={{id}}', '_self')">Ver Detalle</button>
-                </figcaption>
-              </figure>
-              <div class="time pull-xs-right">{{nextMaintenance}}</div>
-              <div class="text-truncate">{{componentName}}</div>
-            </div>
-          </li>
+            {{> componente admin=../admin}}
           {{/each}}
         </ul>
       </div>
@@ -60,11 +55,13 @@
 
       </div>
   <!-- Site Action -->
+  {{#if admin}}
   <div class="site-action" data-target="#addProjectForm" data-toggle="modal" data-plugin="actionBtn">
     <button type="button" data-action="add" class="site-action-toggle btn-raised btn btn-success btn-floating">
       <i class="icon md-plus" aria-hidden="true"></i>
     </button>
   </div>
+  {{/if}}
   <!-- End Site Action -->
   <!-- Add Project Form -->
   <div class="modal fade" id="addProjectForm" aria-hidden="true" aria-labelledby="addProjectForm"
@@ -97,8 +94,25 @@
               <label class="form-control-label col-sm-4" for="name">MARCA:</label>
               <div class="col-sm-8"><input type="text" class="form-control" id="vendor" name="vendor" placeholder="Marca"></div>
             </div>
+
             <div class="form-group form-material">
-            <label class="form-control-label col-sm-4" for="name">IMAGEN:</label>
+              <label class="form-control-label col-sm-4" for="name">AM Estandar</label>
+              <div class="checkbox-custom checkbox-primary col-sm-3" style="padding-left: 30px;">
+                  <input type="checkbox" id="limpieza" name="limpieza" />
+                  <label for="limpieza">Limpieza</label>
+              </div>
+               <div class="checkbox-custom checkbox-primary col-sm-3" style="padding-left: 30px;">
+                  <input type="checkbox" id="inspeccion" name="inspeccion" />
+                  <label for="inspeccion">Inspección</label>
+              </div>
+              <div class="checkbox-custom checkbox-primary col-sm-2" style="padding-left: 30px;">
+                  <input type="checkbox" id="ajuste" name="ajuste" />
+                  <label for="ajuste">Ajuste</label>
+              </div>
+            </div>
+
+            <div class="form-group form-material">
+            <label class="form-control-label col-sm-4" for="name">IMAGEN PARTE:</label>
                   <div class="col-sm-8 input-group input-group-file " style="width: 66.666667%">
                     <input type="text" class="form-control" name="nimagen" id="nimagen" readonly="">
                     <input type="hidden" class="form-control" name="componentImg" id="componentImg" readonly="">
@@ -107,6 +121,20 @@
                       <span class="btn btn-success btn-file waves-effect waves-light">
                         <i class="icon md-upload" aria-hidden="true"></i>
                         <input type="file" name="imagen" id="imagen" multiple="">
+                      </span>
+                    </span>
+                  </div>
+            </div>
+
+            <div class="form-group form-material">
+            <label class="form-control-label col-sm-4" for="name">IMAGEN UBICACIÓN:</label>
+                  <div class="col-sm-8 input-group input-group-file " style="width: 66.666667%">
+                    <input type="text" class="form-control" name="nimagenu" id="nimagenu" readonly="">
+                    <input type="hidden" class="form-control" name="componentImgu" id="componentImgu" readonly="">
+                    <span class="input-group-btn">
+                      <span class="btn btn-success btn-file waves-effect waves-light">
+                        <i class="icon md-upload" aria-hidden="true"></i>
+                        <input type="file" name="imagenu" id="imagenu" multiple="">
                       </span>
                     </span>
                   </div>
@@ -123,9 +151,11 @@
 
           </form>
         </div>
+        
         <div class="modal-footer text-xs-right">
           <button class="btn btn-primary" data-dismiss="modal" type="button" onclick="enviarmaquina();" id="guardar">Crear</button>
           <a class="btn btn-sm btn-white btn-pure" data-dismiss="modal" href="javascript:void(0)">Cancelar</a>
         </div>
+        
       </div>
     </div>

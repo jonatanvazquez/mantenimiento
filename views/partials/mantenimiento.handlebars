@@ -1,0 +1,102 @@
+              <tbody class="table-section" data-plugin="tableSection">
+                <tr>
+                  <td class="text-xs-center"><i class="table-section-arrow"></i></td>
+                  <td class="font-weight-medium">
+                    {{usuario}}
+                  </td>
+                  <td>
+                    {{#if tipo}}
+                    <span class="tag tag-danger">No Planeado</span>
+                    {{else}}
+                    <span class="tag tag-success">Planeado</span>
+                    {{/if}}
+                  </td>
+                  <td class="hidden-sm-down">
+                    <span class="text-muted">{{fechaMantenimiento}}</span>
+                  </td>
+                  {{#if admin}}
+                  <td>
+                  <button type="button" class="btn btn-sm btn-icon btn-flat btn-default" data-toggle="tooltip"
+                  data-original-title="Borrar" setid={{id}} data-tag='mantenimiento-delete'>
+                    <i class="icon md-close" aria-hidden="true"></i>
+                  </button>
+                  </td>
+                  {{/if}}
+                </tr>
+              </tbody>
+              <tbody>
+                <tr>
+                  <td></td>
+                  <td class="font-weight-medium text-success">
+                    Tipo de Mantenimiento
+                  </td>
+                  <td>
+                    {{#if tipo}}
+                    No Planeado
+                    {{else}}
+                    Planeado
+                    {{/if}}
+                  </td>
+                  <td class="hidden-sm-down">
+                  </td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td class="font-weight-medium text-success">
+                    Causa Raiz
+                  </td>
+                  <td>
+                    {{causaRaiz}}
+                  </td>
+                  <td class="hidden-sm-down">
+                  </td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td class="font-weight-medium text-success">
+                    Tiempo de Inactividad
+                  </td>
+                  <td>
+                    {{Inactividad}} Mins
+                  </td>
+                  <td class="hidden-sm-down">
+                  </td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td class="font-weight-medium text-success">
+                    EWO No
+                  </td>
+                  <td>
+                    {{ewono}}
+                  </td>
+                  <td class="hidden-sm-down">
+                  </td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td class="font-weight-medium text-success">
+                    Fue debido a Avería
+                  </td>
+                  <td>
+                    {{#if averia}}
+                    Si
+                    {{else}}
+                    No
+                    {{/if}}
+                  </td>
+                  <td class="hidden-sm-down">
+                  </td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td class="font-weight-medium text-success">
+                    Notas
+                  </td>
+                  <td>
+                    {{notas}}
+                  </td>
+                  <td class="hidden-sm-down">
+                  </td>
+                </tr>
+              </tbody>

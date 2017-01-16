@@ -5,12 +5,6 @@
           <span class="text hidden-sm-down">Regresar a {{padre.componentName}}</span>
         </button>
       </div>
-      <div class="page-header-actions">
-        <button type="button" class="btn btn-sm btn-primary btn-round" onclick="window.open('/setMantenimiento?id={{equipo.id}}', '_self')">
-          <span class="text hidden-sm-down">Registrar Mantenimiento</span>
-          <i class="icon md-chevron-right" aria-hidden="true"></i>
-        </button>
-      </div>
     </div>
     <div class="page-content container-fluid">
       <div class="row" data-plugin="masonry">
@@ -42,47 +36,105 @@
               </li>
             </ul>
           </div>
+
+          <div class="panel panel-bordered panel-primary"  style="padding: 0px;">
+            <div class="panel-heading">
+              <h3 class="panel-title">Historico de Mantenimientos</h3>
+            </div>
+            <div class="panel-body" style="padding-right: 5px; padding-left: 5px;">
+            <table class="table table-hover" id="listamantenimientos">
+              <thead>
+                <tr>
+                  <th class="w-50">
+                  </th>
+                  <th>
+                    Usuario
+                  </th>
+                  <th>
+                    Tipo de Mtto
+                  </th>
+                  <th>
+                    Fecha
+                  </th>
+                  {{#if admin}}
+                  <th class="hidden-sm-down w-200">
+                    Acciones
+                  </th>
+                  {{/if}}
+                </tr>
+              </thead>
+              {{#each mantenimientos}}
+                {{> mantenimiento admin=../admin}}
+              {{/each}}
+            </table>
+            </div>
+          </div>
+
         </div>
         <div class="col-lg-6 col-xs-12 masonry-item">
-        <div class="panel panel-bordered panel-success">
+        <div class="panel panel-bordered panel-success" style="padding: 0px;">
             <div class="panel-heading">
               <h3 class="panel-title">REGISTRAR MANTENIMIENTO</h3>
             </div>
             <div class="panel-body">
-                          <div class="col-md-12">
-              <!-- Example Placeholders -->
-                <h4 class="example-title">Tipo Mantenimiento</h4>
-                <div class="example">
-                  <select class="form-control" data-plugin="select2" data-placeholder="Select a State"
-                  data-allow-clear="true">
+<form action="#" method="post" role="form" id="nuevomantenimiento" >
+            <div class="form-group form-material">
+              <label class="form-control-label col-sm-4" for="name">TIPO DE MTTO</label>
+              <div class="col-sm-8">
+                <select class="form-control" data-plugin="select2" name="tipo" id="tipo" data-allow-clear="true">
                     <option></option>
-                    <optgroup label="Mantenimiento T1">
-                      <option value="AK">TBA</option>
-                      <option value="HI">JKO</option>
-                    </optgroup>
-                    <optgroup label="Mantenimiento T2">
-                      <option value="CA">ABC</option>
-                      <option value="NV">DEF</option>
-                      <option value="OR">GHI</option>
-                      <option value="WA">JKP</option>
-                    </optgroup>
-                    <optgroup label="Mantenimiento T3">
-                      <option value="AZ">DDF</option>
-                    </optgroup>
-                  </select>
-                </div>
-              <!-- End Example Placeholders -->
+                      <option value="1">Planeado</option>
+                      <option value="2">No Planeado</option>
+                  </select></div>
             </div>
 
-            <div class="col-md-12">
-              <!-- Example Maxlength Textarea -->
-                <h4 class="example-title">NOTAS</h4>
-                <div class="example">
-                  <textarea class="maxlength-textarea form-control" data-plugin="maxlength" data-placement="bottom-right-inside"
-                  maxlength="100" rows="3" placeholder="PUEDE COLOCAR HASTA 100 CARACTERES."></textarea>
-                </div>
-              <!-- End Example Maxlength Textarea -->
+            <div class="form-group form-material">
+              <label class="form-control-label col-sm-4" for="name">CAUSA RAIZ:</label>
+                            <div class="col-sm-8">
+                <select class="form-control" data-plugin="select2" name="causaRaiz" id="causaRaiz" data-allow-clear="true">
+                    <option></option>
+                      <option value="1">Factores Externos, Refacciones</option>
+                      <option value="2">Falta de Habilidad</option>
+                      <option value="3">Diseño Debil</option>
+                      <option value="4">Falta de Mantenimiento (PM)</option>
+                      <option value="5">Falta de Mantenimiento de las Condiciones de Operación</option>
+                      <option value="6">Falta de Condiciones Básicas (AM)</option>
+                  </select></div>
             </div>
+
+            <div class="form-group form-material">
+              <label class="form-control-label col-sm-4" for="name">TIEMPO DE INACTIVIDAD:</label>
+              <div class="col-sm-8"><input type="text" class="form-control" id="Inactividad" name="Inactividad" data-plugin="asSpinner" value="" /> MINS</div>
+            </div>
+
+
+
+            <div class="form-group form-material">
+              <label class="form-control-label col-sm-4" for="name">EWO No:</label>
+              <div class="col-sm-8"><input type="text" class="form-control" id="ewono" name="ewono" data-plugin="asSpinner" value="" /></div>
+            </div>
+
+            <div class="form-group form-material">
+              <label class="form-control-label col-sm-4" for="name">AVERÍA</label>
+              <div class="checkbox-custom checkbox-primary col-sm-8" style="padding-left: 30px;">
+                  <input type="checkbox" id="averia" name="averia" value="2" />
+                  <label for="averia">¿Se debió a una Avería?</label>
+              </div>
+            </div>
+
+            <div class="form-group form-material">
+              <label class="form-control-label col-sm-4" for="name">NOTAS</label>
+              <div class="col-sm-8" style="margin-bottom: 20px;">
+              <textarea class="maxlength-textarea form-control" data-plugin="maxlength" data-placement="bottom-right-inside"
+                  maxlength="100" rows="3" placeholder="Notas Adicionales al Mantenimiento." name="notas" id="notas"></textarea>
+              </div>
+            </div>
+            <input type="hidden" id="componente" name="componente" value="{{equipo.id}}" />
+            <input type="hidden" id="padre" name="padre" value="{{padre.id}}" />
+</form>
+              <button type="button" class="btn btn-danger btn-block waves-effect waves-light" onclick="registrarmantenimiento();">Registrar Mantenimiento</button>
+            </div>
+
             </div>
           </div>
 

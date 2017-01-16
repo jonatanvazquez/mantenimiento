@@ -1,51 +1,39 @@
 <div class="page-header">
-      <h1 class="page-title">Maquinas</h1>
+      <h1 class="page-title">Maquinas</h1><h4>{{semanaActual}}</h4>
       <div class="page-header-actions">
         <form>
           <div class="input-search input-search-dark">
             <i class="input-search-icon md-search" aria-hidden="true"></i>
-            <input type="text" class="form-control" name="" placeholder="Search...">
+            <input type="text" class="form-control search" name="" placeholder="Buscar...">
           </div>
         </form>
       </div>
+      <div class="col-md-6">
+      <div class="col-md-6">
+        <div class="pull-xs-left m-r-20">
+          <input type="checkbox" data-size="large" id="tareas" name="tareas" data-plugin="switchery"
+          checked />
+        </div>
+        <label class="p-t-3" for="tareas">Ocultar Tareas <br>Completadas</label>
+        </div>
+        <div class="col-md-6">
+        <div class="pull-xs-left m-r-20">
+          <input type="checkbox" data-size="large" id="semanas" name="semanas" data-plugin="switchery"
+          checked />
+        </div>
+        <label class="p-t-3" for="semanas">Ocultar Tareas <br>Otras Semanas</label>
+        </div>
+        </div>
     </div>
     <div class="page-content">
       <div class="projects-sort">
-        <span class="projects-sort-label">Ordenar por: </span>
-        <div class="inline-block dropdown">
-          <span id="projects-menu" data-toggle="dropdown" aria-expanded="false" role="button">
-            Elegir
-            <i class="icon md-chevron-down" aria-hidden="true"></i>
-          </span>
-          <div class="dropdown-menu animation-scale-up animation-top-left animation-duration-250"
-          aria-labelledby="projects-menu" role="menu">
-            <a class="dropdown-item" href="javascript:void(0)" role="menuitem" tabindex="-1">Nombre</a>
-            <a class="active dropdown-item" href="javascript:void(0)" role="menuitem" tabindex="-1">No. Piezas</a>
-            <a class="dropdown-item" href="javascript:void(0)" role="menuitem" tabindex="-1">Prox. Mantenimiento</a>
-          </div>
-        </div>
+
       </div>
       <div class="projects-wrap">
-        <ul class="blocks blocks-100 blocks-xxl-5 blocks-lg-4 blocks-md-3 blocks-sm-2"
+        <ul class="blocks blocks-100 blocks-xxl-5 blocks-lg-4 blocks-md-3 blocks-sm-2 list"
         data-plugin="animateList" data-child=">li">
           {{#each maquinas}}
-          <li>
-            <div class="panel">
-              <figure class="overlay overlay-hover animation-hover" style="height: 199px;">
-                <img class="caption-figure overlay-figure" src="{{#if componentImg}}/uploads/{{componentImg}}{{else}}/photos/sin-imagen{{/if}}.jpg">
-                <figcaption class="overlay-panel overlay-background overlay-fade text-xs-center vertical-align">
-                    <div class="btn-group">
-                      <button type="button" class="btn btn-icon btn-pure btn-default" title="Editar" setid="{{id}}" data-tag=project-edit><i class="icon md-edit" aria-hidden="true"></i></button>
-                    <button type="button" class="btn btn-icon btn-pure btn-default" title="Eliminar"
-                    data-tag="project-delete" setid="{{id}}"><i class="icon md-delete" aria-hidden="true"></i></button>
-                  </div>
-                  <button type="button" class="btn btn-inverse project-button" onclick="window.open('/componentes?id={{id}}', '_self')">Ver Componentes</button>
-                </figcaption>
-              </figure>
-              <div class="time pull-xs-right">Feb 22, 2017</div>
-              <div class="text-truncate">{{componentName}}</div>
-            </div>
-          </li>
+            {{> maquina admin=../admin}}
           {{/each}}
         </ul>
       </div>
@@ -53,12 +41,14 @@
     </div>
 
       </div>
+         {{#if admin}}
   <!-- Site Action -->
   <div class="site-action" data-target="#addProjectForm" data-toggle="modal" data-plugin="actionBtn">
     <button type="button" data-action="add" class="site-action-toggle btn-raised btn btn-success btn-floating">
       <i class="icon md-plus" aria-hidden="true"></i>
     </button>
   </div>
+     {{/if}}
   <!-- End Site Action -->
   <!-- Add Project Form -->
   <div class="modal fade" id="addProjectForm" aria-hidden="true" aria-labelledby="addProjectForm"
@@ -95,6 +85,7 @@
                 </div>
            </form>
         </div>
+     
         <div class="modal-footer text-xs-right" style="margin-top: 20px">
           <button class="btn btn-primary" type="button" onclick="enviarmaquina();" id="guardar">Crear</button>
           <a class="btn btn-sm btn-white btn-pure" data-dismiss="modal" href="javascript:void(0)">Cancelar</a>

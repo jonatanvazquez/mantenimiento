@@ -25,6 +25,7 @@
   <link rel="stylesheet" href="examples/css/apps/projects.css">
   <link rel="stylesheet" href="vendor/bootstrap-datepicker/bootstrap-datepicker.css">
   <link rel="stylesheet" href="vendor/asspinner/asSpinner.css">
+  <link rel="stylesheet" href="vendor/bootstrap-sweetalert/sweetalert.css">
   <!-- Fonts -->
   <link rel="stylesheet" href="fonts/material-design/material-design.min.css">
   <link rel="stylesheet" href="fonts/brand-icons/brand-icons.min.css">
@@ -74,11 +75,17 @@
             data-animation="scale-up" role="button">
               <span class="avatar avatar-online">
                 <img src="/portraits/5.jpg" alt="...">
-                <i></i>
+              </span>
+              <span style="margin-left: 10px;">
+                {{{usuario}}}
               </span>
             </a>
+            
             <div class="dropdown-menu" role="menu">
-              <a class="dropdown-item" href="javascript:void(0)" role="menuitem"><i class="icon md-power" aria-hidden="true"></i> Logout</a>
+            {{#if admin}}
+              <a class="dropdown-item" href="/usuarios" role="menuitem"><i class="icon md-accounts" aria-hidden="true"></i> Administrar Usuarios</a>
+            {{/if}}
+              <a class="dropdown-item" href="/logout" role="menuitem"><i class="icon md-power" aria-hidden="true"></i> Logout</a>
             </div>
           </li>
         </ul>
@@ -143,6 +150,8 @@
   <script src="vendor/bootstrap-datepicker/bootstrap-datepicker.js"></script>
   <script src="vendor/bootstrap-datepicker/bootstrap-datepicker.es.min.js"></script>
   <script src="vendor/asspinner/jquery-asSpinner.min.js"></script>
+  <script src="vendor/bootstrap-sweetalert/sweetalert.js"></script>
+  <script src="vendor/switchery/switchery.min.js"></script>
 
   <!-- Config -->
   <script src="js/config/colors.js"></script>
@@ -164,6 +173,11 @@
   <script src="js/Plugin/asspinner.js"></script>
   <script src="js/jquerypp.custom.js"></script>
   <script src="js/jquery.form.min.js"></script>
+  <script src="js/Plugin/bootstrap-sweetalert.js"></script>
+  <script src="js/Plugin/table.js"></script>
+  <script src="js/Plugin/action-btn.min.js"></script>
+  <script src="js/list.min.js"></script>
+  <script src="js/Plugin/switchery.js"></script>
   <script src="functions.js"></script>
   
 </body>
