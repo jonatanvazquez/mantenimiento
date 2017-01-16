@@ -26,6 +26,7 @@
   <link rel="stylesheet" href="vendor/bootstrap-datepicker/bootstrap-datepicker.css">
   <link rel="stylesheet" href="vendor/asspinner/asSpinner.css">
   <link rel="stylesheet" href="vendor/bootstrap-sweetalert/sweetalert.css">
+  <link rel="stylesheet" href="vendor/magnific-popup/magnific-popup.css">
   <!-- Fonts -->
   <link rel="stylesheet" href="fonts/material-design/material-design.min.css">
   <link rel="stylesheet" href="fonts/brand-icons/brand-icons.min.css">
@@ -152,6 +153,7 @@
   <script src="vendor/asspinner/jquery-asSpinner.min.js"></script>
   <script src="vendor/bootstrap-sweetalert/sweetalert.js"></script>
   <script src="vendor/switchery/switchery.min.js"></script>
+  <script src="vendor/magnific-popup/jquery.magnific-popup.js"></script>
 
   <!-- Config -->
   <script src="js/config/colors.js"></script>
@@ -178,7 +180,12 @@
   <script src="js/Plugin/action-btn.min.js"></script>
   <script src="js/list.min.js"></script>
   <script src="js/Plugin/switchery.js"></script>
+  <script src="js/Plugin/magnific-popup.js"></script>
+
   <script src="functions.js"></script>
+  {{#if semanaActual}}
+  <script src="js/filtros.js"></script>
+  {{/if}}
   
 </body>
 </html>

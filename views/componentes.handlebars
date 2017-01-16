@@ -26,11 +26,13 @@
 
       </div>
       <div class="page-header-actions">
-        <form>
-                <button type="button" class="btn btn-sm btn-success btn-round" style="margin-bottom: 20px">
-          <span class="text hidden-sm-down">Generar Reporte de Mantenimientos</span>
-          <i class="icon md-chevron-right" aria-hidden="true"></i>
-        </button>
+        <form>  <div class="site-action" data-target="#reporteModal" data-toggle="modal" data-plugin="actionBtn">
+    <button type="button" data-action="add" class="btn btn-sm btn-success btn-round">
+      <span class="text hidden-sm-down">Generar Reporte de Mantenimientos</span>
+      <i class="icon md-chevron-right" aria-hidden="true"></i>
+    </button>
+  </div>
+
           <div class="input-search input-search-dark">
             <i class="input-search-icon md-search" aria-hidden="true"></i>
             <input type="text" class="form-control search" name="" placeholder="Buscar...">
@@ -93,6 +95,30 @@
             <div class="form-group form-material">
               <label class="form-control-label col-sm-4" for="name">MARCA:</label>
               <div class="col-sm-8"><input type="text" class="form-control" id="vendor" name="vendor" placeholder="Marca"></div>
+            </div>
+            <div class="form-group form-material">
+              <label class="form-control-label col-sm-4" for="name">CLASIFICACIÓN:</label>
+              <div class="col-sm-8"><input type="text" class="form-control" id="clasificacion" name="clasificacion" placeholder="Clasificacion"></div>
+            </div>
+            <div class="form-group form-material">
+              <label class="form-control-label col-sm-4" for="name">SMP No.:</label>
+              <div class="col-sm-8"><input type="text" class="form-control" id="SMP" name="SMP" placeholder="Clasificacion"></div>
+            </div>
+            <div class="form-group form-material">
+              <label class="form-control-label col-sm-4" for="name">DURACIÓN STANDARD:</label>
+              <div class="col-sm-8"><input type="text" class="form-control" id="duracion" name="duracion" data-plugin="asSpinner" value="" /> MINS</div>
+            </div>
+
+            <div class="form-group form-material">
+              <label class="form-control-label col-sm-4" for="anio">PM ESTRATEGIA:</label>
+              <div class="col-sm-8">
+                <select class="form-control" data-plugin="select2" name="pmEstrageia" id="pmEstrageia" data-allow-clear="true">
+                    <option></option>
+                      <option value="TBM">TBM</option>
+                      <option value="CBM">CBM</option>
+                      <option value="BDM">BDM</option>
+                </select>
+              </div>
             </div>
 
             <div class="form-group form-material">
@@ -159,3 +185,49 @@
         
       </div>
     </div>
+    </div>
+    <div class="modal fade" id="reporteModal" aria-hidden="true" aria-labelledby="reporteModal"
+    role="dialog" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" aria-hidden="true" data-dismiss="modal">×</button>
+            <h4 class="modal-title" id="tituloc">GENERAR REPORTE DE {{padre.componentName}}</h4>
+          </div>
+          <div class="modal-body">
+            <form action="#" method="post" role="form" id="reporte" class="form-horizontal">
+              <div class="form-group form-material">
+                <label class="form-control-label col-sm-4" for="anio">AÑO DE REPORTE:</label>
+                <div class="col-sm-8">
+                  <select class="form-control" data-plugin="select2" name="anio" id="anio" data-allow-clear="true">
+                      <option></option>
+                        <option value="2016">2016</option>
+                        <option value="2017">2017</option>
+                        <option value="2018">2018</option>
+                        <option value="2019">2019</option>
+                        <option value="2020">2020</option>
+                        <option value="2021">2021</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group form-material">
+                <label class="form-control-label col-sm-4" for="formato">FORMATO:</label>
+                <div class="col-sm-8">
+                  <select class="form-control" data-plugin="select2" name="formato" id="formato" data-allow-clear="true">
+                      <option></option>
+                        <option value="PDF">PDF</option>
+                        <option value="Excel">Excel</option>
+                  </select>
+                </div>
+              </div>
+
+            </form>
+          </div>
+          
+          <div class="modal-footer text-xs-right">
+            <button class="btn btn-primary" data-dismiss="modal" type="button" onclick="generarReporte();">Generar</button>
+            <a class="btn btn-sm btn-white btn-pure" data-dismiss="modal" href="javascript:void(0)">Cancelar</a>
+          </div>
+          
+        </div>
+      </div>

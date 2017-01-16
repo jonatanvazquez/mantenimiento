@@ -11,9 +11,16 @@
         <div class="col-lg-6 col-xs-12 masonry-item">
           <div class="card card-shadow">
             <div class="card-header bg-blue-600 white p-15 clearfix">
-              <a class="avatar avatar-lg pull-xs-left m-r-20" href="javascript:void(0)" style="width: 140px;">
+            <a class="avatar avatar-lg pull-xs-left m-r-20" href="{{#if equipo.componentImg}}/uploads/{{equipo.componentImg}}{{else}}/photos/sin-imagen{{/if}}.jpg" data-plugin="magnificPopup"
+                              data-close-btn-inside="false" data-fixed-contentPos="true" data-main-class="mfp-margin-0s mfp-with-zoom"
+                              data-zoom='{"enabled": "true","duration":"300"}' style="width: 140px;">
                 <img src="{{#if equipo.componentImg}}/uploads/{{equipo.componentImg}}{{else}}/photos/sin-imagen{{/if}}.jpg" alt="">
               </a>
+              <a class="avatar avatar-lg pull-xs-right m-r-20" href="{{#if equipo.componentImgu}}/uploads/{{equipo.componentImgu}}{{else}}/photos/sin-imagen{{/if}}.jpg" data-plugin="magnificPopup"
+                                data-close-btn-inside="false" data-fixed-contentPos="true" data-main-class="mfp-margin-0s mfp-with-zoom"
+                                data-zoom='{"enabled": "true","duration":"300"}' style="width: 140px;">
+                  <img src="{{#if equipo.componentImgu}}/uploads/{{equipo.componentImgu}}{{else}}/photos/sin-imagen{{/if}}.jpg" alt="">
+                </a>
               <div class="font-size-18">{{equipo.componentName}}</div>
               <div class="grey-300 font-size-14">{{padre.componentName}}</div>
             </div>

@@ -1,4 +1,30 @@
+function generarReporte(){
+	if ($('#formato').val()!='' && $('#anio').val()!='') {
+		if ($('#formato').val()=='PDF') {
+			$.post('/generarPDF', data, function(resp) {
+				window.open(resp, '_blank');
+		    	$('.modal').modal('hide');
+		    });
+		}else{
+			$.post('/generarExcel', data, function(resp) {
+				window.open(resp, '_blank');
+		    	$('.modal').modal('hide');
+		    });
+		}
 
+	}else{
+		swal({
+	      title: "Error",
+	      text: "Debes Seleccionar Fecha y Formato",
+	      type: "warning",
+	      showCancelButton: false,
+	      confirmButtonColor: '#DD6B55',
+	      confirmButtonText: 'Entiendo!',
+	      closeOnConfirm: true
+	    });
+	}
+
+}
 
 
 
@@ -95,17 +121,7 @@ function registrarmantenimiento(){
 
   $(document).ready(function() {
 
-  	var options = {
-  	  valueNames: [ 'nombre' ,'hecho', 'semana']
-  	}
 
-  	var userList = new List('main', options);
-  	function lunes(d) {
-  	  d = new Date(d);
-  	  var day = d.getDay(),
-  	      diff = d.getDate() - day + (day == 0 ? -6:1); // adjust when day is sunday
-  	  return new Date(d.setDate(diff));
-  	}
   	function semana(date) {
   		var day = date.getDate()
   		day-=(date.getDay()==0?6:date.getDay()-1)
@@ -138,70 +154,7 @@ function registrarmantenimiento(){
   		   }
   		}); 
   	}
-  	function ambos(){
-  		var hoy = semana(lunes(new Date().setHours(0, 0, 0, 0)))
 
-  		userList.filter(function(item) {
-  		   if (item.values().semana != hoy) {
-  		       return false;
-  		   } else {
-  		       if (item.values().hecho != 'true') {
-  		           return true;
-  		       } else {
-  		           return false;
-  		       }
-  		   }
-  		}); 
-  	}
-  	ambos();
-  	
-  	if(localStorage.getItem("tareas")!='true' && localStorage.getItem("semanas")!='true'){
-  			console.log('los dos')
-  			console.log(localStorage.getItem("tareas"))
-  			console.log(localStorage.getItem("semanas"))
-  			setTimeout(function() {
-  			    $('#tareas').trigger('click');
-  			    $('#semanas').trigger('click');
-  			}, 100);
-  			
-  		}else if(localStorage.getItem("tareas")!='true'){
-  			setTimeout(function() {
-  				$('#tareas').trigger('click');
-  			}, 100);
-  		}else if(localStorage.getItem("semanas")!='true'){
-  			setTimeout(function() {
-  				$('#semanas').trigger('click');
-  			}, 100);
-  		}
-  	
-  		
-        $('.filtros').change(function() {
-        	console.log('click');
-        	if ($('#tareas').prop('checked') === true && $('#semanas').prop('checked') === true) {
-        		ambos();
-        		console.log('oculta todo')
-        		localStorage.setItem("tareas", 'true');
-        		localStorage.setItem("semanas", 'true');
-        		//console.log(sessionStorage.getItem("tareas"))
-        	}else if($('#tareas').prop('checked') === true){
-        		completados();
-        		console.log('oculta tareas')
-        		localStorage.setItem("tareas", 'true');
-        		localStorage.setItem("semanas", 'false');
-        		console.log(localStorage.getItem("semanas"));
-        	}else if($('#semanas').prop('checked') === true){
-        		semanas();
-        		console.log('oculta semanas')
-        		localStorage.setItem("tareas", 'false');
-        		localStorage.setItem("semanas", 'true');
-        	}else{
-        		userList.filter();
-        		console.log('oculta nada')
-        		localStorage.setItem("tareas", 'false');
-        		localStorage.setItem("semanas", 'false');
-        	}
-
-        });
         $(document).on('click', '[data-tag=project-delete]', function (e) {
         	var miid=$(this).attr('setid');
 
@@ -269,7 +222,7 @@ function registrarmantenimiento(){
 					  url: "/borrarmantenimiento",
 					  data: {"id": miid},
 					  success: function(data) {
-						$(e.target).closest('tr').remove();
+						$('[valor='+miid+']').remove();
 					  }
 					});
                   
