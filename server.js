@@ -15,6 +15,7 @@ var await = require('asyncawait/await');
 var handlebars = require('handlebars')
 var multer	=	require('multer')
 var fs = require('fs')
+var json2csv = require('json2csv')
 
 
 app.engine('handlebars', exphbs({defaultLayout: 'main'}))
@@ -375,8 +376,8 @@ app.post('/generarPDF',async(function(req, res) {
 
 	var maquinas= new Componente()
 	var mantenimiento = new Mantenimiento()
-	var padre = await(maquinas.consultar({id:req.body.id}))
-	var hijos = await(maquinas.consultar({parent:req.body.id}))
+	var padre = await(maquinas.consultar({id:req.body.maquina}))
+	var hijos = await(maquinas.consultar({parent:req.body.maquina}))
 	
 	//var anio = new Date().getFullYear()
 	var anio = req.body.anio
@@ -452,6 +453,21 @@ app.post('/generarPDF',async(function(req, res) {
 	res.send('http://'+req.get('host')+'/formatoPDF.pdf')
 }))
 
+app.post('/generarExcel',async(function(req, res) {
+	var mantenimiento = new Mantenimiento()
+	var datos = await(mantenimiento.consultarReporte(req.body.maquina))
+	
+	var fields = ["Inactividad","averia","causaRaiz","componentName","ewono","fechaLunes","fechaMantenimiento","noCtrlPat","notas","section","tipoMantenimiento","usuario","vendor"];
+	console.log(datos)
+	var csv = json2csv({ data: datos, fields: fields });
+	 
+	fs.writeFile('tmp/reporte.csv', csv, function(err) {
+	  if (err) throw err;
+	  console.log('file saved');
+	});
+	res.send('http://'+req.get('host')+'/reporte.csv')
+	//"Tiempo de Inactividad","causaRaiz","componente","ewono","fechaLunes","fechaMantenimiento","id","notas","padre","tipoMantenimiento","usuario"
+}))
 
 /**
  * 

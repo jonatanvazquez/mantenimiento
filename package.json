@@ -43,6 +43,7 @@
     "express-session": "^1.14.2",
     "fs": "0.0.1-security",
     "html-pdf": "^2.1.0",
+    "json2csv": "^3.7.3",
     "multer": "^1.2.1",
     "page": "^1.7.1",
     "rethinkdb": "^2.3.3",
