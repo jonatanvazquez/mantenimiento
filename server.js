@@ -55,6 +55,7 @@ function lunes(d) {
       diff = d.getDate() - day + (day == 0 ? -6:1); // adjust when day is sunday
   return new Date(d.setDate(diff));
 }
+
 function semananumero(date) {
 	var day = date.getDate()
 	day-=(date.getDay()==0?6:date.getDay()-1)
@@ -67,6 +68,7 @@ function semananumero(date) {
   var week=prefixes[0 | (day) / 7]
    return week
 }
+
 function semana(date) {
 	var day = date.getDate()
 	day-=(date.getDay()==0?6:date.getDay()-1)
@@ -79,6 +81,7 @@ function semana(date) {
   var week=prefixes[0 | (day) / 7]+'º Sem de '+monthNames[date.getMonth()]
    return week
 }
+
 function siguienteMantenimiento(fecha,frecuencia,hoy){
 
 	var original = fecha.split("/")
@@ -89,6 +92,7 @@ function siguienteMantenimiento(fecha,frecuencia,hoy){
 	inicio.setDate(inicio.getDate()+(7*semanas))
 	return inicio
 }
+
 function stringaFecha(fecha){
 	var original = fecha.split("/")
 	var inicio = lunes(new Date(original[2], original[1] - 1, original[0]))
@@ -366,37 +370,75 @@ function getDateOfISOWeek(w, y) {
 
 
 
-app.get('/login',async(function(req, res) {
-
-
-	var mantenimientos = new Array()
+app.get('/generarPDF',async(function(req, res) {
 
 	var maquinas= new Componente()
-	var padre = await(maquinas.consultar({id:"15509a07-05b2-4f12-85be-bc563fb24eb8"}))
-	var hijos = await(maquinas.consultar({parent:"15509a07-05b2-4f12-85be-bc563fb24eb8"}))
+	var mantenimiento = new Mantenimiento()
+	var padre = await(maquinas.consultar({id:req.body.id}))
+	var hijos = await(maquinas.consultar({parent:req.body.id}))
+
+	console.log(hijos)
+	//var anio = new Date().getFullYear()
+	var anio = req.body.anio
 
 	hijos.forEach(function(entry){
+		var mantenimientos = new Array()
 		for(i = 1; i <= 52; i++){
-			var date = getDateOfISOWeek(i, '2017')
+			var date = getDateOfISOWeek(i, anio)
 
 			var dato = {
 				Inactividad: '', 
 				acumulativo: '', 
 				causaRaiz: '', 
 				ewono: '', 
-				tipoMantenimiento:''}
+				tipoMantenimiento:''
+			}
 
-			//componente: entry.id, fechaLunes: date
-			//if != 0 hay mantenimiento esa semana
-			//semanadif == math.round((date-entry.fechaMantenimiento)/604800000) ->diferencia de numero de semanas
-			//if (semanadif % entry.frequency) === 0 toca mantenimiento esa semana 
+			var componente = await(mantenimiento.consultar({componente:entry.id, fechaLunes: date}))
+			
+			if(componente.length != 0){
+				dato.Inactividad = componente[0].Inactividad
+				dato.causaRaiz =  componente[0].causaRaiz
+				dato.ewono =  componente[0].ewono
+				dato.tipoMantenimiento =  componente[0].tipoMantenimiento
+    
+			}
+			var semanadif = Math.round((date-entry.fechaMantenimiento)/604800000)
+
+			if ((semanadif % entry.frequency) === 0){
+				if(dato.tipoMantenimiento == ''){
+					dato.tipoMantenimiento = 10
+				}
+			} 
 			mantenimientos.push(dato)
 		}
+
+		var amEstandar = ''
+		var mEncendida = 'Maquina Apagada'
+
+		if(typeof(entry.inspeccion) !== 'undefined'){
+			amEstandar += 'Inspección '
+		}
+
+		if(typeof(entry.limpieza) !== 'undefined'){
+			amEstandar += 'Limpieza '
+		}
+		
+		if(typeof(entry.ajuste) !== 'undefined'){
+			amEstandar += 'Ajuste'
+		}
+		
+		if(typeof(entry.mEncendida) !== 'undefined'){
+			mEncendida = 'Maquina Encendida'
+		}
+
+		entry.mEncendida = mEncendida
+		entry.amEstandar = amEstandar
 		entry.mantenimiento = mantenimientos;	
 	})
 	
 	var template = fs.readFileSync("templates/formatoPDF.handlebars", "utf8")
-	var data = {padre: padre[0], listado: hijos}
+	var data = {padre: padre[0], listado: hijos, a : anio}
 
 	var compileTemplate = handlebars.compile(template)
 	var finalPageHTML = compileTemplate(data)
@@ -406,7 +448,7 @@ app.get('/login',async(function(req, res) {
 	   	console.log(res);
 	 });
 
-	console.log(finalPageHTML)
+	//console.log(finalPageHTML)
 	res.send('listoo')
 }))
 
