@@ -29,6 +29,7 @@ var Mantenimiento = require('./lib/mantenimientos')
 var bodyParser = require('body-parser')
 
 app.use(express.static('global'))
+app.use(express.static('tmp'))
 app.use(express.static('web/assets'))
 app.use(bodyParser.json()) //para aplicaciones json
 app.use(bodyParser.urlencoded({extended:true})) //para realizar peticiones tradicionales
@@ -370,14 +371,13 @@ function getDateOfISOWeek(w, y) {
 
 
 
-app.get('/generarPDF',async(function(req, res) {
+app.post('/generarPDF',async(function(req, res) {
 
 	var maquinas= new Componente()
 	var mantenimiento = new Mantenimiento()
 	var padre = await(maquinas.consultar({id:req.body.id}))
 	var hijos = await(maquinas.consultar({parent:req.body.id}))
-
-	console.log(hijos)
+	
 	//var anio = new Date().getFullYear()
 	var anio = req.body.anio
 
@@ -449,7 +449,7 @@ app.get('/generarPDF',async(function(req, res) {
 	 });
 
 	//console.log(finalPageHTML)
-	res.send('listoo')
+	res.send('http://'+req.get('host')+'/formatoPDF.pdf')
 }))
 
 
