@@ -4,6 +4,50 @@
 		"selected_items":
 		[
 			[
+				"img",
+				"imgu"
+			],
+			[
+				"uplo",
+				"uploads"
+			],
+			[
+				"tam",
+				"tamBox1"
+			],
+			[
+				"box",
+				"box_rotate"
+			],
+			[
+				"le",
+				"length"
+			],
+			[
+				"con",
+				"console.log"
+			],
+			[
+				"semana",
+				"semanadif"
+			],
+			[
+				"mante",
+				"mantenimiento"
+			],
+			[
+				"man",
+				"mantenimiento"
+			],
+			[
+				"tipo",
+				"tipoMantenimiento"
+			],
+			[
+				"ca",
+				"causaRaiz"
+			],
+			[
 				"wh",
 				"width"
 			],
@@ -34,10 +78,6 @@
 			[
 				"ama",
 				"amarillo"
-			],
-			[
-				"tam",
-				"tam2"
 			],
 			[
 				"co",
@@ -474,69 +514,11 @@
 			[
 				"alumno",
 				"alumno_grupo"
-			],
-			[
-				"idAl",
-				"$idAlumno〔variable〕"
-			],
-			[
-				"v",
-				"$vErase〔variable〕"
-			],
-			[
-				"va",
-				"$vAll〔variable〕"
-			],
-			[
-				"de",
-				"$delElements〔variable〕"
-			],
-			[
-				"opt",
-				"option"
-			],
-			[
-				"ro",
-				"$row〔variable〕"
-			],
-			[
-				"r",
-				"$rIDG〔variable〕"
-			],
-			[
-				"get",
-				"getDivClass〔function〕"
-			],
-			[
-				"getA",
-				"getAjax〔class〕"
-			],
-			[
-				"Da",
-				"Database.php"
 			]
 		]
 	},
 	"buffers":
 	[
-		{
-			"file": "server.js",
-			"settings":
-			{
-				"buffer_size": 5272,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "templates/formatoPDF.handlebars",
-			"settings":
-			{
-				"buffer_size": 18815,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -576,8 +558,6 @@
 	[
 		"/Users/juancarlosbecerril/Documents/mantenimiento",
 		"/Users/juancarlosbecerril/Documents/mantenimiento/global",
-		"/Users/juancarlosbecerril/Documents/mantenimiento/global/uploads",
-		"/Users/juancarlosbecerril/Documents/mantenimiento/web",
 		"/Users/juancarlosbecerril/Documents/mantenimiento/web/assets",
 		"/Users/juancarlosbecerril/Documents/mantenimiento/web/assets/images",
 		"/Users/juancarlosbecerril/Documents/mantenimiento/web/html",
@@ -585,16 +565,17 @@
 	],
 	"file_history":
 	[
-		"/Users/juancarlosbecerril/Documents/mantenimiento/templates/backup.handlebars",
-		"/Users/juancarlosbecerril/Documents/mantenimiento/lib/db.js",
-		"/Users/juancarlosbecerril/Documents/mantenimiento/lib/componente.js",
+		"/Users/juancarlosbecerril/Documents/mantenimiento/server.js",
 		"/Users/juancarlosbecerril/Documents/mantenimiento/templates/formatoPDF.handlebars",
+		"/Users/juancarlosbecerril/Documents/mantenimiento/templates/pruebas.handlebars",
+		"/Users/juancarlosbecerril/Documents/mantenimiento/lib/db.js",
+		"/Users/juancarlosbecerril/Documents/mantenimiento/templates/backup.handlebars",
+		"/Users/juancarlosbecerril/Documents/mantenimiento/lib/componente.js",
 		"/Users/juancarlosbecerril/Documents/mantenimiento/web/html/pages/bck.html",
 		"/Users/juancarlosbecerril/Documents/mantenimiento/web/html/pages/formatoPDF.html",
 		"/Users/juancarlosbecerril/Documents/mantenimiento/web/html/pages/otro.html",
 		"/Users/juancarlosbecerril/Documents/mantenimiento/web/html/pages/ejemplo.html",
 		"/Users/juancarlosbecerril/Documents/mantenimiento/global/css/css-pdf.css",
-		"/Users/juancarlosbecerril/Documents/mantenimiento/server.js",
 		"/Users/juancarlosbecerril/Documents/mantenimiento/test/businesscard.html",
 		"/Users/juancarlosbecerril/Documents/mantenimiento/web/html/pages/fotos.html",
 		"/Users/juancarlosbecerril/Documents/mantenimiento/lib/historyMaintenance.js",
@@ -705,6 +686,14 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"Raíz de",
+			">X",
+			"Kaizen No.",
+			">X",
+			"-X",
+			"x",
+			"X",
+			"f-9x",
 			"{{#each m}}",
 			"{{/each}}",
 			"borde-dr ",
@@ -803,246 +792,8 @@
 	"groups":
 	[
 		{
-			"selected": 1,
 			"sheets":
 			[
-				{
-					"buffer": 0,
-					"file": "server.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 5272,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								5183,
-								5183
-							]
-						],
-						"settings":
-						{
-							"bracket_highlighter.busy": false,
-							"bracket_highlighter.locations":
-							{
-								"close":
-								{
-									"1":
-									[
-										5186,
-										5187
-									]
-								},
-								"icon":
-								{
-									"1":
-									[
-										"Packages/BracketHighlighter/icons/curly_bracket.png",
-										"brackethighlighter.default"
-									]
-								},
-								"open":
-								{
-									"1":
-									[
-										5123,
-										5124
-									]
-								},
-								"unmatched":
-								{
-								}
-							},
-							"bracket_highlighter.regions":
-							[
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_single_quote_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content"
-							],
-							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 2022.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "templates/formatoPDF.handlebars",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 18815,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								7965,
-								7965
-							]
-						],
-						"settings":
-						{
-							"bracket_highlighter.busy": false,
-							"bracket_highlighter.locations":
-							{
-								"close":
-								{
-									"1":
-									[
-										7906,
-										7909
-									]
-								},
-								"icon":
-								{
-									"1":
-									[
-										"Packages/BracketHighlighter/icons/tag.png",
-										"brackethighlighter.default"
-									]
-								},
-								"open":
-								{
-									"1":
-									[
-										7906,
-										7909
-									]
-								},
-								"unmatched":
-								{
-								}
-							},
-							"bracket_highlighter.regions":
-							[
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_single_quote_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content"
-							],
-							"syntax": "Packages/HTML/HTML.sublime-syntax",
-							"tab_size": 3,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 3063.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				}
 			]
 		}
 	],

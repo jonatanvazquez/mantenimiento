@@ -356,8 +356,10 @@ var options = {
 		    bottom:'2.5cm',
 		    left:'2.5cm'
 	  	},
+	  	base: 'file://'+ __dirname + '/global/uploads',
 	  	type: 'pdf'
 	}
+
 function getDateOfISOWeek(w, y) {
     var simple = new Date(y, 0, 1 + (w - 1) * 7);
     var dow = simple.getDay();
@@ -375,9 +377,10 @@ app.post('/generarPDF',async(function(req, res) {
 
 	var maquinas= new Componente()
 	var mantenimiento = new Mantenimiento()
-	var padre = await(maquinas.consultar({id:req.body.id}))
-	var hijos = await(maquinas.consultar({parent:req.body.id}))
-	
+	var padre = await(maquinas.consultar({id:req.body.maquina}))
+	var hijos = await(maquinas.consultar({parent:req.body.maquina}))
+console.log(options.base)
+	console.log(hijos)
 	//var anio = new Date().getFullYear()
 	var anio = req.body.anio
 
@@ -432,6 +435,19 @@ app.post('/generarPDF',async(function(req, res) {
 			mEncendida = 'Maquina Encendida'
 		}
 
+		var imgc = ''
+		var imgu = ''
+
+		if(entry.componentImg !== ''){
+			imgc = entry.componentImg + '.jpg'
+		}
+
+		if(entry.componentImgu !== ''){
+			imgu = entry.componentImgu + '.jpg'
+		}
+
+		entry.imgc = imgc
+		entry.imgu = imgu
 		entry.mEncendida = mEncendida
 		entry.amEstandar = amEstandar
 		entry.mantenimiento = mantenimientos;	
@@ -448,7 +464,7 @@ app.post('/generarPDF',async(function(req, res) {
 	   	console.log(res);
 	 });
 
-	//console.log(finalPageHTML)
+	console.log(finalPageHTML)
 	res.send('http://'+req.get('host')+'/formatoPDF.pdf')
 }))
 
