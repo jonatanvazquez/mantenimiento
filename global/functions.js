@@ -1,5 +1,6 @@
 function generarReporte(){
 	if ($('#formato').val()!='' && $('#anio').val()!='') {
+		var data=$("#reporte").serialize()
 		if ($('#formato').val()=='PDF') {
 			$.post('/generarPDF', data, function(resp) {
 				window.open(resp, '_blank');
