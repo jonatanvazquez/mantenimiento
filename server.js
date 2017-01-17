@@ -395,10 +395,7 @@ app.post('/generarPDF',async(function(req, res) {
 	var mantenimiento = new Mantenimiento()
 	var padre = await(maquinas.consultar({id:req.body.maquina}))
 	var hijos = await(maquinas.consultar({parent:req.body.maquina}))
-
-	console.log(options.base)
-	console.log(hijos)
-
+	
 	var anio = req.body.anio
 
 	hijos.forEach(function(entry){
@@ -437,9 +434,6 @@ app.post('/generarPDF',async(function(req, res) {
 
 			dato.imgMantenimiento = getImgMantenimiento(dato.tipoMantenimiento)
 
-			if(dato.tipoMantenimiento == 12){
-				console.log(dato.imgMantenimiento)
-			}
 			mantenimientos.push(dato)
 		}
 
@@ -500,7 +494,6 @@ app.post('/generarPDF',async(function(req, res) {
 	   	console.log(res);
 	 });
 
-	console.log(finalPageHTML)
 	res.send('http://'+req.get('host')+'/formatoPDF.pdf')
 }))
 

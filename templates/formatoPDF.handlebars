@@ -13,6 +13,8 @@
          table{
             padding: 0px;
             text-align: center;
+            border-collapse: collapse;
+            border-spacing: 0px;
          }
 
          tr{
@@ -21,6 +23,12 @@
          }
 
          td{
+            padding: 0px;
+            margin: 0px;
+
+         }
+
+         td span, td img{
             padding: 0px;
             margin: 0px;
          }
@@ -111,9 +119,30 @@
 
          .f-mx{width: 8px;}
 
-         .f-sx{width: 98px;}
+         .f-sx{width: 90px;}
 
          .f-ix{width: 72px;}
+
+         .h-1x{height: 10px}
+
+         .h-2x{height: 40px}
+
+         .h-3x{height: 50px}
+
+         .mantImg{
+            height: 10px; 
+            width: 8px;
+         }
+
+         .mantI2{
+            width: 72px;
+            height: 50px;
+         }
+
+         .mantI3{
+            width: 90px;
+            height: 40px;
+         }
 
       </style>
    </head>
@@ -150,7 +179,7 @@
                            <tr height="10"><td colspan="6" class="f-6x borde-ab borde-dr">Componente</td></tr>
                            <tr height="40">
                               <td class="f-9x rojo borde-dr"><span class="box_rotate">Sección</span></td>
-                              <td class="f-sx borde-dr">DIBUJO / FOTO</td>
+                              <td class="mantI3 borde-dr">DIBUJO / FOTO</td>
                               <td class="f-9x borde-dr"><span class="box_rotate">Parte No.</span></td>
                               <td class="f-9x rojo borde-dr"><span class="box_rotate">Localización</span></td>
                               <td class="f-9x borde-dr"><span class="box_rotate">Vendedor</span></td>
@@ -301,8 +330,8 @@
                   <tr height="50">
                      <td class="f-4x amarillo">
                         <table cellspacing="0" class="tam2 f-4x">
-                           <tr height="50">
-                              <td class="f-ix borde-dr"><img src="{{imgu}}" style="height:35px; width:55px;"></td>
+                           <tr class="h-3x">
+                              <td class="mantI2 borde-dr"><img src="{{imgu}}" class="mantI2"></td>
                               <td class="f-mx borde-dr"></td>
                            </tr>
                         </table>
@@ -313,7 +342,7 @@
                               <td class="f-9x azul borde-dr"><span class="box_rotate">{{section}}</span></td>
                               <td class="f-sx borde-dr">
                                  <table cellspacing="0" class="tam2" style="padding: 0px">
-                                    <tr height="40"><td class="f-sx borde-ab"><img src="{{imgc}}" style="height:30px; width:50px;"></td></tr>
+                                    <tr class="h-2x"><td class="mantI3 borde-ab"><img src="{{imgc}}" class="mantI3"></td></tr>
                                     <tr height="10"><td class="f-sx">{{componentName}}</td></tr>
                                  </table>
                               </td>
@@ -383,29 +412,29 @@
             </td>
             <td class="f-5x borde">
                <table cellspacing="0" class="tam3 f-5x">
-                     <tr height="10">
+                     <tr class="h-1x">
                         {{#each mantenimiento}}
-                        <td class="borde-ab f-mx borde-dr"><img src="{{imgMantenimiento}}"></td>
+                        <td class="mantImg borde-ab borde-dr"><img class="mantImg" src="{{imgMantenimiento}}"></td>
                         {{/each}}
                      </tr>
-                     <tr height="10">
+                     <tr class="h-1x">
                         {{#each mantenimiento}}
-                        <td class="borde-ab f-mx borde-dr">{{Inactividad}}</td>
+                        <td class="mantImg borde-ab borde-dr">{{Inactividad}}</td>
                         {{/each}}
                      </tr>
-                     <tr height="10">
+                     <tr class="h-1x">
                         {{#each mantenimiento}}
-                        <td class="borde-ab f-mx borde-dr">{{acumulativo}}</td>
+                        <td class="mantImg borde-ab borde-dr">{{acumulativo}}</td>
                         {{/each}}
                      </tr>
-                     <tr height="10">
+                     <tr class="h-1x">
                         {{#each mantenimiento}}
-                        <td class="borde-ab f-mx borde-dr">{{ewono}}</td>
+                        <td class="mantImg borde-ab borde-dr">{{ewono}}</td>
                         {{/each}}
                      </tr>
-                     <tr height="10">
+                     <tr class="h-1x">
                         {{#each mantenimiento}}
-                        <td class="borde-ab f-mx borde-dr">{{causaRaiz}}</td>
+                        <td class="mantImg borde-ab borde-dr">{{causaRaiz}}</td>
                         {{/each}}
                      </tr>
                </table>
