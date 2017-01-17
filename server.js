@@ -30,7 +30,6 @@ var Mantenimiento = require('./lib/mantenimientos')
 var bodyParser = require('body-parser')
 
 app.use(express.static('global'))
-app.use(express.static('tmp'))
 app.use(express.static('web/assets'))
 app.use(bodyParser.json()) //para aplicaciones json
 app.use(bodyParser.urlencoded({extended:true})) //para realizar peticiones tradicionales
@@ -454,6 +453,8 @@ app.post('/generarPDF',async(function(req, res) {
 		entry.amEstandar = amEstandar
 		entry.mantenimiento = mantenimientos;	
 	})
+
+	var nombre = uuid.v4() + ".pdf"
 	
 	var template = fs.readFileSync("templates/formatoPDF.handlebars", "utf8")
 	var data = {padre: padre[0], listado: hijos, a : anio}
@@ -461,14 +462,18 @@ app.post('/generarPDF',async(function(req, res) {
 	var compileTemplate = handlebars.compile(template)
 	var finalPageHTML = compileTemplate(data)
 
-	pdf.create(finalPageHTML, options).toFile('./tmp/formatoPDF.pdf', function(err, res) {
+	pdf.create(finalPageHTML, options).toFile('./tmp/' + nombre, function(err, res) {
 		if (err) return console.log(err);
 	   	console.log(res);
 	 });
 
+	app.use(express.static('tmp'))
+
 	console.log(finalPageHTML)
-	res.send('http://'+req.get('host')+'/formatoPDF.pdf')
+	res.send('http://'+req.get('host')+'/'+nombre)
 }))
+
+
 
 app.post('/generarExcel',async(function(req, res) {
 	var mantenimiento = new Mantenimiento()
