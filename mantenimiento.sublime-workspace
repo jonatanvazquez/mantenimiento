@@ -5,7 +5,23 @@
 		[
 			[
 				"img",
-				"imgu"
+				"imgMantenimiento"
+			],
+			[
+				"ur",
+				"urlImg"
+			],
+			[
+				"de",
+				"default"
+			],
+			[
+				"pru",
+				"prueb.pdf"
+			],
+			[
+				"forma",
+				"formatoPDF.handlebars"
 			],
 			[
 				"uplo",
@@ -498,22 +514,6 @@
 			[
 				"dat",
 				"$datos〔variable〕"
-			],
-			[
-				"da",
-				"$datos〔variable〕"
-			],
-			[
-				"id_a",
-				"id_aGpo"
-			],
-			[
-				"id_",
-				"id_aGpo"
-			],
-			[
-				"alumno",
-				"alumno_grupo"
 			]
 		]
 	},
@@ -557,19 +557,20 @@
 	"expanded_folders":
 	[
 		"/Users/juancarlosbecerril/Documents/mantenimiento",
-		"/Users/juancarlosbecerril/Documents/mantenimiento/global",
-		"/Users/juancarlosbecerril/Documents/mantenimiento/web/assets",
-		"/Users/juancarlosbecerril/Documents/mantenimiento/web/assets/images",
-		"/Users/juancarlosbecerril/Documents/mantenimiento/web/html",
-		"/Users/juancarlosbecerril/Documents/mantenimiento/web/html/pages"
+		"/Users/juancarlosbecerril/Documents/mantenimiento/global/photos",
+		"/Users/juancarlosbecerril/Documents/mantenimiento/templates",
+		"/Users/juancarlosbecerril/Documents/mantenimiento/views",
+		"/Users/juancarlosbecerril/Documents/mantenimiento/views/partials",
+		"/Users/juancarlosbecerril/Documents/mantenimiento/web/assets"
 	],
 	"file_history":
 	[
 		"/Users/juancarlosbecerril/Documents/mantenimiento/server.js",
 		"/Users/juancarlosbecerril/Documents/mantenimiento/templates/formatoPDF.handlebars",
+		"/Users/juancarlosbecerril/Documents/mantenimiento/templates/backup.handlebars",
+		"/Users/juancarlosbecerril/Documents/mantenimiento/views/partials/mantenimiento.handlebars",
 		"/Users/juancarlosbecerril/Documents/mantenimiento/templates/pruebas.handlebars",
 		"/Users/juancarlosbecerril/Documents/mantenimiento/lib/db.js",
-		"/Users/juancarlosbecerril/Documents/mantenimiento/templates/backup.handlebars",
 		"/Users/juancarlosbecerril/Documents/mantenimiento/lib/componente.js",
 		"/Users/juancarlosbecerril/Documents/mantenimiento/web/html/pages/bck.html",
 		"/Users/juancarlosbecerril/Documents/mantenimiento/web/html/pages/formatoPDF.html",
@@ -882,7 +883,7 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 236.0,
+	"side_bar_width": 181.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

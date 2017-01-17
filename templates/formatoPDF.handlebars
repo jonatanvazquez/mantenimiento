@@ -10,14 +10,19 @@
             box-sizing: border-box;
          }
 
-         td{
+         table{
+            padding: 0px;
+            text-align: center;
+         }
+
+         tr{
             padding: 0px;
             margin: 0px;
          }
 
-         table{
+         td{
             padding: 0px;
-            text-align: center;
+            margin: 0px;
          }
 
          .esp{
@@ -211,7 +216,7 @@
                <table cellspacing="0" class="tam2 f-5x">
                   <tr height="50">
                      <td colspan="52" class="borde-ab">
-                        <img src="inst.jpg" style="height: 45px; width: 100px;">
+                        <img src="{{inst}}" style="height:45px; width:100px;">
                      </td>
                   </tr>
                   <tr height="10">
@@ -297,7 +302,7 @@
                      <td class="f-4x amarillo">
                         <table cellspacing="0" class="tam2 f-4x">
                            <tr height="50">
-                              <td class="f-ix borde-dr">{{imgu}}</td>
+                              <td class="f-ix borde-dr"><img src="{{imgu}}" style="height:35px; width:55px;"></td>
                               <td class="f-mx borde-dr"></td>
                            </tr>
                         </table>
@@ -307,8 +312,8 @@
                            <tr height="50">
                               <td class="f-9x azul borde-dr"><span class="box_rotate">{{section}}</span></td>
                               <td class="f-sx borde-dr">
-                                 <table cellspacing="0" class="tam2">
-                                    <tr height="40"><td class="f-sx borde-ab">{{imgc}}</td></tr>
+                                 <table cellspacing="0" class="tam2" style="padding: 0px">
+                                    <tr height="40"><td class="f-sx borde-ab"><img src="{{imgc}}" style="height:30px; width:50px;"></td></tr>
                                     <tr height="10"><td class="f-sx">{{componentName}}</td></tr>
                                  </table>
                               </td>
@@ -380,7 +385,7 @@
                <table cellspacing="0" class="tam3 f-5x">
                      <tr height="10">
                         {{#each mantenimiento}}
-                        <td class="borde-ab f-mx borde-dr">{{tipoMantenimiento}}</td>
+                        <td class="borde-ab f-mx borde-dr"><img src="{{imgMantenimiento}}"></td>
                         {{/each}}
                      </tr>
                      <tr height="10">

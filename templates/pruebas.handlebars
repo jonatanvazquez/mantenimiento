@@ -10,14 +10,19 @@
             box-sizing: border-box;
          }
 
-         td{
+         table{
+            padding: 0px;
+            text-align: center;
+         }
+
+         tr{
             padding: 0px;
             margin: 0px;
          }
 
-         table{
+         td{
             padding: 0px;
-            text-align: center;
+            margin: 0px;
          }
 
          .esp{
@@ -137,7 +142,7 @@
                         <table cellspacing="0" class="tam2 f-4x">
                            <tr height="10"><td class="f-4x borde-ab borde-dr">UTILITIES</td></tr>
                            <tr height="10"><td class="f-4x borde-ab borde-dr">Maquina: </td></tr>
-                           <tr height="30"><td class="f-4x borde-dr">{{padre.componentName}}</td></tr>
+                           <tr height="30"><td class="f-4x borde-dr">jejejej</td></tr>
                         </table>
                      </td>
                      <td class="f-6x">
@@ -203,7 +208,7 @@
                      <td class="f-9x borde-ab"><span class="box_rotate">6- Falta de Condiciones Basicas (AM)</span></td>
                   </tr>
                   <tr height="10" class="amarillo">
-                     <td colspan="7">SEMANAS {{a}}</td>
+                     <td colspan="7">SEMANAS 2017</td>
                   </tr>
                </table>
             </td>
@@ -211,7 +216,7 @@
                <table cellspacing="0" class="tam2 f-5x">
                   <tr height="50">
                      <td colspan="52" class="borde-ab">
-                        <img src="/images/inst.png" style="height: 40px;width: 55px;">
+                        <img src="http://localhost:3000/images/Heading.png" style="height: 45px; width: 100px;">
                      </td>
                   </tr>
                   <tr height="10">
@@ -287,140 +292,5 @@
             </td>
          </tr>
       </table> <!-- TERMINA ENCABEZADO -->
-      <!-- INICIA PLATILLA OBJETOS -->
-      {{#each listado}}
-      <table cellspacing="0" class="tablePDF">
-         <tr height="50">
-            <td class="f-3x borde tam2">
-               <table cellspacing="0" class="tam3 f-3x">
-                  <tr height="50">
-                     <td class="f-4x amarillo">
-                        <table cellspacing="0" class="tam2 f-4x">
-                           <tr height="50">
-                              <td class="f-ix borde-dr">{{componentImgu}}</td>
-                              <td class="f-mx borde-dr"></td>
-                           </tr>
-                        </table>
-                     </td>
-                     <td class="f-6x">
-                        <table cellspacing="0" class="tam3 f-6x">
-                           <tr height="50">
-                              <td class="f-9x azul borde-dr"><span class="box_rotate">{{section}}</span></td>
-                              <td class="f-sx borde-dr">
-                                 <table cellspacing="0" class="tam2">
-                                    <tr height="40"><td class="f-sx borde-ab">{{componentImg}}</td></tr>
-                                    <tr height="10"><td class="f-sx">{{componentName}}</td></tr>
-                                 </table>
-                              </td>
-                              <td class="f-9x borde-dr"><span class="box_rotate">{{noCtrlPat}}</span></td>
-                              <td class="f-9x borde-dr"><span class="box_rotate">N/A</span></td>
-                              <td class="f-9x borde-dr"><span class="box_rotate">{{vendor}}</span></td>
-                              <td class="f-9x rojo borde-dr"><span class="box_rotate">{{clasificacion}}</span></td>
-                           </tr>
-                        </table>
-                     </td>
-                     <td class="f-7x">
-                        <table cellspacing="0" class="tam3 f-7x">
-                           <tr height="50">
-                              <td class="f-9x borde-dr"><span class="box_rotate">{{pmEstrategia}}</span></td>
-                              <td class="f-9x borde-dr"><span class="box_rotate">{{smp}}</span></td>
-                              <td class="f-9x borde-dr"><span class="box_rotate">{{frequency}}</span></td>
-                              <td class="f-9x borde-dr"><span class="box_rotate">{{duracion}}</span></td>
-                              <td class="f-9x borde-dr"><span class="box_rotate">{{mEncendida}}</span></td>
-                           </tr>
-                        </table>
-                     </td>
-                     <td class="f-8x">
-                        <table cellspacing="0" class="tam3 f-8x">
-                           <tr height="50">
-                              <td class="f-9x borde-dr"><span class="box_rotate">{{amEstandar}}</span></td>
-                              <td class="f-9x borde-dr"><span class="box_rotate"></span></td>
-                           </tr>
-                        </table>
-                     </td>
-                     <td class="f-8x">
-                        <table cellspacing="0" class="tam3 f-8x">
-                           <tr height="50">
-                              <td class="f-9x borde-dr"><span class="box_rotate"></span></td>
-                              <td class="f-9x borde-dr"><span class="box_rotate"></span></td>
-                           </tr>
-                        </table>
-                     </td>
-                     <td class="f-8x">
-                        <table cellspacing="0" class="tam3 f-8x">
-                           <tr height="50">
-                              <td class="f-9x borde-dr"><span class="box_rotate"></span></td>
-                              <td class="f-9x"><span class="box_rotate"></span></td>
-                           </tr>
-                        </table>
-                     </td>
-                  </tr>
-               </table>
-            </td>
-            <td class="f-2x borde">
-               <table cellspacing="0" class="crema tam2 f-2x">
-                  <tr height="10">
-                     <td class="f-2x borde-ab">Mantenimiento Planeado</td>
-                  </tr>
-                  <tr height="10">
-                     <td class="f-2x borde-ab">Tiempo de Inactividad[min]</td>
-                  </tr>
-                  <tr height="10">
-                     <td class="f-2x borde-ab">Acumulativo No.</td>
-                  </tr>
-                  <tr height="10">
-                     <td class="f-2x borde-ab">EWO No.</td>
-                  </tr>
-                  <tr height="10">
-                     <td class="f-2x borde-ab">Causa raiz del paro (1-6)</td>
-                  </tr>
-               </table>
-            </td>
-            <td class="f-5x borde">
-               <table cellspacing="0" class="tam3 f-5x">
-                     <tr height="10">
-                        {{#each mantenimiento}}
-                        <td class="borde-ab f-mx borde-dr">{{tipoMantenimiento}}</td>
-                        {{/each}}
-                     </tr>
-                     <tr height="10">
-                        {{#each mantenimiento}}
-                        <td class="borde-ab f-mx borde-dr">{{Inactividad}}</td>
-                        {{/each}}
-                     </tr>
-                     <tr height="10">
-                        {{#each mantenimiento}}
-                        <td class="borde-ab f-mx borde-dr">{{acumulativo}}</td>
-                        {{/each}}
-                     </tr>
-                     <tr height="10">
-                        {{#each mantenimiento}}
-                        <td class="borde-ab f-mx borde-dr">{{ewono}}</td>
-                        {{/each}}
-                     </tr>
-                     <tr height="10">
-                        {{#each mantenimiento}}
-                        <td class="borde-ab f-mx borde-dr">{{causaRaiz}}</td>
-                        {{/each}}
-                     </tr>
-               </table>
-            </td>
-            <td class="f-1x borde">
-               <table cellspacing="0" class="tam3 f-1x">
-                  <tr height="20">
-                     <td class="borde-dr borde-ab f-9x"></td>
-                     <td class="borde-dr borde-ab f-9x"></td>
-                     <td class="borde-dr borde-ab f-9x"></td>
-                     <td class="borde-dr borde-ab f-9x"></td>
-                  </tr>
-                  <tr height="30" class="gris">
-                     <td colspan="2" class="borde-dr"></td>
-                     <td colspan="2"></td>
-                  </tr>
-               </table>
-            </td>
-         </tr>
-      </table> <!-- TERMINA PLATILLA OBJETOS -->
-      {{/each}}
    </body>
 </html>

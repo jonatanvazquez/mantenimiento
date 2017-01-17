@@ -258,3 +258,48 @@
 2017-01-16T17:27:48.259443000 21.928792s info: Table 7c9d6898-84d8-4978-b931-41842b0f4288: This server is Raft leader for term 3. Latest log index is 7.
 2017-01-16T17:27:48.314872000 21.984220s info: Table 587ff668-590c-49ab-a864-39dcbf47de6f: Starting a new Raft election for term 8.
 2017-01-16T17:27:48.342072000 22.011421s info: Table 587ff668-590c-49ab-a864-39dcbf47de6f: This server is Raft leader for term 8. Latest log index is 21.
+2017-01-17T10:05:40.150807000 20.042227s notice: Running rethinkdb 2.3.5 (CLANG 7.3.0 (clang-703.0.31))...
+2017-01-17T10:05:40.156668000 20.048091s notice: Running on Darwin 16.1.0 x86_64
+2017-01-17T10:05:40.156731000 20.048145s notice: Loading data from directory /Users/juancarlosbecerril/Documents/mantenimiento/rethinkdb_data
+2017-01-17T10:05:40.189024000 20.080438s info: Automatically using cache size of 2344 MB
+2017-01-17T10:05:40.189519000 20.080933s notice: Listening for intracluster connections on port 29015
+2017-01-17T10:05:40.253259000 20.144673s notice: Listening for client driver connections on port 28015
+2017-01-17T10:05:40.253359000 20.144772s notice: Listening for administrative HTTP connections on port 8080
+2017-01-17T10:05:40.253361000 20.144774s notice: Listening on cluster addresses: 127.0.0.1, ::1
+2017-01-17T10:05:40.253524000 20.144938s notice: Listening on driver addresses: 127.0.0.1, ::1
+2017-01-17T10:05:40.253528000 20.144941s notice: Listening on http addresses: 127.0.0.1, ::1
+2017-01-17T10:05:40.253530000 20.144944s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
+2017-01-17T10:05:40.253533000 20.144946s notice: Server ready, "MacBook_Pro_de_Jonatan_local_f16" 353360cb-6354-455f-80d5-499126c500b0
+2017-01-17T10:05:41.559509000 21.450854s info: Table 2041d776-3287-42dc-87c0-320401edd469: Starting a new Raft election for term 4.
+2017-01-17T10:05:41.585722000 21.477067s info: Table 2041d776-3287-42dc-87c0-320401edd469: This server is Raft leader for term 4. Latest log index is 9.
+2017-01-17T10:05:41.743097000 21.634441s info: Table 51de2c64-b40b-45a6-977e-0cb8d545e5dc: Starting a new Raft election for term 9.
+2017-01-17T10:05:41.772610000 21.663955s info: Table 51de2c64-b40b-45a6-977e-0cb8d545e5dc: This server is Raft leader for term 9. Latest log index is 26.
+2017-01-17T10:05:41.918804000 21.810148s info: Table 587ff668-590c-49ab-a864-39dcbf47de6f: Starting a new Raft election for term 9.
+2017-01-17T10:05:41.958341000 21.849685s info: Table 587ff668-590c-49ab-a864-39dcbf47de6f: This server is Raft leader for term 9. Latest log index is 24.
+2017-01-17T10:05:42.084693000 21.976038s info: Table 7c9d6898-84d8-4978-b931-41842b0f4288: Starting a new Raft election for term 4.
+2017-01-17T10:05:42.121854000 22.013199s info: Table 7c9d6898-84d8-4978-b931-41842b0f4288: This server is Raft leader for term 4. Latest log index is 10.
+2017-01-17T10:05:42.185283000 22.076628s info: Table 2a48cf99-7e96-41e0-a79c-176a7bdc54aa: Starting a new Raft election for term 4.
+2017-01-17T10:05:42.230392000 22.121737s info: Table 2a48cf99-7e96-41e0-a79c-176a7bdc54aa: This server is Raft leader for term 4. Latest log index is 13.
+2017-01-17T10:15:23.897177000 20.040651s notice: Running rethinkdb 2.3.5 (CLANG 7.3.0 (clang-703.0.31))...
+2017-01-17T10:15:23.902008000 20.045485s notice: Running on Darwin 16.1.0 x86_64
+2017-01-17T10:15:23.902091000 20.045558s notice: Loading data from directory /Users/juancarlosbecerril/Documents/mantenimiento/rethinkdb_data
+2017-01-17T10:15:23.934307000 20.077934s info: Automatically using cache size of 2907 MB
+2017-01-17T10:15:23.934715000 20.078342s notice: Listening for intracluster connections on port 29015
+2017-01-17T10:15:24.001879000 20.145606s notice: Listening for client driver connections on port 28015
+2017-01-17T10:15:24.002018000 20.145745s notice: Listening for administrative HTTP connections on port 8080
+2017-01-17T10:15:24.002023000 20.145750s notice: Listening on cluster addresses: 127.0.0.1, ::1
+2017-01-17T10:15:24.002026000 20.145752s notice: Listening on driver addresses: 127.0.0.1, ::1
+2017-01-17T10:15:24.002196000 20.145922s notice: Listening on http addresses: 127.0.0.1, ::1
+2017-01-17T10:15:24.002199000 20.145926s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
+2017-01-17T10:15:24.002202000 20.145929s notice: Server ready, "MacBook_Pro_de_Jonatan_local_f16" 353360cb-6354-455f-80d5-499126c500b0
+2017-01-17T10:15:25.389321000 21.533549s info: Table 51de2c64-b40b-45a6-977e-0cb8d545e5dc: Starting a new Raft election for term 10.
+2017-01-17T10:15:25.410685000 21.554913s info: Table 51de2c64-b40b-45a6-977e-0cb8d545e5dc: This server is Raft leader for term 10. Latest log index is 29.
+2017-01-17T10:15:25.462202000 21.606430s info: Table 587ff668-590c-49ab-a864-39dcbf47de6f: Starting a new Raft election for term 10.
+2017-01-17T10:15:25.485298000 21.629525s info: Table 587ff668-590c-49ab-a864-39dcbf47de6f: This server is Raft leader for term 10. Latest log index is 28.
+2017-01-17T10:15:25.697698000 21.841926s info: Table 7c9d6898-84d8-4978-b931-41842b0f4288: Starting a new Raft election for term 5.
+2017-01-17T10:15:25.768561000 21.912788s info: Table 7c9d6898-84d8-4978-b931-41842b0f4288: This server is Raft leader for term 5. Latest log index is 14.
+2017-01-17T10:15:25.867700000 22.011968s info: Table 2041d776-3287-42dc-87c0-320401edd469: Starting a new Raft election for term 5.
+2017-01-17T10:15:25.915009000 22.059437s info: Table 2a48cf99-7e96-41e0-a79c-176a7bdc54aa: Starting a new Raft election for term 5.
+2017-01-17T10:15:25.925477000 22.069945s info: Table 2041d776-3287-42dc-87c0-320401edd469: This server is Raft leader for term 5. Latest log index is 12.
+2017-01-17T10:15:25.961557000 22.106185s info: Table 2a48cf99-7e96-41e0-a79c-176a7bdc54aa: This server is Raft leader for term 5. Latest log index is 17.
+2017-01-17T10:19:43.987400000 280.145506s info: Table 2041d776-3287-42dc-87c0-320401edd469: Configuration is changing.

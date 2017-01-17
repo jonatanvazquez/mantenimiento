@@ -16,6 +16,7 @@ var handlebars = require('handlebars')
 var multer	=	require('multer')
 var fs = require('fs')
 var json2csv = require('json2csv')
+var pdf = require('html-pdf');
 
 
 app.engine('handlebars', exphbs({defaultLayout: 'main'}))
@@ -29,6 +30,7 @@ var Mantenimiento = require('./lib/mantenimientos')
 
 var bodyParser = require('body-parser')
 
+app.use(express.static('tmp'))
 app.use(express.static('global'))
 app.use(express.static('web/assets'))
 app.use(bodyParser.json()) //para aplicaciones json
@@ -345,19 +347,16 @@ app.post('/borrarmantenimiento',restringido,async (function(req, res){
 
 // ################ FIN MANTENIMIENTOS ############################
 
-var fs = require('fs');
-var pdf = require('html-pdf');
 var options = {
-		format: 'Tabloid',
-		orientation: 'landscape', // portrait or landscape 
-		border: {
-		    top:'2.5cm',            // default is 0, units: mm, cm, in, px 
-		    right:'2.5cm',
-		    bottom:'2.5cm',
-		    left:'2.5cm'
+		"format" : "Tabloid",
+		"orientation" : "landscape", // portrait or landscape 
+		"border" : {
+		    "top" : "2.5cm",            // default is 0, units: mm, cm, in, px 
+		    "right" : "2.5cm",
+		    "bottom" : "2.5cm",
+		    "left" : "2.5cm"
 	  	},
-	  	base: 'file://'+ __dirname + '/global/uploads',
-	  	type: 'pdf'
+	  	"type" : "pdf"
 	}
 
 function getDateOfISOWeek(w, y) {
@@ -371,7 +370,24 @@ function getDateOfISOWeek(w, y) {
     return ISOweekStart;
 }
 
-
+function getImgMantenimiento(tipo){
+	var urlImg = 'file://' + __dirname + '/global/photos/'
+	switch(tipo){
+		case '10': urlImg += '10.png' 
+		break
+		case '11': urlImg += '11.png'  
+		break
+		case '12': urlImg += '12.png' 
+		break
+		case '21': urlImg += '21.png' 
+		break
+		case '22': urlImg += '22.png' 
+		break
+		default: urlImg += 'default.png' 
+		break
+	}
+	return urlImg
+}
 
 app.post('/generarPDF',async(function(req, res) {
 
@@ -395,7 +411,8 @@ app.post('/generarPDF',async(function(req, res) {
 				acumulativo: '', 
 				causaRaiz: '', 
 				ewono: '', 
-				tipoMantenimiento:''
+				tipoMantenimiento:'',
+				imgMantenimiento: ''
 			}
 
 			var componente = await(mantenimiento.consultar({componente:entry.id, fechaLunes: date}))
@@ -405,15 +422,24 @@ app.post('/generarPDF',async(function(req, res) {
 				dato.causaRaiz =  componente[0].causaRaiz
 				dato.ewono =  componente[0].ewono
 				dato.tipoMantenimiento =  componente[0].tipoMantenimiento
-    
 			}
 			var semanadif = Math.round((date-entry.fechaMantenimiento)/604800000)
 
 			if ((semanadif % entry.frequency) === 0){
 				if(dato.tipoMantenimiento == ''){
-					dato.tipoMantenimiento = 10
+					dato.tipoMantenimiento = '10'
+				}
+			}else{
+				if(dato.tipoMantenimiento == ''){
+					dato.tipoMantenimiento = '1'
 				}
 			} 
+
+			dato.imgMantenimiento = getImgMantenimiento(dato.tipoMantenimiento)
+
+			if(dato.tipoMantenimiento == 12){
+				console.log(dato.imgMantenimiento)
+			}
 			mantenimientos.push(dato)
 		}
 
@@ -440,37 +466,42 @@ app.post('/generarPDF',async(function(req, res) {
 		var imgu = ''
 
 		if(entry.componentImg !== ''){
-			imgc = entry.componentImg + '.jpg'
+			imgc = 'file://' + __dirname + '/global/uploads/' + entry.componentImg + '.jpg'
+		}else{
+			imgc = 'file://' + __dirname + '/global/photos/sin-imagen.jpg'
 		}
 
 		if(entry.componentImgu !== ''){
-			imgu = entry.componentImgu + '.jpg'
+			imgu = 'file://' + __dirname + '/global/uploads/' + entry.componentImgu + '.jpg'
+		}else{
+			imgu = 'file://' + __dirname + '/global/photos/sin-imagen.jpg'
 		}
 
 		entry.imgc = imgc
 		entry.imgu = imgu
 		entry.mEncendida = mEncendida
 		entry.amEstandar = amEstandar
-		entry.mantenimiento = mantenimientos;	
+		entry.mantenimiento = mantenimientos
 	})
 
-	var nombre = uuid.v4() + ".pdf"
+	//var nombre = './tmp/' + uuid.v4() + ".pdf"
+	//
+	
+	var i = 'file://' + __dirname + '/global/uploads/inst.jpg'
 	
 	var template = fs.readFileSync("templates/formatoPDF.handlebars", "utf8")
-	var data = {padre: padre[0], listado: hijos, a : anio}
+	var data = {padre: padre[0], listado: hijos, a : anio, inst : i}
 
 	var compileTemplate = handlebars.compile(template)
 	var finalPageHTML = compileTemplate(data)
 
-	pdf.create(finalPageHTML, options).toFile('./tmp/' + nombre, function(err, res) {
+	pdf.create(finalPageHTML, options).toFile('./tmp/formatoPDF.pdf', function(err, res) {
 		if (err) return console.log(err);
 	   	console.log(res);
 	 });
 
-	app.use(express.static('tmp'))
-
 	console.log(finalPageHTML)
-	res.send('http://'+req.get('host')+'/'+nombre)
+	res.send('http://'+req.get('host')+'/formatoPDF.pdf')
 }))
 
 
