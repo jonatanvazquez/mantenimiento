@@ -126,6 +126,7 @@ app.post('/login',async (function(req,res){
   	if (resultado[0].rol=='admin') {app.locals.admin='admin'}
   	app.locals.usuario = resultado[0].username
   	app.locals.rol = resultado[0].rol
+  	app.locals.area = resultado[0].area
   	res.redirect('/maquinas');
   }else{
   	res.redirect('/');
@@ -140,6 +141,7 @@ req.session.destroy(function(err) {
   	delete app.locals.usuario
   	delete app.locals.rol
   	delete app.locals.admin
+  	delete app.locals.area
     res.redirect('/');
   }
 });
@@ -151,7 +153,8 @@ req.session.destroy(function(err) {
 app.get('/maquinas',restringido, async (function(req, res){
 	var maquinas= new Componente()
 	var mantenimientos = new Mantenimiento()
-	var listaequipos=await (maquinas.consultar(function(user) {return user.hasFields("parent").not()}))
+	console.log('Variable Global valor es: ' + app.locals.area)
+	var listaequipos=await (maquinas.consultarMaquinasUsuario(app.locals.area))
 	var hoy = lunes(new Date().setHours(0, 0, 0, 0))
 	
 	listaequipos.forEach(function(entry) {

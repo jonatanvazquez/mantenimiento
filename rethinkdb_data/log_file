@@ -303,3 +303,6 @@
 2017-01-17T10:15:25.925477000 22.069945s info: Table 2041d776-3287-42dc-87c0-320401edd469: This server is Raft leader for term 5. Latest log index is 12.
 2017-01-17T10:15:25.961557000 22.106185s info: Table 2a48cf99-7e96-41e0-a79c-176a7bdc54aa: This server is Raft leader for term 5. Latest log index is 17.
 2017-01-17T10:19:43.987400000 280.145506s info: Table 2041d776-3287-42dc-87c0-320401edd469: Configuration is changing.
+2017-01-17T16:56:07.408564000 21407.343568s info: Table 2041d776-3287-42dc-87c0-320401edd469: Configuration is changing.
+2017-01-17T16:56:17.590961000 21417.526053s info: Table 2041d776-3287-42dc-87c0-320401edd469: Configuration is changing.
+2017-01-17T16:56:41.433303000 21441.368596s info: Table 2041d776-3287-42dc-87c0-320401edd469: Configuration is changing.
