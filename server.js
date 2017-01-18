@@ -489,7 +489,7 @@ app.post('/generarPDF',async(function(req, res) {
 	//var nombre = './tmp/' + uuid.v4() + ".pdf"
 	//
 	
-	var i = 'file://' + __dirname + '/global/uploads/inst.jpg'
+	var i = 'file://' + __dirname + '/global/photos/inst.jpg'
 	
 	var template = fs.readFileSync("templates/formatoPDF.handlebars", "utf8")
 	var data = {padre: padre[0], listado: hijos, a : anio, inst : i}
