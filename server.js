@@ -153,7 +153,6 @@ req.session.destroy(function(err) {
 app.get('/maquinas',restringido, async (function(req, res){
 	var maquinas= new Componente()
 	var mantenimientos = new Mantenimiento()
-	console.log('Variable Global valor es: ' + app.locals.area)
 	var listaequipos=await (maquinas.consultarMaquinasUsuario(app.locals.area))
 	var hoy = lunes(new Date().setHours(0, 0, 0, 0))
 	
