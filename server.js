@@ -153,7 +153,13 @@ req.session.destroy(function(err) {
 app.get('/maquinas',restringido, async (function(req, res){
 	var maquinas= new Componente()
 	var mantenimientos = new Mantenimiento()
-	var listaequipos=await (maquinas.consultarMaquinasUsuario(app.locals.area))
+	var listaequipos
+	if(app.locals.rol == 'admin'){
+		listaequipos = await (maquinas.consultar(function(user) {return user.hasFields("parent").not()}))
+	}else{
+		listaequipos = await (maquinas.consultarMaquinasUsuario(app.locals.area))
+	}
+	console.log(listaequipos)
 	var hoy = lunes(new Date().setHours(0, 0, 0, 0))
 	
 	listaequipos.forEach(function(entry) {
