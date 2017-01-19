@@ -159,7 +159,7 @@ app.get('/maquinas',restringido, async (function(req, res){
 	}else{
 		listaequipos = await (maquinas.consultarMaquinasUsuario(app.locals.area))
 	}
-	console.log(listaequipos)
+	
 	var hoy = lunes(new Date().setHours(0, 0, 0, 0))
 	
 	listaequipos.forEach(function(entry) {
@@ -496,7 +496,8 @@ app.post('/generarPDF',async(function(req, res) {
 
 	var compileTemplate = handlebars.compile(template)
 	var finalPageHTML = compileTemplate(data)
-
+	console.log("Path: " + __dirname)
+	console.log(finalPageHTML)
 	pdf.create(finalPageHTML, options).toFile('./tmp/formatoPDF.pdf', function(err, res) {
 		if (err) return console.log(err);
 	   	console.log(res);
