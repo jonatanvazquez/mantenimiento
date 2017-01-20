@@ -13,21 +13,31 @@
          table{
             padding: 0px;
             text-align: center;
-            border-collapse: collapse;
             border-spacing: 0px;
+
          }
 
          tr{
             padding: 0px;
             margin: 0px;
-            border: 1px solid #000000;
          }
 
          td{
             padding: 0px;
             margin: 0px;
-            border: 1px solid #000000;
+         }
 
+         .borde-dr{
+            border-right: 1px solid #000000 !important;
+         }
+
+         .borde-ab{
+            border-bottom: 1px solid #000000 !important;
+         }
+
+
+         .borde{
+            border: 1px solid #000000 !important;
          }
 
          td span, td img{
@@ -42,34 +52,7 @@
          .tam1{font-size: 5px;}
          .tam2{font-size: 4px;}
          .tam3{font-size: 3px;}
-
-         .rowTable{
-             width:100%;
-             clear:both;
-             background: #FFFFFF;
-             text-align: center;
-         }
-
-         .anchoRow{
-            line-height: .5rem;
-         }
-
-         .anchoRow2{
-            line-height: 4rem;
-         }
-
-
-         .columnRow{ 
-           float:left;
-           display:table-column;
-           text-align: center;
-         }
-
-         .borde{border: 1px solid #000000;}
-
-         .borde-ab{border-bottom: 1px solid #000000;}
-
-         .borde-dr{border-right: 1px solid #000000;}
+       
 
          .box_rotate{
             transform: rotate(-90deg);
@@ -167,10 +150,10 @@
       <!-- COMIENZA ENCABEZADO -->
       <table cellspacing="0" class="f-xx borde">
          <tr class="h-1x f-xx tam3">
-            <td class="h-1x f-3x borde amarillo" colspan="18">MACHINE LEDGER</td>
-            <td class="h-1x f-2x borde crema" colspan="7">ENLACE CON EWO</td>
-            <td class="h-1x f-5x borde" colspan="52">PM CALENDARIO</td>
-            <td class="h-1x f-1x borde" colspan="4">KPIS</td>
+            <td class="h-1x f-3x borde-ab borde-dr amarillo" colspan="18">MACHINE LEDGER</td>
+            <td class="h-1x f-2x borde-ab borde-dr crema" colspan="7">ENLACE CON EWO</td>
+            <td class="h-1x f-5x borde-ab borde-dr" colspan="52">PM CALENDARIO</td>
+            <td class="h-1x f-1x borde-ab borde-dr" colspan="4">KPIS</td>
          </tr>
          <tr class="h-1x f-xx tam3">
             <td class="h-1x f-4x borde-ab borde-dr amarillo"></td>
@@ -201,184 +184,184 @@
             <td class="f-9x borde-ab borde-dr crema" rowspan="4">
                <span class="box_rotate">6- Falta de Condiciones Basicas (AM)</span>
             </td>
-            <td colspan="52" class="f-5x borde-ab" rowspan="4">
+            <td colspan="52" class="f-5x borde-ab borde-dr" rowspan="4">
                <img src="{{inst}}" style="height:45px; width:100px;">
             </td>
-            <td class="f-9x borde-dr naranja" rowspan="5">
+            <td class="f-9x borde-dr borde-ab  naranja" rowspan="5">
                <span class="box_rotate">MTTR(r) (min)</span>
             </td>
-            <td class="f-9x naranja" rowspan="5">
+            <td class="f-9x borde-dr borde-ab  naranja" rowspan="5">
                <span class="box_rotate">MTBF (h)</span>
             </td>
-            <td class="f-9x naranja" rowspan="5">
+            <td class="f-9x borde-dr borde-ab  naranja" rowspan="5">
                <span class="box_rotate">MTTR (min) - Año Anterior</span>
             </td>
-            <td class="f-9x naranja" rowspan="5">
+            <td class="f-9x borde-dr borde-ab naranja" rowspan="5">
                <span class="box_rotate">MTBF (h) - Año anterior</span>
             </td>
          </tr>
          <tr class="h-1x f-xx tam3">
             <td class="h-1x f-4x borde-ab borde-dr amarillo"></td>
             <td colspan="6" class="h-1x f-6x borde-ab borde-dr">Componente</td>
-            <td class="f-9x borde-dr naranja" rowspan="4">
+            <td class="f-9x borde-dr borde-ab naranja" rowspan="4">
                <span class="box_rotate">Estrategia (TBM,CBM, BDM)</span>
             </td>
-            <td class="f-9x borde-dr naranja" rowspan="4">
+            <td class="f-9x borde-dr borde-ab naranja" rowspan="4">
                <span class="box_rotate">SMP No.</span>
             </td>
-            <td class="f-9x borde-dr naranja" rowspan="4">
+            <td class="f-9x borde-dr borde-ab naranja" rowspan="4">
                <span class="box_rotate">Frecuencia (Semanas)</span>
             </td>
-            <td class="f-9x borde-dr naranja" rowspan="4">
+            <td class="f-9x borde-dr borde-ab naranja" rowspan="4">
                <span class="box_rotate">Duracion Estandar [min]</span>
             </td>
-            <td class="f-9x naranja" rowspan="4">
+            <td class="f-9x borde-dr borde-ab naranja" rowspan="4">
                <span class="box_rotate naranja">Maquina Apagada/ Encendida</span>
             </td>
-            <td class="f-9x borde-dr azul" rowspan="4">
+            <td class="f-9x borde-dr borde-ab azul" rowspan="4">
                <span class="box_rotate">AM Estandar (L.I.L.A)</span>
             </td>
-            <td class="f-9x azul" rowspan="4">
+            <td class="f-9x borde-dr borde-ab azul" rowspan="4">
                <span class="box_rotate">Frecuencia (S,W,2xW, M,3M)</span>
             </td>
-            <td class="f-9x borde-dr rojo" rowspan="4">
+            <td class="f-9x borde-dr borde-ab rojo" rowspan="4">
                <span class="box_rotate">Puntos de Calidad</span>
             </td>
-            <td class="f-9x rojo" rowspan="4">
+            <td class="f-9x borde-dr borde-ab rojo" rowspan="4">
                <span class="box_rotate">QM Matriz No.</span>
             </td>
-            <td class="f-9x borde-dr gris" rowspan="4">
+            <td class="f-9x borde-dr borde-ab gris" rowspan="4">
                <span class="box_rotate">Tipo de Kaizen</span>
             </td>
-            <td class="f-9x gris" rowspan="4">
+            <td class="f-9x borde-dr borde-ab gris" rowspan="4">
                <span class="box_rotate">Kaizen No.</span>
             </td>
          </tr>
          <tr class="h-1x f-xx tam3">
             <td class="f-4x borde-ab borde-dr tam2">Maquina: </td>
-            <td class="f-9x borde-dr  rojo" rowspan="3"><span class="box_rotate">Sección</span></td>
-            <td class="f-2x borde-dr" rowspan="3">DIBUJO / FOTO</td>
-            <td class="f-9x borde-dr" rowspan="3"><span class="box_rotate">Parte No.</span></td>
-            <td class="f-9x borde-dr rojo" rowspan="3"><span class="box_rotate">Localización</span></td>
-            <td class="f-9x borde-dr" rowspan="3"><span class="box_rotate">Vendedor</span></td>
-            <td class="f-9x" rowspan="3"><span class="box_rotate">Clasificación</span></td>
+            <td class="f-9x borde-dr borde-ab rojo" rowspan="3"><span class="box_rotate">Sección</span></td>
+            <td class="f-2x borde-dr borde-ab" rowspan="3">DIBUJO / FOTO</td>
+            <td class="f-9x borde-dr borde-ab" rowspan="3"><span class="box_rotate">Parte No.</span></td>
+            <td class="f-9x borde-dr borde-ab rojo" rowspan="3"><span class="box_rotate">Localización</span></td>
+            <td class="f-9x borde-dr borde-ab" rowspan="3"><span class="box_rotate">Vendedor</span></td>
+            <td class="f-9x borde-dr borde-ab" rowspan="3"><span class="box_rotate">Clasificación</span></td>
          </tr>
          <tr class="h-5x tam2">
-            <td rowspan="2" class="f-4x tam1 borde-dr">{{padre.componentName}}</td>
+            <td rowspan="2" class="f-4x tam1 borde-dr borde-ab">{{padre.componentName}}</td>
          </tr>
          <tr class="h-1x tam2">
             
-            <td class="f-2x borde crema" colspan="7">SEMANAS {{a}}</td>
-            <td class="h-1x f-mx amarillo borde-dr">01</td>
-            <td class="h-1x f-mx amarillo borde-dr">02</td>
-            <td class="h-1x f-mx amarillo borde-dr">03</td>
-            <td class="h-1x f-mx amarillo borde-dr">04</td>
-            <td class="h-1x f-mx amarillo borde-dr">05</td>
-            <td class="h-1x f-mx amarillo borde-dr">06</td>
-            <td class="h-1x f-mx amarillo borde-dr">07</td>
-            <td class="h-1x f-mx amarillo borde-dr">08</td>
-            <td class="h-1x f-mx amarillo borde-dr">09</td>
-            <td class="h-1x f-mx amarillo borde-dr">10</td>
+            <td class="f-2x crema borde-dr borde-ab" colspan="7">SEMANAS {{a}}</td>
+            <td class="h-1x f-mx amarillo borde-dr borde-ab">01</td>
+            <td class="h-1x f-mx amarillo borde-dr borde-ab">02</td>
+            <td class="h-1x f-mx amarillo borde-dr borde-ab">03</td>
+            <td class="h-1x f-mx amarillo borde-dr borde-ab">04</td>
+            <td class="h-1x f-mx amarillo borde-dr borde-ab">05</td>
+            <td class="h-1x f-mx amarillo borde-dr borde-ab">06</td>
+            <td class="h-1x f-mx amarillo borde-dr borde-ab">07</td>
+            <td class="h-1x f-mx amarillo borde-dr borde-ab">08</td>
+            <td class="h-1x f-mx amarillo borde-dr borde-ab">09</td>
+            <td class="h-1x f-mx amarillo borde-dr borde-ab">10</td>
 
-            <td class="h-1x f-mx amarillo borde-dr">11</td>
-            <td class="h-1x f-mx amarillo borde-dr">12</td>
-            <td class="h-1x f-mx amarillo borde-dr">13</td>
-            <td class="h-1x f-mx amarillo borde-dr">14</td>
-            <td class="h-1x f-mx amarillo borde-dr">15</td>
-            <td class="h-1x f-mx amarillo borde-dr">16</td>
-            <td class="h-1x f-mx amarillo borde-dr">17</td>
-            <td class="h-1x f-mx amarillo borde-dr">18</td>
-            <td class="h-1x f-mx amarillo borde-dr">19</td>
-            <td class="h-1x f-mx amarillo borde-dr">20</td>
+            <td class="h-1x f-mx amarillo borde-dr borde-ab">11</td>
+            <td class="h-1x f-mx amarillo borde-dr borde-ab">12</td>
+            <td class="h-1x f-mx amarillo borde-dr borde-ab">13</td>
+            <td class="h-1x f-mx amarillo borde-dr borde-ab">14</td>
+            <td class="h-1x f-mx amarillo borde-dr borde-ab">15</td>
+            <td class="h-1x f-mx amarillo borde-dr borde-ab">16</td>
+            <td class="h-1x f-mx amarillo borde-dr borde-ab">17</td>
+            <td class="h-1x f-mx amarillo borde-dr borde-ab">18</td>
+            <td class="h-1x f-mx amarillo borde-dr borde-ab">19</td>
+            <td class="h-1x f-mx amarillo borde-dr borde-ab">20</td>
 
-            <td class="h-1x f-mx amarillo borde-dr">21</td>
-            <td class="h-1x f-mx amarillo borde-dr">22</td>
-            <td class="h-1x f-mx amarillo borde-dr">23</td>
-            <td class="h-1x f-mx amarillo borde-dr">24</td>
-            <td class="h-1x f-mx amarillo borde-dr">25</td>
-            <td class="h-1x f-mx amarillo borde-dr">26</td>
-            <td class="h-1x f-mx amarillo borde-dr">27</td>
-            <td class="h-1x f-mx amarillo borde-dr">28</td>
-            <td class="h-1x f-mx amarillo borde-dr">29</td>
-            <td class="h-1x f-mx amarillo borde-dr">30</td>
+            <td class="h-1x f-mx amarillo borde-dr borde-ab">21</td>
+            <td class="h-1x f-mx amarillo borde-dr borde-ab">22</td>
+            <td class="h-1x f-mx amarillo borde-dr borde-ab">23</td>
+            <td class="h-1x f-mx amarillo borde-dr borde-ab">24</td>
+            <td class="h-1x f-mx amarillo borde-dr borde-ab">25</td>
+            <td class="h-1x f-mx amarillo borde-dr borde-ab">26</td>
+            <td class="h-1x f-mx amarillo borde-dr borde-ab">27</td>
+            <td class="h-1x f-mx amarillo borde-dr borde-ab">28</td>
+            <td class="h-1x f-mx amarillo borde-dr borde-ab">29</td>
+            <td class="h-1x f-mx amarillo borde-dr borde-ab">30</td>
 
-            <td class="h-1x f-mx amarillo borde-dr">31</td>
-            <td class="h-1x f-mx amarillo borde-dr">32</td>
-            <td class="h-1x f-mx amarillo borde-dr">33</td>
-            <td class="h-1x f-mx amarillo borde-dr">34</td>
-            <td class="h-1x f-mx amarillo borde-dr">35</td>
-            <td class="h-1x f-mx amarillo borde-dr">36</td>
-            <td class="h-1x f-mx amarillo borde-dr">37</td>
-            <td class="h-1x f-mx amarillo borde-dr">38</td>
-            <td class="h-1x f-mx amarillo borde-dr">39</td>
-            <td class="h-1x f-mx amarillo borde-dr">40</td>
+            <td class="h-1x f-mx amarillo borde-dr borde-ab">31</td>
+            <td class="h-1x f-mx amarillo borde-dr borde-ab">32</td>
+            <td class="h-1x f-mx amarillo borde-dr borde-ab">33</td>
+            <td class="h-1x f-mx amarillo borde-dr borde-ab">34</td>
+            <td class="h-1x f-mx amarillo borde-dr borde-ab">35</td>
+            <td class="h-1x f-mx amarillo borde-dr borde-ab">36</td>
+            <td class="h-1x f-mx amarillo borde-dr borde-ab">37</td>
+            <td class="h-1x f-mx amarillo borde-dr borde-ab">38</td>
+            <td class="h-1x f-mx amarillo borde-dr borde-ab">39</td>
+            <td class="h-1x f-mx amarillo borde-dr borde-ab">40</td>
 
-            <td class="h-1x f-mx amarillo borde-dr">41</td>
-            <td class="h-1x f-mx amarillo borde-dr">42</td>
-            <td class="h-1x f-mx amarillo borde-dr">43</td>
-            <td class="h-1x f-mx amarillo borde-dr">44</td>
-            <td class="h-1x f-mx amarillo borde-dr">45</td>
-            <td class="h-1x f-mx amarillo borde-dr">46</td>
-            <td class="h-1x f-mx amarillo borde-dr">47</td>
-            <td class="h-1x f-mx amarillo borde-dr">48</td>
-            <td class="h-1x f-mx amarillo borde-dr">49</td>
-            <td class="h-1x f-mx amarillo borde-dr">50</td>
-            <td class="h-1x f-mx amarillo borde-dr">51</td>
-            <td class="h-1x f-mx amarillo">52</td>
+            <td class="h-1x f-mx amarillo borde-dr borde-ab">41</td>
+            <td class="h-1x f-mx amarillo borde-dr borde-ab">42</td>
+            <td class="h-1x f-mx amarillo borde-dr borde-ab">43</td>
+            <td class="h-1x f-mx amarillo borde-dr borde-ab">44</td>
+            <td class="h-1x f-mx amarillo borde-dr borde-ab">45</td>
+            <td class="h-1x f-mx amarillo borde-dr borde-ab">46</td>
+            <td class="h-1x f-mx amarillo borde-dr borde-ab">47</td>
+            <td class="h-1x f-mx amarillo borde-dr borde-ab">48</td>
+            <td class="h-1x f-mx amarillo borde-dr borde-ab">49</td>
+            <td class="h-1x f-mx amarillo borde-dr borde-ab">50</td>
+            <td class="h-1x f-mx amarillo borde-dr borde-ab">51</td>
+            <td class="h-1x f-mx amarillo borde-dr borde-ab">52</td>
          </tr>
          {{#each listado}}
             <tr class="f-xx tam3">
-               <td rowspan="5" class="h-3x f-4x tam1 borde-dr"><img class="h-3x f-4x" src="{{imgu}}"></td>
-               <td rowspan="5" class="f-9x borde-dr  rojo"><span class="box_rotate">{{section}}</span></td>
-               <td rowspan="4" class="f-2x borde-dr"><img class="h-2x f-2x" src="{{imgc}}"></td>
-               <td rowspan="5" class="f-9x borde-dr"><span class="box_rotate">{{noCtrlPat}}</span></td>
-               <td rowspan="5" class="f-9x borde-dr rojo"><span class="box_rotate">N/A</span></td>
-               <td rowspan="5" class="f-9x borde-dr"><span class="box_rotate">{{vendor}}</span></td>
-               <td rowspan="5" class="f-9x"><span class="box_rotate">{{clasificacion}}</span></td>
-               <td rowspan="5" class="f-9x borde-dr"><span class="box_rotate">{{pmEstrategia}}</span></td>
-               <td rowspan="5" class="f-9x borde-dr"><span class="box_rotate">{{smp}}</span></td>
-               <td rowspan="5" class="f-9x borde-dr"><span class="box_rotate">{{frequency}}</span></td>
-               <td rowspan="5" class="f-9x borde-dr"><span class="box_rotate">{{duracion}}</span></td>
-               <td rowspan="5" class="f-9x"><span class="box_rotate">{{mEncendida}}</span></td>
-               <td rowspan="5" class="f-9x borde-dr"><span class="box_rotate">{{amEstandar}}</span></td>
-               <td rowspan="5" class="f-9x"><span class="box_rotate"></span></td>
-               <td rowspan="5" class="f-9x borde-dr"><span class="box_rotate"></span></td>
-               <td rowspan="5" class="f-9x"><span class="box_rotate"></span></td>
-               <td rowspan="5" class="f-9x borde-dr"><span class="box_rotate"></span></td>
-               <td rowspan="5" class="f-9x"><span class="box_rotate"></span></td>
-               <td class="h-1x f-2x borde-ab" colspan="7">Mantenimiento Planeado</td>
+               <td rowspan="5" class="h-3x f-4x tam1 borde-dr borde-ab"><img class="h-3x f-4x" src="{{imgu}}"></td>
+               <td rowspan="5" class="f-9x borde-dr borde-ab  rojo"><span class="box_rotate">{{section}}</span></td>
+               <td rowspan="4" class="f-2x borde-dr borde-ab"><img class="h-2x f-2x" src="{{imgc}}"></td>
+               <td rowspan="5" class="f-9x borde-dr borde-ab"><span class="box_rotate">{{noCtrlPat}}</span></td>
+               <td rowspan="5" class="f-9x borde-dr borde-ab rojo"><span class="box_rotate">N/A</span></td>
+               <td rowspan="5" class="f-9x borde-dr borde-ab"><span class="box_rotate">{{vendor}}</span></td>
+               <td rowspan="5" class="f-9x borde-dr borde-ab"><span class="box_rotate">{{clasificacion}}</span></td>
+               <td rowspan="5" class="f-9x borde-dr borde-ab"><span class="box_rotate">{{pmEstrategia}}</span></td>
+               <td rowspan="5" class="f-9x borde-dr borde-ab"><span class="box_rotate">{{smp}}</span></td>
+               <td rowspan="5" class="f-9x borde-dr borde-ab"><span class="box_rotate">{{frequency}}</span></td>
+               <td rowspan="5" class="f-9x borde-dr borde-ab"><span class="box_rotate">{{duracion}}</span></td>
+               <td rowspan="5" class="f-9x borde-dr borde-ab"><span class="box_rotate">{{mEncendida}}</span></td>
+               <td rowspan="5" class="f-9x borde-dr borde-ab"><span class="box_rotate">{{amEstandar}}</span></td>
+               <td rowspan="5" class="f-9x borde-dr borde-ab"><span class="box_rotate"></span></td>
+               <td rowspan="5" class="f-9x borde-dr borde-ab"><span class="box_rotate"></span></td>
+               <td rowspan="5" class="f-9x borde-dr borde-ab"><span class="box_rotate"></span></td>
+               <td rowspan="5" class="f-9x borde-dr borde-ab"><span class="box_rotate"></span></td>
+               <td rowspan="5" class="f-9x borde-dr borde-ab"><span class="box_rotate"></span></td>
+               <td class="h-1x f-2x borde-ab borde-dr" colspan="7">Mantenimiento Planeado</td>
                {{#each mantenimiento}}
-                  <td class="h-1x f-mx borde-dr"><img class="h-8x f-xy" src="{{imgMantenimiento}}"></td>
+                  <td class="h-1x f-mx borde-dr borde-ab"><img class="h-8x f-xy" src="{{imgMantenimiento}}"></td>
                {{/each}}
-               <td rowspan="5" class="f-9x borde-dr"><span class="box_rotate"></span></td>
-               <td rowspan="5" class="f-9x borde-dr"><span class="box_rotate"></span></td>
-               <td rowspan="5" class="f-9x borde-dr"><span class="box_rotate"></span></td>
-               <td rowspan="5" class="f-9x borde-dr"><span class="box_rotate"></span></td>
+               <td rowspan="5" class="f-9x borde-dr borde-ab"><span class="box_rotate"></span></td>
+               <td rowspan="5" class="f-9x borde-dr borde-ab"><span class="box_rotate"></span></td>
+               <td rowspan="5" class="f-9x borde-dr borde-ab"><span class="box_rotate"></span></td>
+               <td rowspan="5" class="f-9x borde-ab"><span class="box_rotate"></span></td>
             </tr>
             <tr class="h-1x f-2x tam3">
-               <td colspan="7" class="h-1x f-2x borde-ab">Tiempo de Inactividad[min]</td>
+               <td colspan="7" class="h-1x f-2x borde-dr borde-ab">Tiempo de Inactividad[min]</td>
                {{#each mantenimiento}}
-                  <td class="h-1x f-mx borde-dr">{{Inactividad}}</td>
-               {{/each}}
-            </tr>
-            <tr class="h-1x f-2x tam3">
-               <td colspan="7" class="h-1x f-2x borde-ab">Acumulativo No.</td>
-               {{#each mantenimiento}}
-                  <td class="h-1x f-mx borde-dr">{{acumulativo}}</td>
+                  <td class="h-1x f-mx borde-dr borde-ab">{{Inactividad}}</td>
                {{/each}}
             </tr>
             <tr class="h-1x f-2x tam3">
-               <td colspan="7" class="h-1x f-2x borde-ab">EWO No.</td>
+               <td colspan="7" class="h-1x f-2x borde-dr borde-ab">Acumulativo No.</td>
                {{#each mantenimiento}}
-                  <td class="h-1x f-mx borde-dr">{{ewono}}</td>
+                  <td class="h-1x f-mx borde-dr borde-ab">{{acumulativo}}</td>
+               {{/each}}
+            </tr>
+            <tr class="h-1x f-2x tam3">
+               <td colspan="7" class="h-1x f-2x borde-ab borde-dr">EWO No.</td>
+               {{#each mantenimiento}}
+                  <td class="h-1x f-mx borde-dr borde-ab">{{ewono}}</td>
                {{/each}}
             </tr>
 
             <tr class="h-1x f-2x tam3">
-               <td class="h-1x f-2x">{{componentName}}</td>
-               <td colspan="7" class="h-1x f-2x">Causa raiz del paro (1-6)</td>
+               <td class="h-1x f-2x borde-ab borde-dr">{{componentName}}</td>
+               <td colspan="7" class="h-1x f-2x borde-dr borde-ab">Causa raiz del paro (1-6)</td>
                {{#each mantenimiento}}
-                  <td class="h-1x f-mx borde-dr">{{causaRaiz}}</td>
+                  <td class="h-1x f-mx borde-dr borde-ab">{{causaRaiz}}</td>
                {{/each}}
             </tr>
          {{/each}}
