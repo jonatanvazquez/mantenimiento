@@ -360,9 +360,9 @@ var options = {
 		"orientation" : "landscape", // portrait or landscape 
 		"border" : {
 		    "top" : "2.5cm",            // default is 0, units: mm, cm, in, px 
-		    "right" : "2.1cm",
+		    "right" : "1.9cm",
 		    "bottom" : "4.2cm",
-		    "left" : "2.1cm"
+		    "left" : "1.9cm"
 	  	},
 	  	"type" : "pdf"
 	}
@@ -496,8 +496,7 @@ app.post('/generarPDF',async(function(req, res) {
 
 	var compileTemplate = handlebars.compile(template)
 	var finalPageHTML = compileTemplate(data)
-	console.log("Path: " + __dirname)
-	console.log(finalPageHTML)
+
 	pdf.create(finalPageHTML, options).toFile('./tmp/formatoPDF.pdf', function(err, res) {
 		if (err) return console.log(err);
 	   	console.log(res);
