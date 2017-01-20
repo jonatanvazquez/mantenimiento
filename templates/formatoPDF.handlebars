@@ -383,10 +383,8 @@
                </table>
             </td>
          </tr>
-      </table> <!-- TERMINA ENCABEZADO -->
       <!-- INICIA PLATILLA OBJETOS -->
       {{#each listado}}
-      <table cellspacing="0" class="h-3x f-xx">
          <tr class="h-3x f-xx tam2">
             <td class="h-3x f-3x borde amarillo">
                <table cellspacing="0" class="h-3x f-3x tam3">
@@ -402,7 +400,11 @@
                      <td class="h-3x f-6x borde-ab borde-dr amarillo">
                         <table cellspacing="0" class="h-3x f-6x tam3">
                            <tr class="h-3x f-6x">
-                              <td class="h-3x f-9x azul borde-dr"><span class="box_rotate">{{section}}</span></td>
+                              <td class="h-3x f-9x azul borde-dr">
+                                 <span class="box_rotate">
+                                    {{#if section}} {{section}} {{else}} <br /> {{/if}}
+                                 </span>
+                              </td>
                               <td class="h-3x f-2x borde-dr">
                                  <table cellspacing="0" class="h-3x f-2x tam2">
                                     <tr class="h-2x f-2x">
@@ -521,7 +523,7 @@
                </table>
             </td>
          </tr>
-      </table> <!-- TERMINA PLATILLA OBJETOS -->
       {{/each}}
+      </table> <!-- TERMINA PLATILLA OBJETOS -->
    </body>
 </html>
