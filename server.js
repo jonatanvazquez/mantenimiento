@@ -360,7 +360,7 @@ var options = {
 		"orientation" : "landscape", // portrait or landscape 
 		"border" : {
 		    "top" : "2.5cm",            // default is 0, units: mm, cm, in, px 
-		    "right" : "2.5cm",
+		    "right" : "2.1cm",
 		    "bottom" : "4.2cm",
 		    "left" : "2.5cm"
 	  	},
