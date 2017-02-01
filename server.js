@@ -36,7 +36,7 @@ app.use(express.static('web/assets'))
 app.use(bodyParser.json()) //para aplicaciones json
 app.use(bodyParser.urlencoded({extended:true})) //para realizar peticiones tradicionales
 app.use(session({
-	secret: "7SJUER349KERqdzts",
+	secret: uuid.v4(),
 	resave: false,
 	saveUninitialized: false,
 	cookie: {expires: new Date(253402300000000)}
