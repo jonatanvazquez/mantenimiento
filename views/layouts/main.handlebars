@@ -78,12 +78,12 @@
                 <img src="/portraits/5.jpg" alt="...">
               </span>
               <span style="margin-left: 10px;">
-                {{{usuario}}}
+                {{{sess.usuario}}}
               </span>
             </a>
             
             <div class="dropdown-menu" role="menu">
-            {{#if admin}}
+            {{#if sess.admin}}
               <a class="dropdown-item" href="/usuarios" role="menuitem"><i class="icon md-accounts" aria-hidden="true"></i> Administrar Usuarios</a>
             {{/if}}
               <a class="dropdown-item" href="/logout" role="menuitem"><i class="icon md-power" aria-hidden="true"></i> Logout</a>

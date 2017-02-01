@@ -48,7 +48,7 @@
         <ul class="blocks blocks-100 blocks-xxl-5 blocks-lg-4 blocks-md-3 blocks-sm-2 list"
         data-plugin="animateList" data-child=">li">
           {{#each maquinas}}
-            {{> componente admin=../admin}}
+            {{> componente admin=../sess.admin}}
           {{/each}}
         </ul>
       </div>
@@ -57,7 +57,7 @@
 
       </div>
   <!-- Site Action -->
-  {{#if admin}}
+  {{#if sess.admin}}
   <div class="site-action" data-target="#addProjectForm" data-toggle="modal" data-plugin="actionBtn">
     <button type="button" data-action="add" class="site-action-toggle btn-raised btn btn-success btn-floating">
       <i class="icon md-plus" aria-hidden="true"></i>

@@ -179,7 +179,7 @@ app.get('/maquinas',restringido, async (function(req, res){
     	entry.ano=inicio.getFullYear()
     	}
 	})
-	res.render('home', {layout: 'main',maquinas: listaequipos, semanaActual: semana(hoy)})
+	res.render('home', {layout: 'main',maquinas: listaequipos, semanaActual: semana(hoy),sess: sess})
 }))
 
 app.post('/maquinas',restringido,async (function(req, res){
@@ -199,6 +199,7 @@ app.post('/maquinas',restringido,async (function(req, res){
 		
 		var equipo=await (maquinas.consultar({id: id}))
 		equipo[0].layout=null
+		equipo[0].sess=sess
 		if (!equipo[0].parent) {
 			res.render('partials/maquina', equipo[0])
 		}else{
@@ -243,7 +244,7 @@ app.get('/componentes',restringido,async (function(req, res){
     	entry.semana=semananumero(inicio)
     	entry.ano=inicio.getFullYear()
 	});
-	res.render('componentes', {layout: 'main',maquinas: listaequipos, padre: equipo[0], semanaActual: semana(hoy)})
+	res.render('componentes', {layout: 'main',maquinas: listaequipos, padre: equipo[0], semanaActual: semana(hoy),sess:sess})
 }))
 
 app.get('/detalleComponente',restringido,async (function(req, res){
@@ -251,7 +252,7 @@ app.get('/detalleComponente',restringido,async (function(req, res){
 	var mantenimientos = new Mantenimiento()
 	var equipo=await (maquinas.consultaPadres({id: req.query.id}))
 	var mantenimiento =await (mantenimientos.consultar({componente: req.query.id}))
-	res.render('detalleComponente', {layout: 'main',equipo: equipo[0].left,padre: equipo[0].right,mantenimientos: mantenimiento})
+	res.render('detalleComponente', {layout: 'main',equipo: equipo[0].left,padre: equipo[0].right,mantenimientos: mantenimiento,sess:sess})
 }))
 
 // ######################## FIN COMPONENTES ####################
@@ -260,7 +261,7 @@ app.get('/detalleComponente',restringido,async (function(req, res){
 app.get('/usuarios',restringido,async (function(req, res){
 	var usuarios= new Usuario()
 	var listausuarios=await (usuarios.consultar(1))
-	res.render('usuarios', {layout: 'main',usuarios: listausuarios})
+	res.render('usuarios', {layout: 'main',usuarios: listausuarios,sess:sess})
 }))
 
 app.post('/usuarios',restringido,async (function(req, res){
@@ -276,6 +277,7 @@ app.post('/usuarios',restringido,async (function(req, res){
 	
 	var listausuarios=await (usuarios.consultar({id: id}))
 	listausuarios[0].layout=null
+	listausuarios[0].sess=sess
 	res.render('partials/usuario', listausuarios[0])
 }))
 
@@ -343,6 +345,7 @@ app.post('/setMantenimiento',restringido,async (function(req, res){
 	var id = await (mantenimiento.insertar(req.body))
 	var agregado=await (mantenimiento.consultar({id: id}))
 	agregado[0].layout=null
+	agregado[0].sess=sess
 	res.render('partials/mantenimiento', agregado[0])
 }))
 

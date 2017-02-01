@@ -63,7 +63,7 @@
                   <th>
                     Fecha
                   </th>
-                  {{#if admin}}
+                  {{#if sess.admin}}
                   <th class="hidden-sm-down w-200">
                     Acciones
                   </th>
@@ -71,7 +71,7 @@
                 </tr>
               </thead>
               {{#each mantenimientos}}
-                {{> mantenimiento admin=../admin}}
+                {{> mantenimiento admin=../sess.admin}}
               {{/each}}
             </table>
             </div>
