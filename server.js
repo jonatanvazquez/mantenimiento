@@ -123,6 +123,7 @@ app.post('/login',async (function(req,res){
   if (resultado.length!=0) {
   	sess.rol = resultado[0].rol
   	sess.usuario = resultado[0].username
+  	sess.area=resultado[0].area
   	if (resultado[0].rol=='admin') {sess.admin='admin'}
   	res.redirect('/maquinas');
   }else{
