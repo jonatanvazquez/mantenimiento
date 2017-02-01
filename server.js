@@ -152,7 +152,7 @@ app.get('/maquinas',restringido, async (function(req, res){
 	var maquinas= new Componente()
 	var mantenimientos = new Mantenimiento()
 	var listaequipos
-	if(app.locals.rol == 'admin'){
+	if(sess.rol == 'admin'){
 		listaequipos = await (maquinas.consultar(function(user) {return user.hasFields("parent").not()}))
 	}else{
 		listaequipos = await (maquinas.consultarMaquinasUsuario(sess.area))
