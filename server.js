@@ -123,10 +123,7 @@ app.post('/login',async (function(req,res){
   if (resultado.length!=0) {
   	sess.rol = resultado[0].rol
   	sess.usuario = resultado[0].username
-  	if (resultado[0].rol=='admin') {app.locals.admin='admin'}
-  	app.locals.usuario = resultado[0].username
-  	app.locals.rol = resultado[0].rol
-  	app.locals.area = resultado[0].area
+  	if (resultado[0].rol=='admin') {sess.admin='admin'}
   	res.redirect('/maquinas');
   }else{
   	res.redirect('/');
@@ -138,10 +135,10 @@ req.session.destroy(function(err) {
   if(err) {
     console.log(err);
   } else {
-  	delete app.locals.usuario
-  	delete app.locals.rol
-  	delete app.locals.admin
-  	delete app.locals.area
+  	delete sess.usuario
+  	delete sess.rol
+  	delete sess.admin
+  	delete sess.area
     res.redirect('/');
   }
 });
@@ -157,11 +154,12 @@ app.get('/maquinas',restringido, async (function(req, res){
 	if(app.locals.rol == 'admin'){
 		listaequipos = await (maquinas.consultar(function(user) {return user.hasFields("parent").not()}))
 	}else{
-		listaequipos = await (maquinas.consultarMaquinasUsuario(app.locals.area))
+		listaequipos = await (maquinas.consultarMaquinasUsuario(sess.area))
 	}
 	
 	var hoy = lunes(new Date().setHours(0, 0, 0, 0))
 	
+	if (listaequipos.length>0) {
 	listaequipos.forEach(function(entry) {
 		var fecha=await (maquinas.fecha({parent: entry.id}))
 		if (fecha.length>0) {
@@ -179,6 +177,7 @@ app.get('/maquinas',restringido, async (function(req, res){
     	entry.ano=inicio.getFullYear()
     	}
 	})
+	}
 	res.render('home', {layout: 'main',maquinas: listaequipos, semanaActual: semana(hoy),sess: sess})
 }))
 
