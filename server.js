@@ -106,8 +106,7 @@ function stringaFecha(fecha){
 
  // ########################## LOGIN #########################
 app.get('/', function (req, res) {
-	sess = req.session
-	if(sess.usuario) {
+	if(req.session.usuario) {
 	    res.redirect('/maquinas');
 	}
 	else {
@@ -118,13 +117,12 @@ app.get('/', function (req, res) {
 
 app.post('/login',async (function(req,res){
   var usuario= new Usuario()
-  sess = req.session
   var resultado = await (usuario.consultar({password:req.body.inputPassword,username:req.body.inputUser}))
   if (resultado.length!=0) {
-  	sess.rol = resultado[0].rol
-  	sess.usuario = resultado[0].username
-  	sess.area=resultado[0].area
-  	if (resultado[0].rol=='admin') {sess.admin='admin'}
+  	req.session.rol = resultado[0].rol
+  	req.session.usuario = resultado[0].username
+  	req.session.area=resultado[0].area
+  	if (resultado[0].rol=='admin') {req.session.admin='admin'}
   	res.redirect('/maquinas');
   }else{
   	res.redirect('/');
@@ -136,10 +134,10 @@ req.session.destroy(function(err) {
   if(err) {
     console.log(err);
   } else {
-  	delete sess.usuario
-  	delete sess.rol
-  	delete sess.admin
-  	delete sess.area
+  	delete req.session.usuario
+  	delete req.session.rol
+  	delete req.session.admin
+  	delete req.session.area
     res.redirect('/');
   }
 });
@@ -152,10 +150,10 @@ app.get('/maquinas',restringido, async (function(req, res){
 	var maquinas= new Componente()
 	var mantenimientos = new Mantenimiento()
 	var listaequipos
-	if(sess.rol == 'admin'){
+	if(req.session.rol == 'admin'){
 		listaequipos = await (maquinas.consultar(function(user) {return user.hasFields("parent").not()}))
 	}else{
-		listaequipos = await (maquinas.consultarMaquinasUsuario(sess.area))
+		listaequipos = await (maquinas.consultarMaquinasUsuario(req.session.area))
 	}
 	
 	var hoy = lunes(new Date().setHours(0, 0, 0, 0))
@@ -179,7 +177,7 @@ app.get('/maquinas',restringido, async (function(req, res){
     	}
 	})
 	}
-	res.render('home', {layout: 'main',maquinas: listaequipos, semanaActual: semana(hoy),sess: sess})
+	res.render('home', {layout: 'main',maquinas: listaequipos, semanaActual: semana(hoy),sess: req.session})
 }))
 
 app.post('/maquinas',restringido,async (function(req, res){
@@ -199,7 +197,7 @@ app.post('/maquinas',restringido,async (function(req, res){
 		
 		var equipo=await (maquinas.consultar({id: id}))
 		equipo[0].layout=null
-		equipo[0].sess=sess
+		equipo[0].sess=req.session
 		if (!equipo[0].parent) {
 			res.render('partials/maquina', equipo[0])
 		}else{
@@ -244,7 +242,7 @@ app.get('/componentes',restringido,async (function(req, res){
     	entry.semana=semananumero(inicio)
     	entry.ano=inicio.getFullYear()
 	});
-	res.render('componentes', {layout: 'main',maquinas: listaequipos, padre: equipo[0], semanaActual: semana(hoy),sess:sess})
+	res.render('componentes', {layout: 'main',maquinas: listaequipos, padre: equipo[0], semanaActual: semana(hoy),sess:req.session})
 }))
 
 app.get('/detalleComponente',restringido,async (function(req, res){
@@ -252,7 +250,7 @@ app.get('/detalleComponente',restringido,async (function(req, res){
 	var mantenimientos = new Mantenimiento()
 	var equipo=await (maquinas.consultaPadres({id: req.query.id}))
 	var mantenimiento =await (mantenimientos.consultar({componente: req.query.id}))
-	res.render('detalleComponente', {layout: 'main',equipo: equipo[0].left,padre: equipo[0].right,mantenimientos: mantenimiento,sess:sess})
+	res.render('detalleComponente', {layout: 'main',equipo: equipo[0].left,padre: equipo[0].right,mantenimientos: mantenimiento,sess:req.session})
 }))
 
 // ######################## FIN COMPONENTES ####################
@@ -261,7 +259,7 @@ app.get('/detalleComponente',restringido,async (function(req, res){
 app.get('/usuarios',restringido,async (function(req, res){
 	var usuarios= new Usuario()
 	var listausuarios=await (usuarios.consultar(1))
-	res.render('usuarios', {layout: 'main',usuarios: listausuarios,sess:sess})
+	res.render('usuarios', {layout: 'main',usuarios: listausuarios,sess:req.session})
 }))
 
 app.post('/usuarios',restringido,async (function(req, res){
@@ -277,7 +275,7 @@ app.post('/usuarios',restringido,async (function(req, res){
 	
 	var listausuarios=await (usuarios.consultar({id: id}))
 	listausuarios[0].layout=null
-	listausuarios[0].sess=sess
+	listausuarios[0].sess=req.session
 	res.render('partials/usuario', listausuarios[0])
 }))
 
@@ -345,7 +343,7 @@ app.post('/setMantenimiento',restringido,async (function(req, res){
 	var id = await (mantenimiento.insertar(req.body))
 	var agregado=await (mantenimiento.consultar({id: id}))
 	agregado[0].layout=null
-	agregado[0].sess=sess
+	agregado[0].sess=req.session
 	res.render('partials/mantenimiento', agregado[0])
 }))
 
