@@ -134,10 +134,7 @@ req.session.destroy(function(err) {
   if(err) {
     console.log(err);
   } else {
-  	delete req.session.usuario
-  	delete req.session.rol
-  	delete req.session.admin
-  	delete req.session.area
+
     res.redirect('/');
   }
 });
