@@ -22,11 +22,9 @@ var pdf = require('html-pdf');
 app.engine('handlebars', exphbs({defaultLayout: 'main'}))
 app.set('view engine', 'handlebars')
 
-
 var Usuario = require('./lib/usuario')
 var Componente = require('./lib/componente')
 var Mantenimiento = require('./lib/mantenimientos')
-
 
 var bodyParser = require('body-parser')
 
@@ -124,9 +122,9 @@ app.post('/login',async (function(req,res){
   	sess.rol = resultado[0].rol
   	sess.usuario = resultado[0].username
   	if (resultado[0].rol=='admin') {app.locals.admin='admin'}
-  	app.locals.usuario = resultado[0].username
-  	app.locals.rol = resultado[0].rol
-  	app.locals.area = resultado[0].area
+		app.locals.usuario = resultado[0].username
+		app.locals.rol = resultado[0].rol
+		app.locals.area = resultado[0].area
   	res.redirect('/maquinas');
   }else{
   	res.redirect('/');
@@ -179,7 +177,14 @@ app.get('/maquinas',restringido, async (function(req, res){
     	entry.ano=inicio.getFullYear()
     	}
 	})
-	res.render('home', {layout: 'main',maquinas: listaequipos, semanaActual: semana(hoy)})
+	var opts = null
+	if(app.locals.rol == 'admin-area'){
+		opts = {layout: 'main',maquinas: listaequipos, semanaActual: semana(hoy), adminArea: true }
+	}else{
+		opts = {layout: 'main',maquinas: listaequipos, semanaActual: semana(hoy)}
+	}
+	console.log(opts)
+	res.render('home', opts)
 }))
 
 app.post('/maquinas',restringido,async (function(req, res){
@@ -243,7 +248,39 @@ app.get('/componentes',restringido,async (function(req, res){
     	entry.semana=semananumero(inicio)
     	entry.ano=inicio.getFullYear()
 	});
-	res.render('componentes', {layout: 'main',maquinas: listaequipos, padre: equipo[0], semanaActual: semana(hoy)})
+	var opts = null
+	if(app.locals.rol == 'admin-area'){
+		opts = {layout: 'main',maquinas: listaequipos, padre: equipo[0], semanaActual: semana(hoy), adminArea : true}
+	}else{
+		opts = {layout: 'main',maquinas: listaequipos, padre: equipo[0], semanaActual: semana(hoy)}
+	}
+	res.render('componentes', opts)
+}))
+
+app.get('/secciones',restringido,async (function(req, res){
+	var maquinas= new Componente()
+	var mantenimientos = new Mantenimiento()
+	var listaequipos=await (maquinas.consultar({parent: req.query.id}))
+	var equipo=await (maquinas.consultar({id: req.query.id}))
+	var hoy = lunes(new Date())
+	listaequipos.forEach(function(entry) {
+		var inicio=siguienteMantenimiento(entry.nextMaintenance,entry.frequency,hoy)
+		var mantenimiento =await (mantenimientos.consultar({componente: entry.id,fechaLunes: inicio}))
+		if (mantenimiento.length!=0) {
+			entry.hecho=true
+		}
+    	entry.siguiente=semana(inicio)
+    	entry.mes=inicio.getMonth()
+    	entry.semana=semananumero(inicio)
+    	entry.ano=inicio.getFullYear()
+	});
+	var opts = null
+	if(app.locals.rol == 'admin-area'){
+		opts = {layout: 'main',maquinas: listaequipos, padre: equipo[0], semanaActual: semana(hoy), adminArea : true}
+	}else{
+		opts = {layout: 'main',maquinas: listaequipos, padre: equipo[0], semanaActual: semana(hoy)}
+	}
+	res.render('componentes', opts)
 }))
 
 app.get('/detalleComponente',restringido,async (function(req, res){

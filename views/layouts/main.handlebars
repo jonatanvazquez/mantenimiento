@@ -86,6 +86,9 @@
             {{#if admin}}
               <a class="dropdown-item" href="/usuarios" role="menuitem"><i class="icon md-accounts" aria-hidden="true"></i> Administrar Usuarios</a>
             {{/if}}
+            {{#if adminArea}}
+              <a class="dropdown-item" href="/usuarios" role="menuitem"><i class="icon md-accounts" aria-hidden="true"></i> Administrar Usuarios</a>
+            {{/if}}
               <a class="dropdown-item" href="/logout" role="menuitem"><i class="icon md-power" aria-hidden="true"></i> Logout</a>
             </div>
           </li>
@@ -150,7 +153,7 @@
   <script src="js/Plugin/menu.js"></script>
   <script src="vendor/bootstrap-datepicker/bootstrap-datepicker.js"></script>
   <script src="vendor/bootstrap-datepicker/bootstrap-datepicker.es.min.js"></script>
-  <script src="vendor/asspinner/jquery-asSpinner.min.js"></script>
+  <script src="vendor/asspinner/jquery-asSpinner.js"></script>
   <script src="vendor/bootstrap-sweetalert/sweetalert.js"></script>
   <script src="vendor/switchery/switchery.min.js"></script>
   <script src="vendor/magnific-popup/jquery.magnific-popup.js"></script>

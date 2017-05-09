@@ -81,7 +81,7 @@
       step: 1,
       name: null,
       precision: 0,
-      rule: null, //string, shortcut define max min step precision
+      rule: 'personal',//null, //string, shortcut define max min step precision
 
       looping: true, // if cycling the value when it is outofbound
       mousewheel: false,
@@ -101,6 +101,12 @@
       defaults: {
         min: null,
         max: null,
+        step: 1,
+        precision: 0
+      },
+      personal: {
+        min: 1,
+        max: 99999999,
         step: 1,
         precision: 0
       },

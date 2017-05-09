@@ -1,50 +1,48 @@
 <div class="page-header">
-      <h1 class="page-title">Componentes de {{padre.componentName}}</h1><h4>{{semanaActual}}</h4>
-      <div class="breadcrumb">
-      <div class="col-md-3">
-        <button type="button" class="btn btn-sm btn-primary btn-round" onclick="window.open('/maquinas', '_self')">
-        <i class="icon md-chevron-left" aria-hidden="true"></i>
-          <span class="text hidden-sm-down">Regresar a Maquinas</span>
-        </button>
+    <h1 class="page-title">Componentes de {{padre.componentName}}</h1>
+    <h4>{{semanaActual}}</h4>
+    <div class="breadcrumb">
+        <div class="col-md-3">
+            <button type="button" class="btn btn-sm btn-primary btn-round" onclick="window.open('/maquinas', '_self')">
+                <i class="icon md-chevron-left" aria-hidden="true"></i>
+                <span class="text hidden-sm-down">Regresar a Maquinas</span>
+            </button>
         </div>
         <div class="col-md-6">
-        <div class="col-md-6">
-          <div class="pull-xs-left m-r-20">
-            <input type="checkbox" data-size="large" id="tareas" name="tareas" data-plugin="switchery" data-tag="filtro" class="filtros" 
-            checked />
+            <div class="col-md-6">
+                <div class="pull-xs-left m-r-20">
+                    <input type="checkbox" data-size="large" id="tareas" name="tareas" data-plugin="switchery" data-tag="filtro" class="filtros" 
+                        checked />
+                </div>
+                <label class="p-t-3" for="tareas">Ocultar Tareas <br>Completadas</label>
+            </div>
+            <div class="col-md-6">
+                <div class="pull-xs-left m-r-20">
+                    <input type="checkbox" data-size="large" id="semanas" name="semanas" data-plugin="switchery" data-tag="filtro" class="filtros" 
+                        checked />
+                    </div>
+                    <label class="p-t-3" for="semanas">Ocultar Tareas <br>Otras Semanas</label>
+                </div>
           </div>
-          <label class="p-t-3" for="tareas">Ocultar Tareas <br>Completadas</label>
-          </div>
-          <div class="col-md-6">
-          <div class="pull-xs-left m-r-20">
-            <input type="checkbox" data-size="large" id="semanas" name="semanas" data-plugin="switchery" data-tag="filtro" class="filtros" 
-            checked />
-          </div>
-          <label class="p-t-3" for="semanas">Ocultar Tareas <br>Otras Semanas</label>
-          </div>
-          </div>
-
       </div>
       <div class="page-header-actions">
-        <form>  <div class="site-action" data-target="#reporteModal" data-toggle="modal" data-plugin="actionBtn">
-    <button type="button" data-action="add" class="btn btn-sm btn-success btn-round">
-      <span class="text hidden-sm-down">Generar Reporte de Mantenimientos</span>
-      <i class="icon md-chevron-right" aria-hidden="true"></i>
-    </button>
-  </div>
-
-          <div class="input-search input-search-dark">
-            <i class="input-search-icon md-search" aria-hidden="true"></i>
-            <input type="text" class="form-control search" name="" placeholder="Buscar...">
-          </div>
+        <form>  
+            <div class="site-action" data-target="#reporteModal" data-toggle="modal" data-plugin="actionBtn">
+                <button type="button" data-action="add" class="btn btn-sm btn-success btn-round">
+                    <span class="text hidden-sm-down">Generar Reporte de Mantenimientos</span>
+                    <i class="icon md-chevron-right" aria-hidden="true"></i>
+                </button>
+            </div>
+            <div class="input-search input-search-dark">
+                <i class="input-search-icon md-search" aria-hidden="true"></i>
+                <input type="text" class="form-control search" name="" placeholder="Buscar...">
+            </div>
         </form>
       </div>
-    </div>
-    <div class="page-content">
-        <div class="projects-sort">
-
-      </div>
-      <div class="projects-wrap">
+</div>
+<div class="page-content">
+    <div class="projects-sort"></div>
+    <div class="projects-wrap">
         <ul class="blocks blocks-100 blocks-xxl-5 blocks-lg-4 blocks-md-3 blocks-sm-2 list"
         data-plugin="animateList" data-child=">li">
           {{#each maquinas}}
@@ -53,7 +51,7 @@
         </ul>
       </div>
 
-    </div>
+</div>
 
       </div>
   <!-- Site Action -->
