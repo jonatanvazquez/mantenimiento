@@ -104,8 +104,7 @@ function stringaFecha(fecha){
 
  // ########################## LOGIN #########################
 app.get('/', function (req, res) {
-	sess = req.session
-	if(sess.usuario) {
+	if(req.session.usuario) {
 	    res.redirect('/maquinas');
 	}
 	else {
@@ -116,15 +115,21 @@ app.get('/', function (req, res) {
 
 app.post('/login',async (function(req,res){
   var usuario= new Usuario()
-  sess = req.session
   var resultado = await (usuario.consultar({password:req.body.inputPassword,username:req.body.inputUser}))
   if (resultado.length!=0) {
+<<<<<<< HEAD
   	sess.rol = resultado[0].rol
   	sess.usuario = resultado[0].username
   	if (resultado[0].rol=='admin') {app.locals.admin='admin'}
 		app.locals.usuario = resultado[0].username
 		app.locals.rol = resultado[0].rol
 		app.locals.area = resultado[0].area
+=======
+  	req.session.rol = resultado[0].rol
+  	req.session.usuario = resultado[0].username
+  	req.session.area=resultado[0].area
+  	if (resultado[0].rol=='admin') {req.session.admin='admin'}
+>>>>>>> origin/master
   	res.redirect('/maquinas');
   }else{
   	res.redirect('/');
@@ -136,10 +141,7 @@ req.session.destroy(function(err) {
   if(err) {
     console.log(err);
   } else {
-  	delete app.locals.usuario
-  	delete app.locals.rol
-  	delete app.locals.admin
-  	delete app.locals.area
+
     res.redirect('/');
   }
 });
@@ -152,14 +154,15 @@ app.get('/maquinas',restringido, async (function(req, res){
 	var maquinas= new Componente()
 	var mantenimientos = new Mantenimiento()
 	var listaequipos
-	if(app.locals.rol == 'admin'){
+	if(req.session.rol == 'admin'){
 		listaequipos = await (maquinas.consultar(function(user) {return user.hasFields("parent").not()}))
 	}else{
-		listaequipos = await (maquinas.consultarMaquinasUsuario(app.locals.area))
+		listaequipos = await (maquinas.consultarMaquinasUsuario(req.session.area))
 	}
 	
 	var hoy = lunes(new Date().setHours(0, 0, 0, 0))
 	
+	if (listaequipos.length>0) {
 	listaequipos.forEach(function(entry) {
 		var fecha=await (maquinas.fecha({parent: entry.id}))
 		if (fecha.length>0) {
@@ -177,6 +180,7 @@ app.get('/maquinas',restringido, async (function(req, res){
     	entry.ano=inicio.getFullYear()
     	}
 	})
+<<<<<<< HEAD
 	var opts = null
 	if(app.locals.rol == 'admin-area'){
 		opts = {layout: 'main',maquinas: listaequipos, semanaActual: semana(hoy), adminArea: true }
@@ -185,6 +189,10 @@ app.get('/maquinas',restringido, async (function(req, res){
 	}
 	console.log(opts)
 	res.render('home', opts)
+=======
+	}
+	res.render('home', {layout: 'main',maquinas: listaequipos, semanaActual: semana(hoy),sess: req.session})
+>>>>>>> origin/master
 }))
 
 app.post('/maquinas',restringido,async (function(req, res){
@@ -204,6 +212,7 @@ app.post('/maquinas',restringido,async (function(req, res){
 		
 		var equipo=await (maquinas.consultar({id: id}))
 		equipo[0].layout=null
+		equipo[0].sess=req.session
 		if (!equipo[0].parent) {
 			res.render('partials/maquina', equipo[0])
 		}else{
@@ -248,6 +257,7 @@ app.get('/componentes',restringido,async (function(req, res){
     	entry.semana=semananumero(inicio)
     	entry.ano=inicio.getFullYear()
 	});
+<<<<<<< HEAD
 	var opts = null
 	if(app.locals.rol == 'admin-area'){
 		opts = {layout: 'main',maquinas: listaequipos, padre: equipo[0], semanaActual: semana(hoy), adminArea : true}
@@ -281,6 +291,9 @@ app.get('/secciones',restringido,async (function(req, res){
 		opts = {layout: 'main',maquinas: listaequipos, padre: equipo[0], semanaActual: semana(hoy)}
 	}
 	res.render('componentes', opts)
+=======
+	res.render('componentes', {layout: 'main',maquinas: listaequipos, padre: equipo[0], semanaActual: semana(hoy),sess:req.session})
+>>>>>>> origin/master
 }))
 
 app.get('/detalleComponente',restringido,async (function(req, res){
@@ -288,7 +301,7 @@ app.get('/detalleComponente',restringido,async (function(req, res){
 	var mantenimientos = new Mantenimiento()
 	var equipo=await (maquinas.consultaPadres({id: req.query.id}))
 	var mantenimiento =await (mantenimientos.consultar({componente: req.query.id}))
-	res.render('detalleComponente', {layout: 'main',equipo: equipo[0].left,padre: equipo[0].right,mantenimientos: mantenimiento})
+	res.render('detalleComponente', {layout: 'main',equipo: equipo[0].left,padre: equipo[0].right,mantenimientos: mantenimiento,sess:req.session})
 }))
 
 // ######################## FIN COMPONENTES ####################
@@ -297,7 +310,7 @@ app.get('/detalleComponente',restringido,async (function(req, res){
 app.get('/usuarios',restringido,async (function(req, res){
 	var usuarios= new Usuario()
 	var listausuarios=await (usuarios.consultar(1))
-	res.render('usuarios', {layout: 'main',usuarios: listausuarios})
+	res.render('usuarios', {layout: 'main',usuarios: listausuarios,sess:req.session})
 }))
 
 app.post('/usuarios',restringido,async (function(req, res){
@@ -313,6 +326,7 @@ app.post('/usuarios',restringido,async (function(req, res){
 	
 	var listausuarios=await (usuarios.consultar({id: id}))
 	listausuarios[0].layout=null
+	listausuarios[0].sess=req.session
 	res.render('partials/usuario', listausuarios[0])
 }))
 
@@ -380,6 +394,7 @@ app.post('/setMantenimiento',restringido,async (function(req, res){
 	var id = await (mantenimiento.insertar(req.body))
 	var agregado=await (mantenimiento.consultar({id: id}))
 	agregado[0].layout=null
+	agregado[0].sess=req.session
 	res.render('partials/mantenimiento', agregado[0])
 }))
 
