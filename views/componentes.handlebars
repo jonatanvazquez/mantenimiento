@@ -2,9 +2,9 @@
       <h1 class="page-title">Componentes de {{padre.componentName}}</h1><h4>{{semanaActual}}</h4>
       <div class="breadcrumb">
       <div class="col-md-3">
-        <button type="button" class="btn btn-sm btn-primary btn-round" onclick="window.open('/maquinas', '_self')">
+        <button type="button" class="btn btn-sm btn-primary btn-round" onclick="window.open('/secciones?id={{idP}}', '_self')">
         <i class="icon md-chevron-left" aria-hidden="true"></i>
-          <span class="text hidden-sm-down">Regresar a Maquinas</span>
+          <span class="text hidden-sm-down">Regresar a Secciones</span>
         </button>
         </div>
         <div class="col-md-6">
@@ -48,7 +48,7 @@
         <ul class="blocks blocks-100 blocks-xxl-5 blocks-lg-4 blocks-md-3 blocks-sm-2 list"
         data-plugin="animateList" data-child=">li">
           {{#each maquinas}}
-            {{> componente admin=../sess.admin}}
+            {{> componente admin=../admin}}
           {{/each}}
         </ul>
       </div>
@@ -57,7 +57,7 @@
 
       </div>
   <!-- Site Action -->
-  {{#if sess.admin}}
+  {{#if admin}}
   <div class="site-action" data-target="#addProjectForm" data-toggle="modal" data-plugin="actionBtn">
     <button type="button" data-action="add" class="site-action-toggle btn-raised btn btn-success btn-floating">
       <i class="icon md-plus" aria-hidden="true"></i>
@@ -98,7 +98,9 @@
             </div>
             <div class="form-group form-material">
               <label class="form-control-label col-sm-4" for="name">SECCION:</label>
-              <div class="col-sm-8"><input type="text" class="form-control" id="section" name="section" placeholder="Seccion"></div>
+              <div class="col-sm-8">
+                <input type="text" class="form-control" id="section" name="section" placeholder="Seccion" value="{{ss}}">
+              </div>
             </div>
             <div class="form-group form-material">
               <label class="form-control-label col-sm-4" for="name">MARCA:</label>

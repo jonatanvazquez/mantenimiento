@@ -1,8 +1,8 @@
     <div class="page-header">
       <div class="breadcrumb">
-        <button type="button" class="btn btn-sm btn-primary btn-round" onclick="window.open('/componentes?id={{padre.id}}', '_self')">
+        <button type="button" class="btn btn-sm btn-primary btn-round" onclick="window.open('/componentes?id={{padre.id}}&section={{seccion}}', '_self')">
         <i class="icon md-chevron-left" aria-hidden="true"></i>
-          <span class="text hidden-sm-down">Regresar a {{padre.componentName}}</span>
+          <span class="text hidden-sm-down">Regresar a seccion {{seccion}} de {{padre.componentName}}</span>
         </button>
       </div>
     </div>
@@ -63,7 +63,7 @@
                   <th>
                     Fecha
                   </th>
-                  {{#if sess.admin}}
+                  {{#if admin}}
                   <th class="hidden-sm-down w-200">
                     Acciones
                   </th>
@@ -71,7 +71,7 @@
                 </tr>
               </thead>
               {{#each mantenimientos}}
-                {{> mantenimiento admin=../sess.admin}}
+                {{> mantenimiento admin=../admin}}
               {{/each}}
             </table>
             </div>

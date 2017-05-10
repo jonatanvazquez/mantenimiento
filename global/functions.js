@@ -43,7 +43,34 @@ function enviarmaquina(){
 					swal("Registro Correcto!", "Maquina Agregada!", "success");
 				}
 				$('[data-plugin="animateList"]').append(resp);
-		    	$('.modal').modal('hide');
+		    $('.modal').modal('hide');
+		    });
+		}
+	}else{
+		swal({
+          title: "Error",
+          text: "Debes agregar un Nombre",
+          type: "warning",
+          showCancelButton: false,
+          confirmButtonColor: '#DD6B55',
+          confirmButtonText: 'Entiendo!',
+          closeOnConfirm: true
+        });
+	}
+}
+
+function enviarcomponente(){
+	if ($('#componentName').val()!='') {
+		if ($('#nextMaintenance').length != 0 && $('#nextMaintenance').val()=='') {
+			swal("Error", "Debes Registrar una Fecha!", "warning");
+		}else{
+			var data=$("#nuevamaquina").find('input[name!=imagen]').serialize()
+			$.post('/insertSeccion', data, function(resp) {
+				swal("Registro Correcto!", "Componente Agregado!", "success");
+				if(typeof resp.bien == 'undefined'){
+					$('[data-plugin="animateList"]').append(resp);
+				}
+		    $('.modal').modal('hide');
 		    });
 		}
 	}else{
@@ -166,7 +193,7 @@ function registrarmantenimiento(){
                 label: 'Delete',
                 className: 'btn-danger',
                 callback: function callback() {
-                	console.log(miid);
+                	
                 	$.ajax({
 					  type: "POST",
 					  url: "/borrar",
@@ -192,7 +219,7 @@ function registrarmantenimiento(){
                 label: 'Delete',
                 className: 'btn-danger',
                 callback: function callback() {
-                	console.log(miid);
+                
                 	$.ajax({
 					  type: "POST",
 					  url: "/borrarusuario",
@@ -217,7 +244,7 @@ function registrarmantenimiento(){
                 label: 'Delete',
                 className: 'btn-danger',
                 callback: function callback() {
-                	console.log(miid);
+                	
                 	$.ajax({
 					  type: "POST",
 					  url: "/borrarmantenimiento",
@@ -242,13 +269,13 @@ function registrarmantenimiento(){
 		});
         $(document).on('click', '[data-tag=project-edit]', function (e) {
         var miid=$(this).attr('setid');
-            console.log(miid);
+            
             $.ajax({
 				type: "POST",
 				url: "/editar",
 				data: {"id": miid},
 				success: function(data) {
-					console.log(data)
+					
 					$('#nuevamaquina').formParams(data);
 					$('#titulo').html('EDITAR MAQUINA');
 					$('#tituloc').html('EDITAR COMPONENTE');
@@ -261,13 +288,13 @@ function registrarmantenimiento(){
 
         $(document).on('click', '[data-tag=user-edit]', function (e) {
         var miid=$(this).attr('setid');
-            console.log(miid);
+           
             $.ajax({
 				type: "POST",
 				url: "/editarusuario",
 				data: {"id": miid},
 				success: function(data) {
-					console.log(data)
+					
 					$('#nuevamaquina').formParams(data);
 					$('#tituloc').html('EDITAR USUARIO');
 					$('#guardar').html('Guardar');

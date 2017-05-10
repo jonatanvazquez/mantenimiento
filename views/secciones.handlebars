@@ -1,5 +1,5 @@
 <div class="page-header">
-    <h1 class="page-title">Componentes de {{padre.componentName}}</h1>
+    <h1 class="page-title">Secciones de {{padre.componentName}}</h1>
     <h4>{{semanaActual}}</h4>
     <div class="breadcrumb">
         <div class="col-md-3">
@@ -45,8 +45,8 @@
     <div class="projects-wrap">
         <ul class="blocks blocks-100 blocks-xxl-5 blocks-lg-4 blocks-md-3 blocks-sm-2 list"
         data-plugin="animateList" data-child=">li">
-          {{#each maquinas}}
-            {{> componente admin=../admin}}
+          {{#each secciones}}
+            {{> seccion admin=../admin}}
           {{/each}}
         </ul>
       </div>
@@ -192,7 +192,7 @@
         </div>
         
         <div class="modal-footer text-xs-right">
-          <button class="btn btn-primary" data-dismiss="modal" type="button" onclick="enviarmaquina();" id="guardar">Crear</button>
+          <button class="btn btn-primary" data-dismiss="modal" type="button" onclick="enviarcomponente();" id="guardar">Crear</button>
           <a class="btn btn-sm btn-white btn-pure" data-dismiss="modal" href="javascript:void(0)">Cancelar</a>
         </div>
         

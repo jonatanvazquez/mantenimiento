@@ -42,10 +42,11 @@ app.use(session({
 
 var sess
 function restringido(req, res, next) {
-  if (req.session.usuario) {
+  if (app.locals.usuario) {
     next();
   } else {
-    req.session.error = 'Access denied!'
+	  
+    app.locals.error = 'Access denied!'
     res.redirect('/')
   }
 }
@@ -104,7 +105,7 @@ function stringaFecha(fecha){
 
  // ########################## LOGIN #########################
 app.get('/', function (req, res) {
-	if(req.session.usuario) {
+	if(app.locals.usuario) {
 	    res.redirect('/maquinas');
 	}
 	else {
@@ -114,37 +115,26 @@ app.get('/', function (req, res) {
 })
 
 app.post('/login',async (function(req,res){
-  var usuario= new Usuario()
-  var resultado = await (usuario.consultar({password:req.body.inputPassword,username:req.body.inputUser}))
-  if (resultado.length!=0) {
-<<<<<<< HEAD
-  	sess.rol = resultado[0].rol
-  	sess.usuario = resultado[0].username
-  	if (resultado[0].rol=='admin') {app.locals.admin='admin'}
+  	var usuario= new Usuario()
+  	var resultado = await (usuario.consultar({password:req.body.inputPassword,username:req.body.inputUser}))
+  	if (resultado.length != 0) {
+  		if (resultado[0].rol=='admin') {app.locals.admin='admin'}
 		app.locals.usuario = resultado[0].username
 		app.locals.rol = resultado[0].rol
 		app.locals.area = resultado[0].area
-=======
-  	req.session.rol = resultado[0].rol
-  	req.session.usuario = resultado[0].username
-  	req.session.area=resultado[0].area
-  	if (resultado[0].rol=='admin') {req.session.admin='admin'}
->>>>>>> origin/master
-  	res.redirect('/maquinas');
-  }else{
-  	res.redirect('/');
-  }
+  		res.redirect('/maquinas');
+  	}else{
+  		res.redirect('/');
+  	}
 }))
 
 app.get('/logout',function(req,res){
-req.session.destroy(function(err) {
-  if(err) {
-    console.log(err);
-  } else {
-
-    res.redirect('/');
-  }
-});
+	if(req.session){
+		req.session.destroy(() => {
+			app.locals = {}
+			res.redirect('/')
+		})
+	}
 });
 // ########################## FIN LOGIN ################################
 
@@ -153,46 +143,41 @@ req.session.destroy(function(err) {
 app.get('/maquinas',restringido, async (function(req, res){
 	var maquinas= new Componente()
 	var mantenimientos = new Mantenimiento()
-	var listaequipos
-	if(req.session.rol == 'admin'){
+	var listaequipos = []
+	if(app.locals.rol == 'admin'){
 		listaequipos = await (maquinas.consultar(function(user) {return user.hasFields("parent").not()}))
 	}else{
-		listaequipos = await (maquinas.consultarMaquinasUsuario(req.session.area))
+		listaequipos = await (maquinas.consultarMaquinasUsuario(app.locals.area))
 	}
 	
 	var hoy = lunes(new Date().setHours(0, 0, 0, 0))
 	
-	if (listaequipos.length>0) {
-	listaequipos.forEach(function(entry) {
-		var fecha=await (maquinas.fecha({parent: entry.id}))
-		if (fecha.length>0) {
-		var inicio=siguienteMantenimiento(fecha[0].nextMaintenance,fecha[0].frequency,hoy)
-		var cantidadCumplidas=await (mantenimientos.consultarGrupo({fechaLunes: hoy,padre: entry.id}))
-		var cantidadComponentes=await (maquinas.consultarSemanales({parent: entry.id}))
+	if (listaequipos.length > 0) {
+		listaequipos.forEach(function(entry) {
+			var fecha=await (maquinas.fecha({parent: entry.id}))
+			if (fecha.length>0) {
+			var inicio=siguienteMantenimiento(fecha[0].nextMaintenance,fecha[0].frequency,hoy)
+			var cantidadCumplidas=await (mantenimientos.consultarGrupo({fechaLunes: hoy,padre: entry.id}))
+			var cantidadComponentes=await (maquinas.consultarSemanales({parent: entry.id}))
 
-		if (cantidadCumplidas.length==cantidadComponentes) {
-			entry.hecho=true
-		}
-		
-    	entry.siguiente=semana(inicio)
-    	entry.mes=inicio.getMonth()
-    	entry.semana=semananumero(inicio)
-    	entry.ano=inicio.getFullYear()
-    	}
-	})
-<<<<<<< HEAD
+			if (cantidadCumplidas.length==cantidadComponentes) {
+				entry.hecho=true
+			}
+			
+			entry.siguiente=semana(inicio)
+			entry.mes=inicio.getMonth()
+			entry.semana=semananumero(inicio)
+			entry.ano=inicio.getFullYear()
+			}
+		})
+	}
 	var opts = null
 	if(app.locals.rol == 'admin-area'){
 		opts = {layout: 'main',maquinas: listaequipos, semanaActual: semana(hoy), adminArea: true }
 	}else{
 		opts = {layout: 'main',maquinas: listaequipos, semanaActual: semana(hoy)}
 	}
-	console.log(opts)
 	res.render('home', opts)
-=======
-	}
-	res.render('home', {layout: 'main',maquinas: listaequipos, semanaActual: semana(hoy),sess: req.session})
->>>>>>> origin/master
 }))
 
 app.post('/maquinas',restringido,async (function(req, res){
@@ -208,15 +193,13 @@ app.post('/maquinas',restringido,async (function(req, res){
 			delete req.body.id
 			await (maquinas.actualizar({id: id},req.body))
 		}
-
-		
 		var equipo=await (maquinas.consultar({id: id}))
 		equipo[0].layout=null
-		equipo[0].sess=req.session
+		equipo[0].sess=app.locals
 		if (!equipo[0].parent) {
 			res.render('partials/maquina', equipo[0])
 		}else{
-			res.render('partials/componente', equipo[0])
+			res.render('partials/componente',equipo[0])
 		}
 }))
 
@@ -243,7 +226,9 @@ app.post('/editar',restringido,async (function(req, res){
 app.get('/componentes',restringido,async (function(req, res){
 	var maquinas= new Componente()
 	var mantenimientos = new Mantenimiento()
-	var listaequipos=await (maquinas.consultar({parent: req.query.id}))
+	let mid = req.query.id
+	let stion = req.query.section 
+	var listaequipos=await (maquinas.consultar({parent: mid, section : stion}))
 	var equipo=await (maquinas.consultar({id: req.query.id}))
 	var hoy = lunes(new Date())
 	listaequipos.forEach(function(entry) {
@@ -257,15 +242,28 @@ app.get('/componentes',restringido,async (function(req, res){
     	entry.semana=semananumero(inicio)
     	entry.ano=inicio.getFullYear()
 	});
-<<<<<<< HEAD
 	var opts = null
 	if(app.locals.rol == 'admin-area'){
-		opts = {layout: 'main',maquinas: listaequipos, padre: equipo[0], semanaActual: semana(hoy), adminArea : true}
+		opts = {layout: 'main',maquinas: listaequipos, padre: equipo[0], semanaActual: semana(hoy), adminArea : true, idP : mid, ss : stion}
 	}else{
-		opts = {layout: 'main',maquinas: listaequipos, padre: equipo[0], semanaActual: semana(hoy)}
+		opts = {layout: 'main',maquinas: listaequipos, padre: equipo[0], semanaActual: semana(hoy), idP : mid, ss : stion}
 	}
 	res.render('componentes', opts)
 }))
+
+app.get('/detalleComponente',restringido,async (function(req, res){
+	var maquinas= new Componente()
+	var mantenimientos = new Mantenimiento()
+	var equipo=await (maquinas.consultaPadres({id: req.query.id}))
+	let sect = equipo[0].left.section
+	var mantenimiento =await (mantenimientos.consultar({componente: req.query.id}))
+	res.render('detalleComponente', {layout: 'main',equipo: equipo[0].left,padre: equipo[0].right,mantenimientos: mantenimiento,sess:app.locals,
+	seccion : sect})
+}))
+
+// ######################## FIN COMPONENTES ####################
+
+// ######################## SECCIONES ####################
 
 app.get('/secciones',restringido,async (function(req, res){
 	var maquinas= new Componente()
@@ -273,44 +271,94 @@ app.get('/secciones',restringido,async (function(req, res){
 	var listaequipos=await (maquinas.consultar({parent: req.query.id}))
 	var equipo=await (maquinas.consultar({id: req.query.id}))
 	var hoy = lunes(new Date())
+	var secciones = []
 	listaequipos.forEach(function(entry) {
-		var inicio=siguienteMantenimiento(entry.nextMaintenance,entry.frequency,hoy)
-		var mantenimiento =await (mantenimientos.consultar({componente: entry.id,fechaLunes: inicio}))
-		if (mantenimiento.length!=0) {
-			entry.hecho=true
+		let tmp = {
+			nombreSeccion : entry.section,
+			parent : req.query.id
 		}
-    	entry.siguiente=semana(inicio)
-    	entry.mes=inicio.getMonth()
-    	entry.semana=semananumero(inicio)
-    	entry.ano=inicio.getFullYear()
-	});
+		if(secciones.length > 0){
+			if(!findElement(secciones, entry.section)){
+				secciones.push(tmp)
+			}
+		}else{
+			secciones.push(tmp)
+		}
+		var inicio=siguienteMantenimiento(entry.nextMaintenance,entry.frequency,hoy)
+	})
 	var opts = null
 	if(app.locals.rol == 'admin-area'){
-		opts = {layout: 'main',maquinas: listaequipos, padre: equipo[0], semanaActual: semana(hoy), adminArea : true}
+		opts = {layout: 'main', secciones: secciones, padre: equipo[0], semanaActual: semana(hoy), adminArea : true}
 	}else{
-		opts = {layout: 'main',maquinas: listaequipos, padre: equipo[0], semanaActual: semana(hoy)}
+		opts = {layout: 'main', secciones: secciones, padre: equipo[0], semanaActual: semana(hoy)}
 	}
-	res.render('componentes', opts)
-=======
-	res.render('componentes', {layout: 'main',maquinas: listaequipos, padre: equipo[0], semanaActual: semana(hoy),sess:req.session})
->>>>>>> origin/master
+	res.render('secciones', opts)
 }))
 
-app.get('/detalleComponente',restringido,async (function(req, res){
-	var maquinas= new Componente()
-	var mantenimientos = new Mantenimiento()
-	var equipo=await (maquinas.consultaPadres({id: req.query.id}))
-	var mantenimiento =await (mantenimientos.consultar({componente: req.query.id}))
-	res.render('detalleComponente', {layout: 'main',equipo: equipo[0].left,padre: equipo[0].right,mantenimientos: mantenimiento,sess:req.session})
+app.post('/insertSeccion',restringido,async (function(req, res){
+		var maquinas= new Componente()
+		if (typeof(req.body.nextMaintenance) !== 'undefined') {
+			req.body.fechaMantenimiento=stringaFecha(req.body.nextMaintenance)
+		}
+		delete req.body.id
+		var id = await (maquinas.insertar(req.body))
+		var equipo=await (maquinas.consultar({id: id}))
+		var todos = await(maquinas.consultar({parent: equipo.parent}))
+		var resp = {
+			layout : null,
+			see : app.locals
+		}
+		if(!findSeccion(todos, equipo[0].section, id)){
+			resp.nombreSeccion = equipo[0].section
+			resp.parent = equipo[0].parent
+			res.render('partials/seccion',resp)
+		}else{
+			res.send({bien : true})
+		}
 }))
 
-// ######################## FIN COMPONENTES ####################
+function findElement(arreglo, elemento){
+	var find = false;
+	if(arreglo.length > 0){
+		var i = 0
+		while(!find && (i < arreglo.length)){
+			if(arreglo[i].nombreSeccion == elemento){
+				find = true
+			}else{
+				i++
+			}
+		}
+	}
+	return find
+}
+
+function findSeccion(arreglo, elemento,id){
+	var find = false;
+	if(arreglo.length > 0){
+		var i = 0
+		while(!find && (i < arreglo.length)){
+			if( (typeof arreglo[i].section != 'undefined') && (arreglo[i].id != id) ){
+				if(arreglo[i].section == elemento){
+					find = true
+				}else{
+					i++
+				}
+			}else{
+				i++
+			}
+		}
+	}
+	return find
+}
+
+
+// ######################## FIN SECCIONES ####################
 
 // ###################### USUARIOS ##############################
 app.get('/usuarios',restringido,async (function(req, res){
 	var usuarios= new Usuario()
 	var listausuarios=await (usuarios.consultar(1))
-	res.render('usuarios', {layout: 'main',usuarios: listausuarios,sess:req.session})
+	res.render('usuarios', {layout: 'main',usuarios: listausuarios,sess:app.locals})
 }))
 
 app.post('/usuarios',restringido,async (function(req, res){
@@ -326,7 +374,7 @@ app.post('/usuarios',restringido,async (function(req, res){
 	
 	var listausuarios=await (usuarios.consultar({id: id}))
 	listausuarios[0].layout=null
-	listausuarios[0].sess=req.session
+	listausuarios[0].sess=app.locals
 	res.render('partials/usuario', listausuarios[0])
 }))
 
@@ -390,11 +438,11 @@ app.post('/setMantenimiento',restringido,async (function(req, res){
 	req.body.fechaLunes=lunes(currentdate)
 	// delete req.body.tipo
 	// delete req.body.averia
-	req.body.usuario = req.session.usuario
+	req.body.usuario = app.locals.usuario
 	var id = await (mantenimiento.insertar(req.body))
 	var agregado=await (mantenimiento.consultar({id: id}))
 	agregado[0].layout=null
-	agregado[0].sess=req.session
+	agregado[0].sess=app.locals
 	res.render('partials/mantenimiento', agregado[0])
 }))
 
@@ -551,7 +599,6 @@ app.post('/generarPDF',async(function(req, res) {
 
 	pdf.create(finalPageHTML, options).toFile('./tmp/formatoPDF.pdf', function(err, res) {
 		if (err) return console.log(err);
-	   	console.log(res);
 	 });
 
 	res.send('http://'+req.get('host')+'/formatoPDF.pdf')
@@ -564,7 +611,6 @@ app.post('/generarExcel',async(function(req, res) {
 	var datos = await(mantenimiento.consultarReporte(req.body.maquina))
 	
 	var fields = ["Inactividad","averia","causaRaiz","componentName","ewono","fechaLunes","fechaMantenimiento","noCtrlPat","notas","section","tipoMantenimiento","usuario","vendor"];
-	console.log(datos)
 	var csv = json2csv({ data: datos, fields: fields });
 	 
 	fs.writeFile('tmp/reporte.csv', csv, function(err) {

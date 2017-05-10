@@ -33,13 +33,12 @@
         <ul class="blocks blocks-100 blocks-xxl-5 blocks-lg-4 blocks-md-3 blocks-sm-2 list"
         data-plugin="animateList" data-child=">li">
           {{#each maquinas}}
-            {{> maquina admin=../sess.admin}}
+            {{> maquina admin=../admin}}
           {{/each}}
         </ul>
       </div>
     </div>
       </div>
-<<<<<<< HEAD
          {{#if admin }}
           <div class="site-action" data-target="#addProjectForm" data-toggle="modal" data-plugin="actionBtn">
             <button type="button" data-action="add" class="site-action-toggle btn-raised btn btn-success btn-floating">
@@ -56,16 +55,6 @@
           </div>
       {{/if}}
 
-=======
-         {{#if sess.admin}}
-  <!-- Site Action -->
-  <div class="site-action" data-target="#addProjectForm" data-toggle="modal" data-plugin="actionBtn">
-    <button type="button" data-action="add" class="site-action-toggle btn-raised btn btn-success btn-floating">
-      <i class="icon md-plus" aria-hidden="true"></i>
-    </button>
-  </div>
-     {{/if}}
->>>>>>> origin/master
   <!-- End Site Action -->
   <!-- Add Project Form -->
   <div class="modal fade" id="addProjectForm" aria-hidden="true" aria-labelledby="addProjectForm"
@@ -104,7 +93,7 @@
                 <label class="form-control-label col-sm-4" for="name">ÁREA:</label>
                 <div class="col-sm-8">
                     {{#if adminArea}}
-                        <input type="text" class="form-control" id="area" name="area" placeholder="Área" value="{{area}}" disabled>
+                        <input type="text" class="form-control" id="area" name="area" placeholder="Área" value="{{area}}">
                     {{else}}
                         <input type="text" class="form-control" id="area" name="area" placeholder="Área">
                     {{/if}}
