@@ -17,6 +17,16 @@ var multer	=	require('multer')
 var fs = require('fs')
 var json2csv = require('json2csv')
 var pdf = require('html-pdf');
+var firebase = require('firebase')
+
+firebase.initializeApp({
+    apiKey: "AIzaSyB1iRWPkAzoMpRtSNMbYW5O8F8k9fzI6Sw",
+    authDomain: "mantenimiento-67c22.firebaseapp.com",
+    databaseURL: "https://mantenimiento-67c22.firebaseio.com",
+    projectId: "mantenimiento-67c22",
+    storageBucket: "mantenimiento-67c22.appspot.com",
+    messagingSenderId: "660403769074"
+  })
 
 
 app.engine('handlebars', exphbs({defaultLayout: 'main'}))
@@ -149,17 +159,45 @@ app.get('/maquinas',restringido, async (function(req, res){
 	}else{
 		listaequipos = await (maquinas.consultarMaquinasUsuario(app.locals.area))
 	}
-	
 	var hoy = lunes(new Date().setHours(0, 0, 0, 0))
-	
 	if (listaequipos.length > 0) {
+		let fechaActual = new Date()
 		listaequipos.forEach(function(entry) {
-			var fecha=await (maquinas.fecha({parent: entry.id}))
+			if(hoy.getDate() != fechaActual.getDate()){ //para el ejemplo y para que funcione puse el != debo colocar ==
+				let cInternos = await(maquinas.getComponentes({parent: entry.id}))
+				const idInsert = hoy.getDate() + '' + (hoy.getMonth() + 1) + '' + hoy.getFullYear()
+				if(cInternos.length > 0){
+					finsemana = hoy.getDate() + 5
+					cInternos.forEach(pInterno => {
+						let interno = pInterno.nextMaintenance.split('/')
+						if( (interno[2] == hoy.getFullYear()) && (interno[1] == (hoy.getMonth() + 1)) && (interno[0] >= hoy.getDate()) && (interno[0] <= finsemana) ){
+							firebase.database().ref('notificaciones/' + idInsert).update({
+								admingral : {
+									nombre : 'Juan Perez',
+									correo : 'i.am_jc@live.com'
+								},
+								adminarea : {
+									nombre : 'Paco Perez',
+									correo : 'the_fifth_element@live.com'
+								}
+							}).then(_ => {
+								firebase.database().ref('notificaciones/' + idInsert + '/mantenimientos/' + pInterno.id).update({
+									nombre : pInterno.componentName,
+									seccion : pInterno.section,
+									fecha : pInterno.nextMaintenance,
+									parent :  entry.componentName
+								})
+							})
+						}
+					})
+				}
+			}
+			var fecha=await (maquinas.fecha2({parent: entry.id}))
 			if (fecha.length>0) {
 			var inicio=siguienteMantenimiento(fecha[0].nextMaintenance,fecha[0].frequency,hoy)
 			var cantidadCumplidas=await (mantenimientos.consultarGrupo({fechaLunes: hoy,padre: entry.id}))
 			var cantidadComponentes=await (maquinas.consultarSemanales({parent: entry.id}))
-
+			
 			if (cantidadCumplidas.length==cantidadComponentes) {
 				entry.hecho=true
 			}
@@ -168,9 +206,10 @@ app.get('/maquinas',restringido, async (function(req, res){
 			entry.mes=inicio.getMonth()
 			entry.semana=semananumero(inicio)
 			entry.ano=inicio.getFullYear()
-			}
+		}
 		})
 	}
+	
 	var opts = null
 	if(app.locals.rol == 'admin-area'){
 		opts = {layout: 'main',maquinas: listaequipos, semanaActual: semana(hoy), adminArea: true }
@@ -266,26 +305,59 @@ app.get('/detalleComponente',restringido,async (function(req, res){
 // ######################## SECCIONES ####################
 
 app.get('/secciones',restringido,async (function(req, res){
+	const pid = req.query.id
 	var maquinas= new Componente()
 	var mantenimientos = new Mantenimiento()
-	var listaequipos=await (maquinas.consultar({parent: req.query.id}))
-	var equipo=await (maquinas.consultar({id: req.query.id}))
+	var listaequipos=await (maquinas.consultar({parent: pid}))
+	var equipo=await (maquinas.consultar({id: pid}))
 	var hoy = lunes(new Date())
 	var secciones = []
-	listaequipos.forEach(function(entry) {
-		let tmp = {
-			nombreSeccion : entry.section,
-			parent : req.query.id
-		}
-		if(secciones.length > 0){
-			if(!findElement(secciones, entry.section)){
+	if(listaequipos.length > 0){
+		listaequipos.forEach(function(entry) {
+			let tmp = {
+				nombreSeccion : entry.section,
+				parent : req.query.id,
+				siguiente : '',
+    			mes : '',
+    			semana : '',
+    			ano : '',
+				hecho : false
+			}
+			if(secciones.length > 0){
+				if(!findElement(secciones, entry.section)){
+					var fecha=await (maquinas.fecha2({parent: pid, section : tmp.nombreSeccion}))
+					if (fecha.length>0) {
+						var inicio=siguienteMantenimiento(fecha[0].nextMaintenance,fecha[0].frequency,hoy)
+						var cantidadCumplidas=await (mantenimientos.consultarGrupo({fechaLunes: hoy,padre: pid}))
+						var cantidadComponentes=await (maquinas.consultarSemanales({parent: pid, section : tmp.nombreSeccion}))
+						if (cantidadComponentes > 0 && cantidadCumplidas.length==cantidadComponentes) {
+							tmp.hecho=true
+						}
+						tmp.siguiente=semana(inicio)
+						tmp.mes=inicio.getMonth()
+						tmp.semana=semananumero(inicio)
+						tmp.ano=inicio.getFullYear()
+					}
+					secciones.push(tmp)
+				}
+			}else{
+				var fecha=await (maquinas.fecha2({parent: pid, section : tmp.nombreSeccion}))
+				if (fecha.length>0) {
+					var inicio=siguienteMantenimiento(fecha[0].nextMaintenance,fecha[0].frequency,hoy)
+					var cantidadCumplidas=await (mantenimientos.consultarGrupo({fechaLunes: hoy,padre: pid}))
+					var cantidadComponentes=await (maquinas.consultarSemanales({parent: pid, section : tmp.nombreSeccion}))
+					if (cantidadCumplidas.length==cantidadComponentes) {
+						tmp.hecho=true
+					}
+					tmp.siguiente=semana(inicio)
+					tmp.mes=inicio.getMonth()
+					tmp.semana=semananumero(inicio)
+					tmp.ano=inicio.getFullYear()
+				}
 				secciones.push(tmp)
 			}
-		}else{
-			secciones.push(tmp)
-		}
-		var inicio=siguienteMantenimiento(entry.nextMaintenance,entry.frequency,hoy)
-	})
+		})
+	}
 	var opts = null
 	if(app.locals.rol == 'admin-area'){
 		opts = {layout: 'main', secciones: secciones, padre: equipo[0], semanaActual: semana(hoy), adminArea : true}
@@ -357,7 +429,11 @@ function findSeccion(arreglo, elemento,id){
 // ###################### USUARIOS ##############################
 app.get('/usuarios',restringido,async (function(req, res){
 	var usuarios= new Usuario()
-	var listausuarios=await (usuarios.consultar(1))
+	let filtro = '1'
+	if(app.locals.rol == 'admin-area'){
+		filtro = {area : app.locals.area}
+	}
+	var listausuarios=await (usuarios.consultar(filtro))
 	res.render('usuarios', {layout: 'main',usuarios: listausuarios,sess:app.locals})
 }))
 
@@ -416,6 +492,29 @@ app.post('/subirimagen',restringido,function(req,res){
 		res.end(idimagen);
 	});
 });
+
+app.post('/subirDoc',restringido,function(req,res){
+	var idDoc=uuid.v4() 
+	var storage	=	multer.diskStorage({
+	  destination: function (req, file, callback) {
+	    callback(null, './global/uploads');
+	  },
+	  filename: function (req, file, callback) {
+		  const ind = file.originalname.lastIndexOf('.')
+		  const ext = file.originalname.substring(ind, file.originalname.length)
+		  const name = idDoc + ext
+		  callback(null, name);
+	  }
+	});
+	var upload = multer({ storage : storage}).single('documento');
+	upload(req,res,function(err) {
+		if(err) {
+			console.log(err)
+			return res.end("");
+		}
+		res.end(idDoc)
+	})
+})
 
 // ############## FIN DE CARGA IMAGENES ####################
 

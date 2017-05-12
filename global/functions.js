@@ -147,7 +147,7 @@ function registrarmantenimiento(){
 
 }
 
-  $(document).ready(function() {
+$(document).ready(function() {
 
 
   	function semana(date) {
@@ -327,28 +327,49 @@ function registrarmantenimiento(){
   
 	});
 
-  	$('#imagenu').change(function() {
-  		var filename = $("#imagenu").val();
-        var extension = filename.replace(/^.*\./, '');
-  		if (extension=="jpg") {
-  		var fd = new FormData();
-  		fd.append('imagen', $("#imagenu").get(0).files[0]);
-		 $.ajax({
-		  type: "POST",
-		  url: "/subirimagen",
-		  contentType: false,
-    	  processData: false,
-		  data: fd,
-		  success: function(data) {
-			$('#componentImgu').val(data);
-			$('#nimagenu').val(filename.substr(filename.lastIndexOf('\\') + 1));
-		  }
+		  	$('#edocument').change(function() {
+  					var filename = $("#edocument").val();
+        		var extension = filename.replace(/^.*\./, '');
+  					if (extension=="jpg" || extension=="pdf" || extension=="doc" || extension=="docx") {
+  						var fd = new FormData();
+  						fd.append('documento', $("#edocument").get(0).files[0]);
+		 					$.ajax({
+									type: "POST",
+									url: "/subirDoc",
+									contentType: false,
+									processData: false,
+									data: fd,
+									success: function(data) {
+											$('#componentDoc').val(data);
+											$('#ndoc').val(filename.substr(filename.lastIndexOf('\\') + 1));
+									}
+							});
+				}else{
+						alert('Debes cargar un documento de tipo JPG, PDF, DOC, DOCX')
+				} 
 		});
-		}else{
-			alert('Debes cargar una Imagen tipo jpg')
-		}
-  
-	});
+
+		$('#imagenu').change(function() {
+				var filename = $("#imagenu").val();
+        var extension = filename.replace(/^.*\./, '');
+  			if (extension=="jpg") {
+					var fd = new FormData();
+					fd.append('imagen', $("#imagenu").get(0).files[0]);
+					$.ajax({
+							type: "POST",
+							url: "/subirimagen",
+							contentType: false,
+							processData: false,
+							data: fd,
+							success: function(data) {
+									$('#componentImgu').val(data);
+									$('#nimagenu').val(filename.substr(filename.lastIndexOf('\\') + 1));
+							}
+					});
+				}else{
+				alert('Debes cargar una Imagen tipo jpg')
+				}
+		});
 
 });
 

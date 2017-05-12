@@ -14,10 +14,11 @@
                   <button type="button" class="btn btn-inverse project-button" onclick="window.open('/detalleComponente?id={{id}}', '_self')">Ver Detalle</button>
                 </figcaption>
               </figure>
-              <div class="time pull-xs-right">{{siguiente}} 
-              {{#if hecho}}
-                <i class="icon md-check" aria-hidden="true" style="font-size: 22px;font-weight: 900;color: #4caf50;"></i>
-              {{/if}}
+              <div class="time pull-xs-right">
+                {{siguiente}} 
+                {{#if hecho}}
+                  <i class="icon md-check" aria-hidden="true" style="font-size: 22px;font-weight: 900;color: #4caf50;"></i>
+                {{/if}}
               </div>
               <div style="display: none" class="hecho">{{hecho}}</div>
               <div style="display: none" class="semana">{{siguiente}}</div>

@@ -41,6 +41,8 @@
     "co": "^4.6.0",
     "express-handlebars": "^3.0.0",
     "express-session": "^1.14.2",
+    "firebase": "^3.9.0",
+    "firebase-tools": "^3.7.0",
     "fs": "0.0.1-security",
     "html-pdf": "^2.1.0",
     "json2csv": "^3.7.3",

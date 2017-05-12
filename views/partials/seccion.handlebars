@@ -3,12 +3,21 @@
       <figure class="overlay overlay-hover animation-hover" style="height: 199px;">
           <img class="caption-figure overlay-figure" src="images/section.jpg">
           <figcaption class="overlay-panel overlay-background overlay-fade text-xs-center vertical-align">
-              <button type="button" class="btn btn-inverse project-button" onclick="window.open('/componentes?id={{parent}}&section={{nombreSeccion}}', '_self')">Ver Componentes</button>
+              <button type="button" 
+                class="btn btn-inverse project-button" 
+                onclick="window.open('/componentes?id={{parent}}&section={{nombreSeccion}}', '_self')">
+                    Ver Componentes
+            </button>
           </figcaption>
        </figure>
-        <div class="time pull-xs-right"></div>
-        <div style="display: none" class="hecho"></div>
-        <div style="display: none" class="semana"></div>
+        <div class="time pull-xs-right">
+            {{siguiente}} 
+            {{#if hecho}}
+                <i class="icon md-check" aria-hidden="true" style="font-size: 22px;font-weight: 900;color: #4caf50;"></i>
+            {{/if}}
+        </div>
+        <div style="display: none" class="hecho">{{hecho}}</div>
+        <div style="display: none" class="semana">{{siguiente}}</div>
         <div class="text-truncate nombre">{{nombreSeccion}}</div>
     </div>
 </li>

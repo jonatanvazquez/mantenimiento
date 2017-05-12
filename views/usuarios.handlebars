@@ -18,6 +18,7 @@
                 <th>Usuario</th>
                 <th>Contraseña</th>
                 <th>Rol</th>
+                <th>Correo</th>
                 <th>Acciones</th>
               </tr>
             </thead>
@@ -54,14 +55,20 @@
         <div class="modal-body" style="margin-bottom: 120px;">
           <form action="#" method="post" role="form" id="nuevamaquina" class="form-horizontal">
             <div class="form-group form-material">
+              <label class="form-control-label col-sm-4" for="name">CORREO:</label>
+              <div class="col-sm-8">
+                <input type="text" class="form-control" id="email" name="email" placeholder="correo@correo.com" required></div>
+            </div>
+            <div class="form-group form-material">
               <label class="form-control-label col-sm-4" for="name">USUARIO:</label>
-              <div class="col-sm-8"><input type="text" class="form-control" id="username" name="username" placeholder="Nombre" required></div>
-              <input type="hidden" class="form-control" name="id" id="id" readonly="">
+              <div class="col-sm-8">
+                <input type="text" class="form-control" id="username" name="username" placeholder="Nombre" required></div>
+                <input type="hidden" class="form-control" name="id" id="id" readonly="">
             </div>
             <div class="form-group form-material">
               <label class="form-control-label col-sm-4" for="name">PASSWORD:</label>
               <div class="col-sm-8">
-                <input type="text" class="form-control" id="password" name="password" placeholder="Marca" required></div>
+                <input type="text" class="form-control" id="password" name="password" placeholder="Clave" required></div>
             </div>
             <div class="form-group form-material">
               <label class="form-control-label col-sm-4" for="name">ÁREA:</label>
