@@ -128,7 +128,18 @@ app.post('/login',async (function(req,res){
   	var usuario= new Usuario()
   	var resultado = await (usuario.consultar({password:req.body.inputPassword,username:req.body.inputUser}))
   	if (resultado.length != 0) {
-  		if (resultado[0].rol=='admin') {app.locals.admin='admin'}
+  		if (resultado[0].rol=='admin') {
+			  app.locals.admin='admin'
+			  app.locals.encargado_area = resultado[0].username
+			  app.locals.encargado_email = resultado[0].email
+		}else{
+			if(resultado[0].rol=='user'){
+				var jefe = await(usuario.consultar({rol : 'admin-area', area : resultado[0].area}))
+				app.locals.encargado_area = jefe[0].username
+				app.locals.encargado_email = jefe[0].email
+			}
+		}
+		app.locals.email = resultado[0].email
 		app.locals.usuario = resultado[0].username
 		app.locals.rol = resultado[0].rol
 		app.locals.area = resultado[0].area
@@ -152,6 +163,7 @@ app.get('/logout',function(req,res){
 // ############################ MAQUINAS ##########################
 app.get('/maquinas',restringido, async (function(req, res){
 	var maquinas= new Componente()
+	let usuario = new Usuario()
 	var mantenimientos = new Mantenimiento()
 	var listaequipos = []
 	if(app.locals.rol == 'admin'){
@@ -163,35 +175,7 @@ app.get('/maquinas',restringido, async (function(req, res){
 	if (listaequipos.length > 0) {
 		let fechaActual = new Date()
 		listaequipos.forEach(function(entry) {
-			if(hoy.getDate() != fechaActual.getDate()){ //para el ejemplo y para que funcione puse el != debo colocar ==
-				let cInternos = await(maquinas.getComponentes({parent: entry.id}))
-				const idInsert = hoy.getDate() + '' + (hoy.getMonth() + 1) + '' + hoy.getFullYear()
-				if(cInternos.length > 0){
-					finsemana = hoy.getDate() + 5
-					cInternos.forEach(pInterno => {
-						let interno = pInterno.nextMaintenance.split('/')
-						if( (interno[2] == hoy.getFullYear()) && (interno[1] == (hoy.getMonth() + 1)) && (interno[0] >= hoy.getDate()) && (interno[0] <= finsemana) ){
-							firebase.database().ref('notificaciones/' + idInsert).update({
-								admingral : {
-									nombre : 'Juan Perez',
-									correo : 'i.am_jc@live.com'
-								},
-								adminarea : {
-									nombre : 'Paco Perez',
-									correo : 'the_fifth_element@live.com'
-								}
-							}).then(_ => {
-								firebase.database().ref('notificaciones/' + idInsert + '/mantenimientos/' + pInterno.id).update({
-									nombre : pInterno.componentName,
-									seccion : pInterno.section,
-									fecha : pInterno.nextMaintenance,
-									parent :  entry.componentName
-								})
-							})
-						}
-					})
-				}
-			}
+			await(notificaciones(hoy, fechaActual, entry, maquinas))
 			var fecha=await (maquinas.fecha2({parent: entry.id}))
 			if (fecha.length>0) {
 			var inicio=siguienteMantenimiento(fecha[0].nextMaintenance,fecha[0].frequency,hoy)
@@ -719,6 +703,35 @@ app.post('/generarExcel',async(function(req, res) {
 	res.send('http://'+req.get('host')+'/reporte.csv')
 	//"Tiempo de Inactividad","causaRaiz","componente","ewono","fechaLunes","fechaMantenimiento","id","notas","padre","tipoMantenimiento","usuario"
 }))
+
+// #################### FUNCIONES GENERALES ############################
+
+function notificaciones(hoy, fechaActual, objeto, maquinas){
+	if(hoy.getDate() == fechaActual.getDate()){ //revisa cada lunes que mantenimientos toca en esta semana
+		let cInternos = await(maquinas.getComponentes({parent: objeto.id}))
+		const idInsert = hoy.getDate() + '' + (hoy.getMonth() + 1) + '' + hoy.getFullYear()
+		if(cInternos.length > 0){
+			finsemana = hoy.getDate() + 5
+			cInternos.forEach(pInterno => {
+				let interno = pInterno.nextMaintenance.split('/')
+				if( (interno[2] == hoy.getFullYear()) && (interno[1] == (hoy.getMonth() + 1)) 
+					&& (interno[0] >= hoy.getDate()) && (interno[0] <= finsemana) ){
+					firebase.database().ref('notificaciones/' + idInsert + '/' + pInterno.id).update({
+						nombre : pInterno.componentName,
+						seccion : pInterno.section,
+						fecha : pInterno.nextMaintenance,
+						parent :  objeto.componentName,
+						correo_area : app.locals.encargado_email,
+						nombre_area : app.locals.encargado_area,
+						area : objeto.area
+					})
+				}
+			})
+		}
+	}
+}
+
+// ############## FIN DE FUNCIONES GENERALES ####################
 
 /**
  * 
