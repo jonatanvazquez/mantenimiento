@@ -172,26 +172,32 @@ app.get('/maquinas',restringido, async (function(req, res){
 		listaequipos = await (maquinas.consultarMaquinasUsuario(app.locals.area))
 	}
 	var hoy = lunes(new Date().setHours(0, 0, 0, 0))
+	let maqMantenimientos = []
 	if (listaequipos.length > 0) {
 		let fechaActual = new Date()
 		listaequipos.forEach(function(entry) {
-			await(notificaciones(hoy, fechaActual, entry, maquinas))
+		 	await(notificaciones(hoy, fechaActual, entry, maquinas, maqMantenimientos))
 			var fecha=await (maquinas.fecha2({parent: entry.id}))
 			if (fecha.length>0) {
-			var inicio=siguienteMantenimiento(fecha[0].nextMaintenance,fecha[0].frequency,hoy)
-			var cantidadCumplidas=await (mantenimientos.consultarGrupo({fechaLunes: hoy,padre: entry.id}))
-			var cantidadComponentes=await (maquinas.consultarSemanales({parent: entry.id}))
+				var inicio=siguienteMantenimiento(fecha[0].nextMaintenance,fecha[0].frequency,hoy)
+				var cantidadCumplidas=await (mantenimientos.consultarGrupo({fechaLunes: hoy,padre: entry.id}))
+				var cantidadComponentes=await (maquinas.consultarSemanales({parent: entry.id}))
 			
-			if (cantidadCumplidas.length==cantidadComponentes) {
-				entry.hecho=true
+				if (cantidadCumplidas.length==cantidadComponentes) {
+					entry.hecho=true
+				}
+			
+				entry.siguiente=semana(inicio)
+				entry.mes=inicio.getMonth()
+				entry.semana=semananumero(inicio)
+				entry.ano=inicio.getFullYear()
 			}
-			
-			entry.siguiente=semana(inicio)
-			entry.mes=inicio.getMonth()
-			entry.semana=semananumero(inicio)
-			entry.ano=inicio.getFullYear()
-		}
 		})
+		if(maqMantenimientos.length > 0){
+			const idInsert = hoy.getDate() + '' + (hoy.getMonth() + 1) + '' + hoy.getFullYear()
+			console.log('ID: ', idInsert, ' ---maquinas: ', maqMantenimientos)
+			firebase.database().ref('notificaciones/' + idInsert ).update(maqMantenimientos)
+		}
 	}
 	
 	var opts = null
@@ -706,8 +712,8 @@ app.post('/generarExcel',async(function(req, res) {
 
 // #################### FUNCIONES GENERALES ############################
 
-function notificaciones(hoy, fechaActual, objeto, maquinas){
-	if(hoy.getDate() == fechaActual.getDate()){ //revisa cada lunes que mantenimientos toca en esta semana
+function notificaciones(hoy, fechaActual, objeto, maquinas, maqMantenimientos){
+	if(hoy.getDate() != fechaActual.getDate()){ //revisa cada lunes que mantenimientos toca en esta semana
 		let cInternos = await(maquinas.getComponentes({parent: objeto.id}))
 		const idInsert = hoy.getDate() + '' + (hoy.getMonth() + 1) + '' + hoy.getFullYear()
 		if(cInternos.length > 0){
@@ -716,7 +722,7 @@ function notificaciones(hoy, fechaActual, objeto, maquinas){
 				let interno = pInterno.nextMaintenance.split('/')
 				if( (interno[2] == hoy.getFullYear()) && (interno[1] == (hoy.getMonth() + 1)) 
 					&& (interno[0] >= hoy.getDate()) && (interno[0] <= finsemana) ){
-					firebase.database().ref('notificaciones/' + idInsert + '/' + pInterno.id).update({
+					maqMantenimientos.push({
 						nombre : pInterno.componentName,
 						seccion : pInterno.section,
 						fecha : pInterno.nextMaintenance,
@@ -729,6 +735,7 @@ function notificaciones(hoy, fechaActual, objeto, maquinas){
 			})
 		}
 	}
+	return maqMantenimientos
 }
 
 // ############## FIN DE FUNCIONES GENERALES ####################
