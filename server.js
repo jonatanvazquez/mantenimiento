@@ -115,6 +115,7 @@ function stringaFecha(fecha){
 
  // ########################## LOGIN #########################
 app.get('/', function (req, res) {
+	console.log('Iniciamos, sin error')
 	if(app.locals.usuario) {
 	    res.redirect('/maquinas');
 	}
@@ -125,6 +126,7 @@ app.get('/', function (req, res) {
 })
 
 app.post('/login',async (function(req,res){
+	console.log('Entramos al login')
   	var usuario= new Usuario()
   	var resultado = await (usuario.consultar({password:req.body.inputPassword,username:req.body.inputUser}))
   	if (resultado.length != 0) {
