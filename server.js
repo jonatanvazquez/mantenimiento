@@ -159,7 +159,77 @@ app.get('/logout',function(req,res){
 });
 // ########################## FIN LOGIN ################################
 
+// ############################ VERIFICAR MANTENIMIENTOS ##########################
 
+app.get('/checking-machines', async (function(req, res){
+	var maquinas= new Componente()
+	let usuario = new Usuario()
+	var mantenimientos = new Mantenimiento()
+	var listaequipos = []
+	listaequipos = await (maquinas.consultar(function(user) {return user.hasFields("parent").not()}))
+	var hoy = lunes(new Date().setHours(0, 0, 0, 0))
+	let maqMantenimientos = []
+	if (listaequipos.length > 0) {
+		let fechaActual = new Date()
+		listaequipos.forEach(function(entry) {
+		 	await(notificaciones(hoy, fechaActual, entry, maquinas, maqMantenimientos))
+		})
+		if(maqMantenimientos.length > 0){
+			const idInsert = hoy.getDate() + '' + (hoy.getMonth() + 1) + '' + hoy.getFullYear()
+			firebase.database().ref('notificaciones/' + idInsert ).set(maqMantenimientos)
+		}
+	}
+	res.send(JSON.stringify(maqMantenimientos))
+}))
+
+// ############################ FIN VERIFICAR MANTENIMIENTOS ##########################
+
+app.get('/maquinas',restringido, async (function(req, res){
+	var maquinas= new Componente()
+	let usuario = new Usuario()
+	var mantenimientos = new Mantenimiento()
+	var listaequipos = []
+	if(app.locals.rol == 'admin'){
+		listaequipos = await (maquinas.consultar(function(user) {return user.hasFields("parent").not()}))
+	}else{
+		listaequipos = await (maquinas.consultarMaquinasUsuario(app.locals.area))
+	}
+	var hoy = lunes(new Date().setHours(0, 0, 0, 0))
+	let maqMantenimientos = []
+	if (listaequipos.length > 0) {
+		let fechaActual = new Date()
+		listaequipos.forEach(function(entry) {
+		 	await(notificaciones(hoy, fechaActual, entry, maquinas, maqMantenimientos))
+			var fecha=await (maquinas.fecha2({parent: entry.id}))
+			if (fecha.length>0) {
+				var inicio=siguienteMantenimiento(fecha[0].nextMaintenance,fecha[0].frequency,hoy)
+				var cantidadCumplidas=await (mantenimientos.consultarGrupo({fechaLunes: hoy,padre: entry.id}))
+				var cantidadComponentes=await (maquinas.consultarSemanales({parent: entry.id}))
+			
+				if (cantidadCumplidas.length==cantidadComponentes) {
+					entry.hecho=true
+				}
+			
+				entry.siguiente=semana(inicio)
+				entry.mes=inicio.getMonth()
+				entry.semana=semananumero(inicio)
+				entry.ano=inicio.getFullYear()
+			}
+		})
+		if(maqMantenimientos.length > 0){
+			const idInsert = hoy.getDate() + '' + (hoy.getMonth() + 1) + '' + hoy.getFullYear()
+			firebase.database().ref('notificaciones/' + idInsert ).set(maqMantenimientos)
+		}
+	}
+	
+	var opts = null
+	if(app.locals.rol == 'admin-area'){
+		opts = {layout: 'main',maquinas: listaequipos, semanaActual: semana(hoy), adminArea: true }
+	}else{
+		opts = {layout: 'main',maquinas: listaequipos, semanaActual: semana(hoy)}
+	}
+	res.render('home', opts)
+}))
 // ############################ MAQUINAS ##########################
 app.get('/maquinas',restringido, async (function(req, res){
 	var maquinas= new Componente()
@@ -195,8 +265,7 @@ app.get('/maquinas',restringido, async (function(req, res){
 		})
 		if(maqMantenimientos.length > 0){
 			const idInsert = hoy.getDate() + '' + (hoy.getMonth() + 1) + '' + hoy.getFullYear()
-			console.log('ID: ', idInsert, ' ---maquinas: ', maqMantenimientos)
-			firebase.database().ref('notificaciones/' + idInsert ).update(maqMantenimientos)
+			firebase.database().ref('notificaciones/' + idInsert ).set(maqMantenimientos)
 		}
 	}
 	
@@ -735,7 +804,6 @@ function notificaciones(hoy, fechaActual, objeto, maquinas, maqMantenimientos){
 			})
 		}
 	}
-	return maqMantenimientos
 }
 
 // ############## FIN DE FUNCIONES GENERALES ####################
