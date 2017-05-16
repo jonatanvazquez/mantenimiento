@@ -242,11 +242,9 @@ app.get('/maquinas',restringido, async (function(req, res){
 		listaequipos = await (maquinas.consultarMaquinasUsuario(app.locals.area))
 	}
 	var hoy = lunes(new Date().setHours(0, 0, 0, 0))
-	let maqMantenimientos = []
 	if (listaequipos.length > 0) {
 		let fechaActual = new Date()
 		listaequipos.forEach(function(entry) {
-		 	await(notificaciones(hoy, fechaActual, entry, maquinas, maqMantenimientos))
 			var fecha=await (maquinas.fecha2({parent: entry.id}))
 			if (fecha.length>0) {
 				var inicio=siguienteMantenimiento(fecha[0].nextMaintenance,fecha[0].frequency,hoy)
@@ -263,10 +261,6 @@ app.get('/maquinas',restringido, async (function(req, res){
 				entry.ano=inicio.getFullYear()
 			}
 		})
-		if(maqMantenimientos.length > 0){
-			const idInsert = hoy.getDate() + '' + (hoy.getMonth() + 1) + '' + hoy.getFullYear()
-			firebase.database().ref('notificaciones/' + idInsert ).set(maqMantenimientos)
-		}
 	}
 	
 	var opts = null
