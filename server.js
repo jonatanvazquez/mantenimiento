@@ -778,7 +778,7 @@ app.post('/generarExcel',async(function(req, res) {
 // #################### FUNCIONES GENERALES ############################
 
 function notificaciones(hoy, fechaActual, objeto, maquinas, maqMantenimientos){
-	if(hoy.getDate() != fechaActual.getDate()){ //revisa cada lunes que mantenimientos toca en esta semana
+	if(hoy.getDate() == fechaActual.getDate()){ //revisa cada lunes que mantenimientos toca en esta semana
 		let cInternos = await(maquinas.getComponentes({parent: objeto.id}))
 		const idInsert = hoy.getDate() + '' + (hoy.getMonth() + 1) + '' + hoy.getFullYear()
 		if(cInternos.length > 0){
