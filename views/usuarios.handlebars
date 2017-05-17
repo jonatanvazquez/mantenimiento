@@ -79,8 +79,10 @@
               <div class="col-sm-8">
                 <select class="form-control" data-plugin="select2" name="rol" id="rol" data-allow-clear="true">
                     <option>Rol</option>
+                    {{#if admin}}
                       <option value="admin">Administrador General</option>
                       <option value="admin-area">Administrador Área</option>
+                    {{/if}}
                       <option value="user">Usuario</option>
                   </select></div>
             </div>
