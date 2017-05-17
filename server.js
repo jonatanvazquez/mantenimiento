@@ -115,7 +115,6 @@ function stringaFecha(fecha){
 
  // ########################## LOGIN #########################
 app.get('/', function (req, res) {
-	console.log('Iniciamos, sin error')
 	if(app.locals.usuario) {
 	    res.redirect('/maquinas');
 	}
@@ -126,7 +125,6 @@ app.get('/', function (req, res) {
 })
 
 app.post('/login',async (function(req,res){
-	console.log('Entramos al login')
   	var usuario= new Usuario()
   	var resultado = await (usuario.consultar({password:req.body.inputPassword,username:req.body.inputUser}))
   	if (resultado.length != 0) {
@@ -136,9 +134,10 @@ app.post('/login',async (function(req,res){
 			  app.locals.encargado_email = resultado[0].email
 		}else{
 			if(resultado[0].rol=='user'){
-				var jefe = await(usuario.consultar({rol : 'admin-area', area : resultado[0].area}))
-				app.locals.encargado_area = jefe[0].username
-				app.locals.encargado_email = jefe[0].email
+				await(usuario.consultar({rol : 'admin-area', area : resultado[0].area}).then(result => {
+					app.locals.encargado_area = result[0].username
+					app.locals.encargado_email = result[0].email
+				}))
 			}
 		}
 		app.locals.email = resultado[0].email
@@ -186,15 +185,19 @@ app.get('/checking-machines', async (function(req, res){
 
 // ############################ FIN VERIFICAR MANTENIMIENTOS ##########################
 
-app.get('/maquinas',restringido, async (function(req, res){
+app.get('/maquinas',restringido, async(function(req, res){
 	var maquinas= new Componente()
 	let usuario = new Usuario()
 	var mantenimientos = new Mantenimiento()
 	var listaequipos = []
 	if(app.locals.rol == 'admin'){
-		listaequipos = await (maquinas.consultar(function(user) {return user.hasFields("parent").not()}))
+		await (maquinas.showParents().then(result => {
+			listaequipos = result
+		}))
 	}else{
-		listaequipos = await (maquinas.consultarMaquinasUsuario(app.locals.area))
+		await (maquinas.consultarMaquinasUsuario(app.locals.area).then(result => {
+			listaequipos = result
+		}))
 	}
 	var hoy = lunes(new Date().setHours(0, 0, 0, 0))
 	let maqMantenimientos = []
@@ -202,7 +205,10 @@ app.get('/maquinas',restringido, async (function(req, res){
 		let fechaActual = new Date()
 		listaequipos.forEach(function(entry) {
 		 	await(notificaciones(hoy, fechaActual, entry, maquinas, maqMantenimientos))
-			var fecha=await (maquinas.fecha2({parent: entry.id}))
+			 var fecha = null
+			await (maquinas.fecha({parent: entry.id}).then(result => {
+				fecha = result
+			}))
 			if (fecha.length>0) {
 				var inicio=siguienteMantenimiento(fecha[0].nextMaintenance,fecha[0].frequency,hoy)
 				var cantidadCumplidas=await (mantenimientos.consultarGrupo({fechaLunes: hoy,padre: entry.id}))
@@ -230,7 +236,7 @@ app.get('/maquinas',restringido, async (function(req, res){
 	}else{
 		opts = {layout: 'main',maquinas: listaequipos, semanaActual: semana(hoy)}
 	}
-	res.render('home', opts)
+	res.render('home', opts) 
 }))
 // ############################ MAQUINAS ##########################
 app.get('/maquinas',restringido, async (function(req, res){
@@ -247,7 +253,7 @@ app.get('/maquinas',restringido, async (function(req, res){
 	if (listaequipos.length > 0) {
 		let fechaActual = new Date()
 		listaequipos.forEach(function(entry) {
-			var fecha=await (maquinas.fecha2({parent: entry.id}))
+			var fecha=await (maquinas.fecha({parent: entry.id}))
 			if (fecha.length>0) {
 				var inicio=siguienteMantenimiento(fecha[0].nextMaintenance,fecha[0].frequency,hoy)
 				var cantidadCumplidas=await (mantenimientos.consultarGrupo({fechaLunes: hoy,padre: entry.id}))
@@ -380,7 +386,7 @@ app.get('/secciones',restringido,async (function(req, res){
 			}
 			if(secciones.length > 0){
 				if(!findElement(secciones, entry.section)){
-					var fecha=await (maquinas.fecha2({parent: pid, section : tmp.nombreSeccion}))
+					var fecha=await (maquinas.fecha({parent: pid, section : tmp.nombreSeccion}))
 					if (fecha.length>0) {
 						var inicio=siguienteMantenimiento(fecha[0].nextMaintenance,fecha[0].frequency,hoy)
 						var cantidadCumplidas=await (mantenimientos.consultarGrupo({fechaLunes: hoy,padre: pid}))
@@ -396,7 +402,7 @@ app.get('/secciones',restringido,async (function(req, res){
 					secciones.push(tmp)
 				}
 			}else{
-				var fecha=await (maquinas.fecha2({parent: pid, section : tmp.nombreSeccion}))
+				var fecha=await (maquinas.fecha({parent: pid, section : tmp.nombreSeccion}))
 				if (fecha.length>0) {
 					var inicio=siguienteMantenimiento(fecha[0].nextMaintenance,fecha[0].frequency,hoy)
 					var cantidadCumplidas=await (mantenimientos.consultarGrupo({fechaLunes: hoy,padre: pid}))
@@ -803,6 +809,26 @@ function notificaciones(hoy, fechaActual, objeto, maquinas, maqMantenimientos){
 }
 
 // ############## FIN DE FUNCIONES GENERALES ####################
+
+// ############## PRUEBAS GENERALES ####################
+
+app.get('/uid-test',async (function(req, res){
+	let opc = {
+		"area":  "general" ,
+		"email": "i.am_jc@live.com",
+		"password":  "admin" ,
+		"rol":  "admin" ,
+		"username":  "admin-3"
+	}
+	var user = new Usuario()
+	user.insertar2(opc).then(resp => {
+		res.send(JSON.stringify(resp))
+	}).catch(err => {
+		res.send(JSON.stringify(err))
+	})
+}))
+
+// ############## FIN DE PRUEBAS GENERALES ####################
 
 /**
  * 
