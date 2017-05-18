@@ -2,3 +2,4 @@ global/uploads/
 tmp/formatoPDF.pdf
 tmp/reporte.csv
 tmp/reporte.csv
+node_modules/
