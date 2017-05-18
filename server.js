@@ -697,7 +697,6 @@ app.post('/generarPDF',async(function(req, res) {
 			} 
 
 			dato.imgMantenimiento = getImgMantenimiento(dato.tipoMantenimiento)
-			console.log(dato)
 			mantenimientos.push(dato)
 		}
 
