@@ -573,8 +573,7 @@ app.post('/subirDoc',restringido,function(req,res){
 		if(err) {
 			return res.end("");
 		}
-		console.log(completo)
-		res.end(idDoc)
+		res.end(completo)
 	})
 })
 
@@ -583,7 +582,8 @@ app.post('/subirDoc',restringido,function(req,res){
 // #################### MANTENIMIENTOS ############################
 
 app.post('/setMantenimiento',restringido,async (function(req, res){
-	var mantenimiento= new Mantenimiento()
+	var mantenimiento = new Mantenimiento()
+	var componente = new Componente()
 	var currentdate = new Date()
 	if (req.body.averia) {
 		req.body.tipoMantenimiento= '3'
@@ -599,6 +599,7 @@ app.post('/setMantenimiento',restringido,async (function(req, res){
 	req.body.usuario = app.locals.usuario
 	var id = await (mantenimiento.insertar(req.body))
 	var agregado=await (mantenimiento.consultar({id: id}))
+	
 	agregado[0].layout=null
 	agregado[0].sess=app.locals
 	res.render('partials/mantenimiento', agregado[0])
@@ -741,9 +742,6 @@ app.post('/generarPDF',async(function(req, res) {
 		entry.mantenimiento = mantenimientos
 	})
 
-	//var nombre = './tmp/' + uuid.v4() + ".pdf"
-	//
-	
 	var i = 'file://' + __dirname + '/global/photos/inst.jpg'
 	
 	var template = fs.readFileSync("templates/formatoPDF.handlebars", "utf8")
@@ -804,28 +802,4 @@ function notificaciones(hoy, fechaActual, objeto, maquinas, maqMantenimientos){
 
 // ############## FIN DE FUNCIONES GENERALES ####################
 
-// ############## PRUEBAS GENERALES ####################
-
-app.get('/uid-test',async (function(req, res){
-	let opc = {
-		"area":  "general" ,
-		"email": "i.am_jc@live.com",
-		"password":  "admin" ,
-		"rol":  "admin" ,
-		"username":  "admin-3"
-	}
-	var user = new Usuario()
-	user.insertar2(opc).then(resp => {
-		res.send(JSON.stringify(resp))
-	}).catch(err => {
-		res.send(JSON.stringify(err))
-	})
-}))
-
-// ############## FIN DE PRUEBAS GENERALES ####################
-
-/**
- * 
- */
 app.listen(3000)
-
