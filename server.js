@@ -756,6 +756,20 @@ app.post('/generarPDF',async(function(req, res) {
 }))
 
 
+app.get('/generarPDF',async(function(req, res) {
+	var template = fs.readFileSync("templates/formatoPDF.handlebars", "utf8")
+	var data = {}
+	var compileTemplate = handlebars.compile('<html><body><p>Hola mundo</p></body></html>')
+	var finalPageHTML = compileTemplate(data)
+
+	pdf.create(finalPageHTML, options).toFile('./tmp/formatoPDF.pdf', function(err, res) {
+		if (err) return console.log(err);
+	 });
+
+	res.send('http://'+req.get('host')+'/formatoPDF.pdf')
+}))
+
+
 
 app.post('/generarExcel',async(function(req, res) {
 	var mantenimiento = new Mantenimiento()
