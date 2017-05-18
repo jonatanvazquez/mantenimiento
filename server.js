@@ -547,7 +547,6 @@ app.post('/subirimagen',restringido,function(req,res){
 	var upload = multer({ storage : storage}).single('imagen');
 	upload(req,res,function(err) {
 		if(err) {
-			console.log(err)
 			return res.end("");
 		}
 		res.end(idimagen);
@@ -556,6 +555,7 @@ app.post('/subirimagen',restringido,function(req,res){
 
 app.post('/subirDoc',restringido,function(req,res){
 	var idDoc=uuid.v4() 
+	var completo = ''
 	var storage	=	multer.diskStorage({
 	  destination: function (req, file, callback) {
 	    callback(null, './global/uploads');
@@ -564,15 +564,16 @@ app.post('/subirDoc',restringido,function(req,res){
 		  const ind = file.originalname.lastIndexOf('.')
 		  const ext = file.originalname.substring(ind, file.originalname.length)
 		  const name = idDoc + ext
+		  completo = name
 		  callback(null, name);
 	  }
 	});
 	var upload = multer({ storage : storage}).single('documento');
 	upload(req,res,function(err) {
 		if(err) {
-			console.log(err)
 			return res.end("");
 		}
+		console.log(completo)
 		res.end(idDoc)
 	})
 })
@@ -584,20 +585,17 @@ app.post('/subirDoc',restringido,function(req,res){
 app.post('/setMantenimiento',restringido,async (function(req, res){
 	var mantenimiento= new Mantenimiento()
 	var currentdate = new Date()
-
 	if (req.body.averia) {
-		req.body.tipoMantenimiento=req.body.tipo+'2'
+		req.body.tipoMantenimiento= '3'
 	}else{
-		req.body.tipoMantenimiento=req.body.tipo+'1'
+		req.body.tipoMantenimiento=req.body.tipo
 	}
-	if (req.body.tipo=='1') {
+	if(req.body.tipo == '4'){
 		delete req.body.tipo
 	}
 	req.body.fechaMantenimiento = currentdate.toLocaleString()
 	currentdate.setHours(0, 0, 0, 0)
 	req.body.fechaLunes=lunes(currentdate)
-	// delete req.body.tipo
-	// delete req.body.averia
 	req.body.usuario = app.locals.usuario
 	var id = await (mantenimiento.insertar(req.body))
 	var agregado=await (mantenimiento.consultar({id: id}))
@@ -641,15 +639,13 @@ function getDateOfISOWeek(w, y) {
 function getImgMantenimiento(tipo){
 	var urlImg = 'file://' + __dirname + '/global/photos/'
 	switch(tipo){
-		case '10': urlImg += '10.png' 
+		case '1': urlImg += '1.png' 
 		break
-		case '11': urlImg += '11.png'  
+		case '4': urlImg += '4.png'  
 		break
-		case '12': urlImg += '12.png' 
+		case '3': urlImg += '3.png' 
 		break
-		case '21': urlImg += '21.png' 
-		break
-		case '22': urlImg += '22.png' 
+		case '2': urlImg += '2.png' 
 		break
 		default: urlImg += 'default.png' 
 		break
@@ -692,16 +688,16 @@ app.post('/generarPDF',async(function(req, res) {
 
 			if ((semanadif % entry.frequency) === 0){
 				if(dato.tipoMantenimiento == ''){
-					dato.tipoMantenimiento = '10'
+					dato.tipoMantenimiento = '1'
 				}
 			}else{
 				if(dato.tipoMantenimiento == ''){
-					dato.tipoMantenimiento = '1'
+					dato.tipoMantenimiento = '10'
 				}
 			} 
 
 			dato.imgMantenimiento = getImgMantenimiento(dato.tipoMantenimiento)
-
+			console.log(dato)
 			mantenimientos.push(dato)
 		}
 
@@ -775,7 +771,6 @@ app.post('/generarExcel',async(function(req, res) {
 	 
 	fs.writeFile('tmp/reporte.csv', csv, function(err) {
 	  if (err) throw err;
-	  console.log('file saved');
 	});
 	res.send('http://'+req.get('host')+'/reporte.csv')
 	//"Tiempo de Inactividad","causaRaiz","componente","ewono","fechaLunes","fechaMantenimiento","id","notas","padre","tipoMantenimiento","usuario"
