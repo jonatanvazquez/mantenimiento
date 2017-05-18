@@ -769,8 +769,6 @@ app.get('/generarPDF',async(function(req, res) {
 	res.send('http://'+req.get('host')+'/formatoPDF.pdf')
 }))
 
-
-
 app.post('/generarExcel',async(function(req, res) {
 	var mantenimiento = new Mantenimiento()
 	var datos = await(mantenimiento.consultarReporte(req.body.maquina))
