@@ -756,7 +756,7 @@ app.post('/generarPDF',async(function(req, res) {
 }))
 
 
-app.get('/generarPDF',async(function(req, res) {
+app.get('/generarPDF2',async(function(req, res) {
 	var template = fs.readFileSync("templates/formatoPDF.handlebars", "utf8")
 	var data = {}
 	var compileTemplate = handlebars.compile('<html><body><p>Hola mundo</p></body></html>')
