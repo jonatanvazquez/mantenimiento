@@ -235,7 +235,7 @@ $(document).ready(function() {
           });
         });
         $(document).on('click', '[data-tag=mantenimiento-delete]', function (e) {
-        	var miid=$(this).attr('setid');
+					var miid=$(this).attr('setid');
 
           bootbox.dialog({
             message: 'Deseas Eliminar este Mantenimiento?',

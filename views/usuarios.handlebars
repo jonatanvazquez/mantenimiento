@@ -70,10 +70,12 @@
               <div class="col-sm-8">
                 <input type="text" class="form-control" id="password" name="password" placeholder="Clave" required></div>
             </div>
+            {{#if admin}}
             <div class="form-group form-material">
               <label class="form-control-label col-sm-4" for="name">ÁREA:</label>
               <div class="col-sm-8"><input type="text" class="form-control" id="area" name="area" placeholder="Área" required value="{{sess.area}}"></div>
             </div>
+             {{/if}}
             <div class="form-group form-material">
               <label class="form-control-label col-sm-4" for="name">ROL</label>
               <div class="col-sm-8">

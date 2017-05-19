@@ -32,6 +32,14 @@ firebase.initializeApp({
 app.engine('handlebars', exphbs({defaultLayout: 'main'}))
 app.set('view engine', 'handlebars')
 
+handlebars.registerHelper('verificaRol', function(condicion, options){
+	if(app.locals){
+		if(app.locals.rol != 'user'){
+			return options.fn(true)
+		}
+	}
+})
+
 var Usuario = require('./lib/usuario')
 var Componente = require('./lib/componente')
 var Mantenimiento = require('./lib/mantenimientos')
@@ -133,6 +141,9 @@ app.post('/login',async (function(req,res){
 			  app.locals.encargado_area = resultado[0].username
 			  app.locals.encargado_email = resultado[0].email
 		}else{
+			if(resultado[0].rol=='admin-area'){
+				app.locals.adminarea='admin-area'
+			}
 			if(resultado[0].rol=='user'){
 				await(usuario.consultar({rol : 'admin-area', area : resultado[0].area}).then(result => {
 					app.locals.encargado_area = result[0].username
@@ -357,8 +368,8 @@ app.get('/detalleComponente',restringido,async (function(req, res){
 	var equipo=await (maquinas.consultaPadres({id: req.query.id}))
 	let sect = equipo[0].left.section
 	var mantenimiento =await (mantenimientos.consultar({componente: req.query.id}))
-	res.render('detalleComponente', {layout: 'main',equipo: equipo[0].left,padre: equipo[0].right,mantenimientos: mantenimiento,sess:app.locals,
-	seccion : sect})
+	res.render('detalleComponente', {layout: 'main',equipo: equipo[0].left,padre: equipo[0].right,
+		mantenimientos: mantenimiento,sess:app.locals,seccion : sect})
 }))
 
 // ######################## FIN COMPONENTES ####################
@@ -500,6 +511,9 @@ app.get('/usuarios',restringido,async (function(req, res){
 
 app.post('/usuarios',restringido,async (function(req, res){
 	var usuarios= new Usuario()
+	if(!req.body.area || req.body.area ==""){
+		req.body.area = app.locals.area
+	}
 	if (req.body.id=="") {
 		delete req.body.id
 		var id = await (usuarios.insertar(req.body))
@@ -584,7 +598,7 @@ app.post('/subirDoc',restringido,function(req,res){
 app.post('/setMantenimiento',restringido,async (function(req, res){
 	var mantenimiento = new Mantenimiento()
 	var componente = new Componente()
-	var currentdate = new Date()
+	var currentdate =  null
 	if (req.body.averia) {
 		req.body.tipoMantenimiento= '3'
 	}else{
@@ -593,23 +607,34 @@ app.post('/setMantenimiento',restringido,async (function(req, res){
 	if(req.body.tipo == '4'){
 		delete req.body.tipo
 	}
-	req.body.fechaMantenimiento = currentdate.toLocaleString()
+	if(req.body.anterior && req.body.anterior != ''){
+		let fecha = req.body.anterior.split('/');
+		currentdate = new Date(fecha[2],fecha[1]-1,fecha[0]); 
+		req.body.fechaMantenimiento = currentdate.toLocaleString()
+	}else{
+		currentdate =  new Date()
+		req.body.fechaMantenimiento = currentdate.toLocaleString()
+	}
+	if(req.body.anterior){
+		delete req.body.anterior 
+	}
 	currentdate.setHours(0, 0, 0, 0)
 	req.body.fechaLunes=lunes(currentdate)
+
 	req.body.usuario = app.locals.usuario
 	var id = await (mantenimiento.insertar(req.body))
 	var agregado=await (mantenimiento.consultar({id: id}))
-	
+
 	agregado[0].layout=null
 	agregado[0].sess=app.locals
 	res.render('partials/mantenimiento', agregado[0])
 }))
 
 app.post('/borrarmantenimiento',restringido,async (function(req, res){
+		console.log(req.body)
 		var mantenimiento= new Mantenimiento()
 		await(mantenimiento.eliminar({id:req.body.id}))
 		res.send('Eliminado')
-
 }))
 
 // ################ FIN MANTENIMIENTOS ############################
@@ -746,20 +771,6 @@ app.post('/generarPDF',async(function(req, res) {
 	var template = fs.readFileSync("templates/formatoPDF.handlebars", "utf8")
 	var data = {padre: padre[0], listado: hijos, a : anio, inst : i}
 	var compileTemplate = handlebars.compile(template)
-	var finalPageHTML = compileTemplate(data)
-
-	pdf.create(finalPageHTML, options).toFile('./tmp/formatoPDF.pdf', function(err, res) {
-		if (err) return console.log(err);
-	 });
-
-	res.send('http://'+req.get('host')+'/formatoPDF.pdf')
-}))
-
-
-app.get('/generarPDF2',async(function(req, res) {
-	var template = fs.readFileSync("templates/formatoPDF.handlebars", "utf8")
-	var data = {}
-	var compileTemplate = handlebars.compile('<html><body><p>Hola mundo</p></body></html>')
 	var finalPageHTML = compileTemplate(data)
 
 	pdf.create(finalPageHTML, options).toFile('./tmp/formatoPDF.pdf', function(err, res) {
