@@ -19,6 +19,9 @@ var json2csv = require('json2csv')
 var pdf = require('html-pdf');
 var firebase = require('firebase')
 
+/**
+ * Configuración inicial de el proyecto de firebase
+ */
 firebase.initializeApp({
     apiKey: "AIzaSyB1iRWPkAzoMpRtSNMbYW5O8F8k9fzI6Sw",
     authDomain: "mantenimiento-67c22.firebaseapp.com",
@@ -33,6 +36,10 @@ app.engine('handlebars', exphbs({defaultLayout: 'main'}))
 app.set('view engine', 'handlebars')
 
 handlebars.registerHelper('verificaRol', function(condicion, options){
+/**
+ * Verifica el rol del usuario, esta funcion se utiliza en donde verifica el tipo de usuario dentro de las 
+ * views y partials
+ */
 	if(app.locals){
 		if(app.locals.rol != 'user'){
 			return options.fn(true)
@@ -70,6 +77,9 @@ function restringido(req, res, next) {
 }
 
 function lunes(d) {
+/**
+ * calcula la fecha del día lunes de la fecha indicada
+ */
   d = new Date(d);
   var day = d.getDay(),
       diff = d.getDate() - day + (day == 0 ? -6:1); // adjust when day is sunday
@@ -77,6 +87,9 @@ function lunes(d) {
 }
 
 function semananumero(date) {
+/**
+ * calcula el numero de la semana del año.
+ */
 	var day = date.getDate()
 	day-=(date.getDay()==0?6:date.getDay()-1)
 	day+=7;
@@ -90,6 +103,9 @@ function semananumero(date) {
 }
 
 function semana(date) {
+/**
+ * calcula el numero de la semana del año.
+ */
 	var day = date.getDate()
 	day-=(date.getDay()==0?6:date.getDay()-1)
 	day+=7;
@@ -103,7 +119,9 @@ function semana(date) {
 }
 
 function siguienteMantenimiento(fecha,frecuencia,hoy){
-
+/** 
+*verifica los siguientes mantenimientos a través del inicio
+*/
 	var original = fecha.split("/")
 	var inicio = lunes(new Date(original[2], original[1] - 1, original[0]))
 
@@ -174,6 +192,10 @@ app.get('/logout',function(req,res){
 // ############################ VERIFICAR MANTENIMIENTOS ##########################
 
 app.get('/checking-machines', async (function(req, res){
+/**
+ * Funcion verificadora de los componentes que realizarán cada semana con CronJob
+ * el enlace https://www.setcronjob.com/login; usuario: mttosys@gmail.com; pass: x4899954
+ */
 	var maquinas= new Componente()
 	let usuario = new Usuario()
 	var mantenimientos = new Mantenimiento()
@@ -797,6 +819,10 @@ app.post('/generarExcel',async(function(req, res) {
 // #################### FUNCIONES GENERALES ############################
 
 function notificaciones(hoy, fechaActual, objeto, maquinas, maqMantenimientos){
+	/**
+	 * Crea el calculo de los equipos que se tienen mantenimiento esta semana y se tienen que enviar por correo, 
+	 * cada semana.
+	 */
 	if(hoy.getDate() == fechaActual.getDate()){ //revisa cada lunes que mantenimientos toca en esta semana
 		let cInternos = await(maquinas.getComponentes({parent: objeto.id}))
 		const idInsert = hoy.getDate() + '' + (hoy.getMonth() + 1) + '' + hoy.getFullYear()
