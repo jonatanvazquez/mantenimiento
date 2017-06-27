@@ -18,7 +18,7 @@ var fs = require('fs')
 var json2csv = require('json2csv')
 var pdf = require('html-pdf');
 var firebase = require('firebase')
-
+var sess
 /**
  * Configuración inicial de el proyecto de firebase
  */
@@ -40,8 +40,8 @@ handlebars.registerHelper('verificaRol', function(condicion, options){
  * Verifica el rol del usuario, esta funcion se utiliza en donde verifica el tipo de usuario dentro de las 
  * views y partials
  */
-	if(app.locals){
-		if(app.locals.rol != 'user'){
+	if(sess){
+		if(sess.rol != 'user'){
 			return options.fn(true)
 		}
 	}
@@ -65,13 +65,14 @@ app.use(session({
 	cookie: {expires: new Date(253402300000000)}
 }))
 
-var sess
+
 function restringido(req, res, next) {
-  if (app.locals.usuario) {
+  if (req.session.usuario) {
+  	sess=req.session
     next();
   } else {
 	  
-    app.locals.error = 'Access denied!'
+    req.session.error = 'Access denied!'
     res.redirect('/')
   }
 }
@@ -141,7 +142,7 @@ function stringaFecha(fecha){
 
  // ########################## LOGIN #########################
 app.get('/', function (req, res) {
-	if(app.locals.usuario) {
+	if(req.session.usuario) {
 	    res.redirect('/maquinas');
 	}
 	else {
@@ -155,24 +156,24 @@ app.post('/login',async (function(req,res){
   	var resultado = await (usuario.consultar({password:req.body.inputPassword,username:req.body.inputUser}))
   	if (resultado.length != 0) {
   		if (resultado[0].rol=='admin') {
-			  app.locals.admin='admin'
-			  app.locals.encargado_area = resultado[0].username
-			  app.locals.encargado_email = resultado[0].email
+			  req.session.admin='admin'
+			  req.session.encargado_area = resultado[0].username
+			  req.session.encargado_email = resultado[0].email
 		}else{
 			if(resultado[0].rol=='admin-area'){
-				app.locals.adminarea='admin-area'
+				req.session.adminarea='admin-area'
 			}
 			if(resultado[0].rol=='user'){
 				await(usuario.consultar({rol : 'admin-area', area : resultado[0].area}).then(result => {
-					app.locals.encargado_area = result[0].username
-					app.locals.encargado_email = result[0].email
+					req.session.encargado_area = result[0].username
+					req.session.encargado_email = result[0].email
 				}))
 			}
 		}
-		app.locals.email = resultado[0].email
-		app.locals.usuario = resultado[0].username
-		app.locals.rol = resultado[0].rol
-		app.locals.area = resultado[0].area
+		req.session.email = resultado[0].email
+		req.session.usuario = resultado[0].username
+		req.session.rol = resultado[0].rol
+		req.session.area = resultado[0].area
   		res.redirect('/maquinas');
   	}else{
   		res.redirect('/');
@@ -182,7 +183,7 @@ app.post('/login',async (function(req,res){
 app.get('/logout',function(req,res){
 	if(req.session){
 		req.session.destroy(() => {
-			app.locals = {}
+			req.session = {}
 			res.redirect('/')
 		})
 	}
@@ -223,12 +224,12 @@ app.get('/maquinas',restringido, async(function(req, res){
 	let usuario = new Usuario()
 	var mantenimientos = new Mantenimiento()
 	var listaequipos = []
-	if(app.locals.rol == 'admin'){
+	if(req.session.rol == 'admin'){
 		await (maquinas.showParents().then(result => {
 			listaequipos = result
 		}))
 	}else{
-		await (maquinas.consultarMaquinasUsuario(app.locals.area).then(result => {
+		await (maquinas.consultarMaquinasUsuario(req.session.area).then(result => {
 			listaequipos = result
 		}))
 	}
@@ -264,7 +265,7 @@ app.get('/maquinas',restringido, async(function(req, res){
 	}
 	
 	var opts = null
-	if(app.locals.rol == 'admin-area'){
+	if(req.session.rol == 'admin-area'){
 		opts = {layout: 'main',maquinas: listaequipos, semanaActual: semana(hoy), adminArea: true }
 	}else{
 		opts = {layout: 'main',maquinas: listaequipos, semanaActual: semana(hoy)}
@@ -277,10 +278,10 @@ app.get('/maquinas',restringido, async (function(req, res){
 	let usuario = new Usuario()
 	var mantenimientos = new Mantenimiento()
 	var listaequipos = []
-	if(app.locals.rol == 'admin'){
+	if(req.session.rol == 'admin'){
 		listaequipos = await (maquinas.consultar(function(user) {return user.hasFields("parent").not()}))
 	}else{
-		listaequipos = await (maquinas.consultarMaquinasUsuario(app.locals.area))
+		listaequipos = await (maquinas.consultarMaquinasUsuario(req.session.area))
 	}
 	var hoy = lunes(new Date().setHours(0, 0, 0, 0))
 	if (listaequipos.length > 0) {
@@ -305,7 +306,7 @@ app.get('/maquinas',restringido, async (function(req, res){
 	}
 	
 	var opts = null
-	if(app.locals.rol == 'admin-area'){
+	if(req.session.rol == 'admin-area'){
 		opts = {layout: 'main',maquinas: listaequipos, semanaActual: semana(hoy), adminArea: true }
 	}else{
 		opts = {layout: 'main',maquinas: listaequipos, semanaActual: semana(hoy)}
@@ -328,7 +329,7 @@ app.post('/maquinas',restringido,async (function(req, res){
 		}
 		var equipo=await (maquinas.consultar({id: id}))
 		equipo[0].layout=null
-		equipo[0].sess=app.locals
+		equipo[0].sess=req.session
 		if (!equipo[0].parent) {
 			res.render('partials/maquina', equipo[0])
 		}else{
@@ -376,7 +377,7 @@ app.get('/componentes',restringido,async (function(req, res){
     	entry.ano=inicio.getFullYear()
 	});
 	var opts = null
-	if(app.locals.rol == 'admin-area'){
+	if(req.session.rol == 'admin-area'){
 		opts = {layout: 'main',maquinas: listaequipos, padre: equipo[0], semanaActual: semana(hoy), adminArea : true, idP : mid, ss : stion}
 	}else{
 		opts = {layout: 'main',maquinas: listaequipos, padre: equipo[0], semanaActual: semana(hoy), idP : mid, ss : stion}
@@ -391,7 +392,7 @@ app.get('/detalleComponente',restringido,async (function(req, res){
 	let sect = equipo[0].left.section
 	var mantenimiento =await (mantenimientos.consultar({componente: req.query.id}))
 	res.render('detalleComponente', {layout: 'main',equipo: equipo[0].left,padre: equipo[0].right,
-		mantenimientos: mantenimiento,sess:app.locals,seccion : sect})
+		mantenimientos: mantenimiento,sess:req.session,seccion : sect})
 }))
 
 // ######################## FIN COMPONENTES ####################
@@ -453,7 +454,7 @@ app.get('/secciones',restringido,async (function(req, res){
 		})
 	}
 	var opts = null
-	if(app.locals.rol == 'admin-area'){
+	if(req.session.rol == 'admin-area'){
 		opts = {layout: 'main', secciones: secciones, padre: equipo[0], semanaActual: semana(hoy), adminArea : true}
 	}else{
 		opts = {layout: 'main', secciones: secciones, padre: equipo[0], semanaActual: semana(hoy)}
@@ -472,7 +473,7 @@ app.post('/insertSeccion',restringido,async (function(req, res){
 		var todos = await(maquinas.consultar({parent: equipo.parent}))
 		var resp = {
 			layout : null,
-			see : app.locals
+			see : req.session
 		}
 		if(!findSeccion(todos, equipo[0].section, id)){
 			resp.nombreSeccion = equipo[0].section
@@ -524,17 +525,17 @@ function findSeccion(arreglo, elemento,id){
 app.get('/usuarios',restringido,async (function(req, res){
 	var usuarios= new Usuario()
 	let filtro = '1'
-	if(app.locals.rol == 'admin-area'){
-		filtro = {area : app.locals.area}
+	if(req.session.rol == 'admin-area'){
+		filtro = {area : req.session.area}
 	}
 	var listausuarios=await (usuarios.consultar(filtro))
-	res.render('usuarios', {layout: 'main',usuarios: listausuarios,sess:app.locals})
+	res.render('usuarios', {layout: 'main',usuarios: listausuarios,sess:req.session})
 }))
 
 app.post('/usuarios',restringido,async (function(req, res){
 	var usuarios= new Usuario()
 	if(!req.body.area || req.body.area ==""){
-		req.body.area = app.locals.area
+		req.body.area = req.session.area
 	}
 	if (req.body.id=="") {
 		delete req.body.id
@@ -547,7 +548,7 @@ app.post('/usuarios',restringido,async (function(req, res){
 	
 	var listausuarios=await (usuarios.consultar({id: id}))
 	listausuarios[0].layout=null
-	listausuarios[0].sess=app.locals
+	listausuarios[0].sess=req.session
 	res.render('partials/usuario', listausuarios[0])
 }))
 
@@ -643,12 +644,12 @@ app.post('/setMantenimiento',restringido,async (function(req, res){
 	currentdate.setHours(0, 0, 0, 0)
 	req.body.fechaLunes=lunes(currentdate)
 
-	req.body.usuario = app.locals.usuario
+	req.body.usuario = req.session.usuario
 	var id = await (mantenimiento.insertar(req.body))
 	var agregado=await (mantenimiento.consultar({id: id}))
 
 	agregado[0].layout=null
-	agregado[0].sess=app.locals
+	agregado[0].sess=req.session
 	res.render('partials/mantenimiento', agregado[0])
 }))
 
@@ -837,8 +838,8 @@ function notificaciones(hoy, fechaActual, objeto, maquinas, maqMantenimientos){
 						seccion : pInterno.section,
 						fecha : pInterno.nextMaintenance,
 						parent :  objeto.componentName,
-						correo_area : app.locals.encargado_email,
-						nombre_area : app.locals.encargado_area,
+						correo_area : req.session.encargado_email,
+						nombre_area : req.session.encargado_area,
 						area : objeto.area
 					})
 				}
