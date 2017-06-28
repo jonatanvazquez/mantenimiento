@@ -183,7 +183,7 @@ app.post('/login',async (function(req,res){
 app.get('/logout',function(req,res){
 	if(req.session){
 		req.session.destroy(() => {
-			req.session = {}
+			//req.session = {}
 			res.redirect('/')
 		})
 	}
@@ -265,11 +265,20 @@ app.get('/maquinas',restringido, async(function(req, res){
 	}
 	
 	var opts = null
-	if(req.session.rol == 'admin-area'){
-		opts = {layout: 'main',maquinas: listaequipos, semanaActual: semana(hoy), adminArea: true }
+	if (req.session.admin=='admin') {
+		if(req.session.rol == 'admin-area'){
+			opts = {layout: 'main',maquinas: listaequipos, semanaActual: semana(hoy), adminArea: true, admin:true }
+		}else{
+			opts = {layout: 'main',maquinas: listaequipos, semanaActual: semana(hoy),admin : true}
+		}
 	}else{
-		opts = {layout: 'main',maquinas: listaequipos, semanaActual: semana(hoy)}
+		if(req.session.rol == 'admin-area'){
+			opts = {layout: 'main',maquinas: listaequipos, semanaActual: semana(hoy), adminArea: true }
+		}else{
+			opts = {layout: 'main',maquinas: listaequipos, semanaActual: semana(hoy)}
+		}
 	}
+
 	res.render('home', opts) 
 }))
 // ############################ MAQUINAS ##########################
@@ -306,11 +315,21 @@ app.get('/maquinas',restringido, async (function(req, res){
 	}
 	
 	var opts = null
-	if(req.session.rol == 'admin-area'){
-		opts = {layout: 'main',maquinas: listaequipos, semanaActual: semana(hoy), adminArea: true }
+	if (req.session.admin=='admin') {
+		if(req.session.rol == 'admin-area'){
+			opts = {layout: 'main',maquinas: listaequipos, semanaActual: semana(hoy), adminArea: true, admin:true  }
+		}else{
+			opts = {layout: 'main',maquinas: listaequipos, semanaActual: semana(hoy), admin:true }
+		}
 	}else{
-		opts = {layout: 'main',maquinas: listaequipos, semanaActual: semana(hoy)}
+		if(req.session.rol == 'admin-area'){
+			opts = {layout: 'main',maquinas: listaequipos, semanaActual: semana(hoy), adminArea: true }
+		}else{
+			opts = {layout: 'main',maquinas: listaequipos, semanaActual: semana(hoy)}
+		}
 	}
+
+
 	res.render('home', opts)
 }))
 
@@ -377,11 +396,20 @@ app.get('/componentes',restringido,async (function(req, res){
     	entry.ano=inicio.getFullYear()
 	});
 	var opts = null
-	if(req.session.rol == 'admin-area'){
-		opts = {layout: 'main',maquinas: listaequipos, padre: equipo[0], semanaActual: semana(hoy), adminArea : true, idP : mid, ss : stion}
+	if (req.session.admin=='admin') {
+		if(req.session.rol == 'admin-area'){
+			opts = {layout: 'main',maquinas: listaequipos, padre: equipo[0], semanaActual: semana(hoy), adminArea : true, idP : mid, ss : stion,admin: true}
+		}else{
+			opts = {layout: 'main',maquinas: listaequipos, padre: equipo[0], semanaActual: semana(hoy), idP : mid, ss : stion,admin: true}
+		}
 	}else{
-		opts = {layout: 'main',maquinas: listaequipos, padre: equipo[0], semanaActual: semana(hoy), idP : mid, ss : stion}
+		if(req.session.rol == 'admin-area'){
+			opts = {layout: 'main',maquinas: listaequipos, padre: equipo[0], semanaActual: semana(hoy), adminArea : true, idP : mid, ss : stion}
+		}else{
+			opts = {layout: 'main',maquinas: listaequipos, padre: equipo[0], semanaActual: semana(hoy), idP : mid, ss : stion}
+		}
 	}
+
 	res.render('componentes', opts)
 }))
 
@@ -454,11 +482,20 @@ app.get('/secciones',restringido,async (function(req, res){
 		})
 	}
 	var opts = null
-	if(req.session.rol == 'admin-area'){
-		opts = {layout: 'main', secciones: secciones, padre: equipo[0], semanaActual: semana(hoy), adminArea : true}
+	if (req.session.admin=='admin') {
+		if(req.session.rol == 'admin-area'){
+			opts = {layout: 'main', secciones: secciones, padre: equipo[0], semanaActual: semana(hoy), adminArea : true,admin:true}
+		}else{
+			opts = {layout: 'main', secciones: secciones, padre: equipo[0], semanaActual: semana(hoy),admin:true}
+		}
 	}else{
-		opts = {layout: 'main', secciones: secciones, padre: equipo[0], semanaActual: semana(hoy)}
+		if(req.session.rol == 'admin-area'){
+			opts = {layout: 'main', secciones: secciones, padre: equipo[0], semanaActual: semana(hoy), adminArea : true}
+		}else{
+			opts = {layout: 'main', secciones: secciones, padre: equipo[0], semanaActual: semana(hoy)}
+		}
 	}
+
 	res.render('secciones', opts)
 }))
 
