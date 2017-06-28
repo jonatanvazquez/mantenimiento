@@ -573,7 +573,7 @@ app.get('/usuarios',restringido,async (function(req, res){
 	}
 	var listausuarios=await (usuarios.consultar(filtro))
 	if (req.session.admin=='admin') {
-		res.render('usuarios', {layout: 'main',usuarios: listausuarios,sess:req.session},admin:true)
+		res.render('usuarios', {layout: 'main',usuarios: listausuarios,sess:req.session,admin:true})
 	}else{
 		res.render('usuarios', {layout: 'main',usuarios: listausuarios,sess:req.session})
 	}
