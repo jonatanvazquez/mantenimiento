@@ -67,11 +67,11 @@
                   <th>
                     Fecha
                   </th>
-                  {{#verificaRol admin}}
+                  {{#if admin}}
                   <th class="hidden-sm-down w-200">
                     Acciones
                   </th>
-                  {{/verificaRol}}
+                  {{/if}}
                 </tr>
               </thead>
               {{#each mantenimientos}}
@@ -98,14 +98,14 @@
                       <option value="2">No Planeado</option>
                   </select></div>
             </div>
-            {{#verificaRol admin}}
+            {{#if admin}}
             <div class="form-group form-material">
                 <label class="form-control-label col-sm-4" for="name">MTTO ANTERIOR:</label>
                 <div class="col-sm-8">
                       <input type="text" class="form-control" data-plugin="datepicker" name="anterior" id="anterior" >
                 </div>
             </div>
-            {{/verificaRol}}
+            {{/if}}
             <div class="form-group form-material">
               <label class="form-control-label col-sm-4" for="name">CAUSA RAIZ:</label>
                             <div class="col-sm-8">

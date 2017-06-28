@@ -419,8 +419,14 @@ app.get('/detalleComponente',restringido,async (function(req, res){
 	var equipo=await (maquinas.consultaPadres({id: req.query.id}))
 	let sect = equipo[0].left.section
 	var mantenimiento =await (mantenimientos.consultar({componente: req.query.id}))
-	res.render('detalleComponente', {layout: 'main',equipo: equipo[0].left,padre: equipo[0].right,
-		mantenimientos: mantenimiento,sess:req.session,seccion : sect})
+	if (req.session.admin=='admin' || req.session.rol == 'admin-area') {
+		res.render('detalleComponente', {layout: 'main',equipo: equipo[0].left,padre: equipo[0].right,
+			mantenimientos: mantenimiento,admin:true,seccion : sect})
+	}else{
+		res.render('detalleComponente', {layout: 'main',equipo: equipo[0].left,padre: equipo[0].right,
+			mantenimientos: mantenimiento,sess:req.session,seccion : sect})
+	}
+
 }))
 
 // ######################## FIN COMPONENTES ####################
@@ -566,7 +572,13 @@ app.get('/usuarios',restringido,async (function(req, res){
 		filtro = {area : req.session.area}
 	}
 	var listausuarios=await (usuarios.consultar(filtro))
-	res.render('usuarios', {layout: 'main',usuarios: listausuarios,sess:req.session})
+	if (req.session.admin=='admin') {
+		res.render('usuarios', {layout: 'main',usuarios: listausuarios,sess:req.session},admin:true)
+	}else{
+		res.render('usuarios', {layout: 'main',usuarios: listausuarios,sess:req.session})
+	}
+
+	
 }))
 
 app.post('/usuarios',restringido,async (function(req, res){
